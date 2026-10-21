@@ -54,7 +54,7 @@ Every tool executes locally inside your web browser using HTML5 Canvas, WebAssem
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/hatemypdf.git
+git clone https://github.com/rahulxdevv/hatemypdf.git
 cd hatemypdf
 
 # Install dependencies
