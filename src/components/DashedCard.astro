@@ -1,0 +1,34 @@
+---
+/**
+ * DashedCard — Reusable Ossium container card with dashed borders and corner "+" marks.
+ * Background is transparent / #0E0F10 matching the footer.
+ * 
+ * Props:
+ *   class?: string — Extra CSS classes for inner container
+ */
+export interface Props {
+  class?: string;
+}
+
+const { class: cls = '' } = Astro.props;
+---
+
+<div class="relative w-full overflow-visible bg-[#0E0F10]">
+  <!-- Dashed borders -->
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0 z-10"
+    style="background-image:repeating-linear-gradient(90deg, #3a3a3b 0 5px, transparent 5px 10px), repeating-linear-gradient(90deg, #3a3a3b 0 5px, transparent 5px 10px), repeating-linear-gradient(180deg, #3a3a3b 0 5px, transparent 5px 10px), repeating-linear-gradient(180deg, #3a3a3b 0 5px, transparent 5px 10px);background-size:100% 1px, 100% 1px, 1px 100%, 1px 100%;background-position:top left, bottom left, top left, top right;background-repeat:repeat-x, repeat-x, repeat-y, repeat-y"
+  ></div>
+
+  <!-- Corner + marks -->
+  <span aria-hidden="true" class="pointer-events-none absolute z-30 select-none flex items-center justify-center text-[15px] leading-none font-light text-neutral-400" style="top:0%;left:0%;transform:translate(-50%, -50%);padding:5px;background-color:#0E0F10">+</span>
+  <span aria-hidden="true" class="pointer-events-none absolute z-30 select-none flex items-center justify-center text-[15px] leading-none font-light text-neutral-400" style="top:0%;left:100%;transform:translate(-50%, -50%);padding:5px;background-color:#0E0F10">+</span>
+  <span aria-hidden="true" class="pointer-events-none absolute z-30 select-none flex items-center justify-center text-[15px] leading-none font-light text-neutral-400" style="top:100%;left:0%;transform:translate(-50%, -50%);padding:5px;background-color:#0E0F10">+</span>
+  <span aria-hidden="true" class="pointer-events-none absolute z-30 select-none flex items-center justify-center text-[15px] leading-none font-light text-neutral-400" style="top:100%;left:100%;transform:translate(-50%, -50%);padding:5px;background-color:#0E0F10">+</span>
+
+  <!-- Inner Content Slot -->
+  <div class={`relative z-[1] bg-[#0E0F10] ${cls}`}>
+    <slot />
+  </div>
+</div>

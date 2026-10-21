@@ -1,0 +1,147 @@
+---
+import '../styles/globals.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  keywords?: string;
+  canonicalUrl?: string;
+  noindex?: boolean;
+  ogType?: string;
+  ogImage?: string;
+  jsonLd?: Record<string, any> | Record<string, any>[];
+}
+
+const {
+  title = 'HateMyPDF - Free Online PDF & File Tools (100% In-Browser & Private)',
+  description = 'Free online PDF tools, image format converters, code formatters, and developer utilities. Process files 100% in your browser with zero uploads.',
+  keywords = 'online pdf tools, image compressor online, compress pdf free, jpg to png, json formatter, qr code generator, free file converter, browser webassembly tools',
+  canonicalUrl,
+  noindex = false,
+  ogType = 'website',
+  ogImage = '/og-default.png',
+  jsonLd,
+} = Astro.props;
+
+const siteUrl = Astro.site ? Astro.site.origin : 'https://hatemypdf.com';
+const canonical = canonicalUrl || new URL(Astro.url.pathname, siteUrl).href;
+
+// Universal Organization & WebSite Schemas for SEO
+const defaultSchemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'HateMyPDF',
+    url: siteUrl,
+    description: description,
+    publisher: {
+      '@type': 'Organization',
+      name: 'HateMyPDF',
+      url: siteUrl,
+      logo: `${siteUrl}/favicon.svg`,
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: siteUrl,
+      },
+      ...(Astro.url.pathname !== '/'
+        ? [
+            {
+              '@type': 'ListItem',
+              position: 2,
+              name: title.split('-')[0].trim(),
+              item: canonical,
+            },
+          ]
+        : []),
+    ],
+  },
+];
+
+const mergedJsonLd = jsonLd
+  ? Array.isArray(jsonLd)
+    ? [...defaultSchemas, ...jsonLd]
+    : [...defaultSchemas, jsonLd]
+  : defaultSchemas;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8KG7SM8G3C"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-8KG7SM8G3C');
+    </script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicons & App Icons (iOS, Android PWA, Desktop) -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="apple-mobile-web-app-title" content="HateMyPDF" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#0E0F10" />
+
+    <!-- Primary Search Engine Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+
+    <!-- Robots Search Directives for Google & Bing -->
+    {noindex ? (
+      <meta name="robots" content="noindex, follow" />
+    ) : (
+      <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    )}
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph / Facebook / LinkedIn -->
+    <meta property="og:site_name" content="HateMyPDF" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`${siteUrl}${ogImage}`} />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${siteUrl}${ogImage}`} />
+
+    <!-- Typography: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- JSON-LD Structured Data for Rich Snippets -->
+    <script type="application/ld+json" set:html={JSON.stringify(mergedJsonLd)} />
+  </head>
+  <body class="bg-[#0E0F10] text-[#E5E5E5] antialiased selection:bg-[#22c55e] selection:text-black">
+    <slot />
+  </body>
+</html>

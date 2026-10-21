@@ -1,0 +1,119 @@
+---
+const tabs = [
+  {
+    id: 'pdf',
+    label: 'PDF',
+    content: {
+      title: 'invoice_q3_2026.pdf',
+      subtitle: '2.4 MB — 12 pages',
+      action: 'Compress',
+      detail: 'Estimated savings: 68%',
+    },
+  },
+  {
+    id: 'convert',
+    label: 'Convert',
+    content: {
+      title: 'hero-image.jpg',
+      subtitle: '→ PNG · 4.2 MB',
+      action: 'Convert',
+      detail: 'Lossless, in your browser',
+    },
+  },
+  {
+    id: 'dev',
+    label: 'Dev Tools',
+    content: {
+      title: 'Minify JSON',
+      subtitle: 'config.json · 340 lines',
+      action: 'Format',
+      detail: 'Reduced from 12 KB to 3.2 KB',
+    },
+  },
+];
+---
+
+<div class="hero-tabs-wrapper rounded-2xl border border-card-border bg-card-bg p-2 shadow-lg shadow-card-shadow backdrop-blur-xl">
+  <!-- Tab bar -->
+  <div class="flex gap-1 border-b border-cream-dark/40 pb-2" role="tablist">
+    {tabs.map((tab, i) => (
+      <button
+        class="hero-tab flex-1 rounded-lg px-4 py-2.5 text-center text-sm font-medium transition-all duration-200"
+        data-tab={tab.id}
+        role="tab"
+        aria-selected={i === 0}
+        aria-controls={`panel-${tab.id}`}
+      >
+        {tab.label}
+      </button>
+    ))}
+  </div>
+
+  <!-- Tab panels -->
+  {tabs.map((tab, i) => (
+    <div
+      id={`panel-${tab.id}`}
+      class="hero-panel mt-3 rounded-xl px-5 py-6"
+      data-panel={tab.id}
+      role="tabpanel"
+      hidden={i !== 0}
+    >
+      <!-- File icon -->
+      <div class="mb-4 flex items-center gap-3">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-sage-dark/50">
+            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+            <polyline points="14 2 14 8 20 8" />
+          </svg>
+        <div>
+          <p class="font-mono text-sm text-charcoal">{tab.content.title}</p>
+          <p class="text-xs text-muted-light">{tab.content.subtitle}</p>
+        </div>
+      </div>
+
+      <!-- Demo action button -->
+      <div class="flex items-center justify-between rounded-lg border border-cream-dark/30 bg-cream/30 px-4 py-3">
+        <span class="font-mono text-xs text-muted">{tab.content.detail}</span>
+        <button
+          class="rounded-lg bg-charcoal px-4 py-1.5 font-mono text-xs text-white transition-all hover:bg-charcoal/90 active:scale-[0.98]"
+          disabled
+        >
+          {tab.content.action}
+        </button>
+      </div>
+    </div>
+  ))}
+</div>
+
+<script>
+  (function () {
+    const wrapper = document.querySelector('.hero-tabs-wrapper');
+    if (!wrapper) return;
+
+    const tabs = wrapper.querySelectorAll('.hero-tab');
+    const panels = wrapper.querySelectorAll('.hero-panel');
+
+    function activate(id) {
+      tabs.forEach((t) => {
+        const isActive = t.getAttribute('data-tab') === id;
+        t.setAttribute('aria-selected', String(isActive));
+        t.classList.toggle('bg-cream-dark/50', isActive);
+        t.classList.toggle('text-charcoal', isActive);
+        t.classList.toggle('text-muted-light', !isActive);
+      });
+      panels.forEach((p) => {
+        p.hidden = p.getAttribute('data-panel') !== id;
+      });
+    }
+
+    tabs.forEach((t) => {
+      t.addEventListener('click', () => activate(t.getAttribute('data-tab')));
+    });
+
+    // Activate the first tab by default
+    const firstTab = tabs[0];
+    if (firstTab) {
+      firstTab.classList.add('bg-cream-dark/50', 'text-charcoal');
+      firstTab.classList.remove('text-muted-light');
+    }
+  })();
+</script>

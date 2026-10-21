@@ -1,0 +1,529 @@
+---
+import DashedCard from './DashedCard.astro';
+import {
+  FileText,
+  FileArchive,
+  Image as ImageIcon,
+  Code2,
+  Binary,
+  BookOpen,
+  Lock,
+  ShieldCheck,
+  ChevronDown,
+  Layers,
+  Users,
+  Info,
+  Scale,
+  RefreshCw,
+  Bug,
+} from 'lucide-astro';
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 w-full bg-[#0E0F10]">
+  <div class="mx-auto w-full max-w-[1280px] px-6 md:px-8 lg:px-12">
+    <!-- Top Nav Row -->
+    <div class="relative flex items-center justify-between h-14">
+      <!-- Logo Left -->
+      <a href="/" class="inline-flex items-center gap-2.5 shrink-0 text-xl font-bold tracking-tight text-white no-underline">
+        <img src="/favicon.svg" alt="HateMyPDF" class="h-7 w-7 rounded-lg shrink-0 shadow-sm" />
+        <span>HateMyPDF</span>
+      </a>
+
+      <!-- Desktop Nav Center -->
+      <div class="hidden md:flex items-center gap-2">
+        <!-- Tools Dropdown Trigger -->
+        <div class="nav-dropdown-wrapper relative" data-dropdown-id="tools">
+          <button
+            type="button"
+            class="nav-trigger inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-sm font-medium text-neutral-300 transition-colors hover:text-white hover:bg-[#181819] cursor-pointer"
+            aria-expanded="false"
+          >
+            <span>Tools</span>
+            <ChevronDown class="w-3.5 h-3.5 chevron-icon transition-transform duration-200" />
+          </button>
+        </div>
+
+        <!-- Resources Dropdown Trigger -->
+        <div class="nav-dropdown-wrapper relative" data-dropdown-id="resources">
+          <button
+            type="button"
+            class="nav-trigger inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-sm font-medium text-neutral-300 transition-colors hover:text-white hover:bg-[#181819] cursor-pointer"
+            aria-expanded="false"
+          >
+            <span>Resources</span>
+            <ChevronDown class="w-3.5 h-3.5 chevron-icon transition-transform duration-200" />
+          </button>
+        </div>
+
+        <!-- Company Dropdown Trigger -->
+        <div class="nav-dropdown-wrapper relative" data-dropdown-id="company">
+          <button
+            type="button"
+            class="nav-trigger inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-sm font-medium text-neutral-300 transition-colors hover:text-white hover:bg-[#181819] cursor-pointer"
+            aria-expanded="false"
+          >
+            <span>Company</span>
+            <ChevronDown class="w-3.5 h-3.5 chevron-icon transition-transform duration-200" />
+          </button>
+        </div>
+
+        <!-- Direct Links -->
+        <a href="/tools" class="rounded-full px-3.5 py-1.5 text-sm font-medium text-neutral-300 transition-colors hover:text-white hover:bg-[#181819] no-underline">
+          All Tools
+        </a>
+      </div>
+
+      <!-- Header Action Right (Dark Green Button) -->
+      <div class="flex items-center gap-2.5">
+        <button
+          id="btn-flag-bug"
+          type="button"
+          class="inline-flex h-9 items-center justify-center gap-1.5 rounded-md bg-[#181819] px-3 text-xs font-semibold text-neutral-300 hover:text-white border border-[#3a3a3b] cursor-pointer transition-colors"
+        >
+          <Bug class="w-3.5 h-3.5 text-amber-400" />
+          <span>Flag a Bug</span>
+        </button>
+        <a
+          href="/tools"
+          class="inline-flex h-9 items-center justify-center rounded-md bg-[#0d6e38] px-4 text-sm font-semibold text-white no-underline border border-[#168a4a]"
+        >
+          Browse Tools
+        </a>
+
+        <!-- Mobile Menu Toggle -->
+        <button
+          id="mobile-menu-btn"
+          type="button"
+          class="flex h-8 w-8 items-center justify-center rounded-md border border-[#3a3a3b] bg-transparent text-[#E5E5E5] md:hidden"
+          aria-label="Toggle Navigation Menu"
+        >
+          <svg id="menu-icon-open" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" y1="6" x2="20" y2="6"/>
+            <line x1="4" y1="12" x2="20" y2="12"/>
+            <line x1="4" y1="18" x2="20" y2="18"/>
+          </svg>
+          <svg id="menu-icon-close" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Dashed Bottom Line - Strictly contained inside max-w container -->
+    <div
+      aria-hidden="true"
+      class="h-px w-full shrink-0 my-0"
+      style="background-image:repeating-linear-gradient(90deg, #3a3a3b 0 5px, transparent 5px 10px);background-size:100% 1px;background-repeat:repeat-x"
+    ></div>
+  </div>
+
+  <!-- Floating Megamenu Container -->
+  <div id="mega-dropdown-container" class="hidden absolute top-full left-0 right-0 w-full z-50 pointer-events-none">
+    <div class="mx-auto w-full max-w-[1280px] px-6 md:px-8 lg:px-12 pt-3 pointer-events-auto">
+      <DashedCard class="bg-[#0E0F10] shadow-2xl">
+        
+        <!-- Tools Dropdown Panel Content -->
+        <div id="panel-tools" class="dropdown-panel-content hidden grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-dashed divide-[#3a3a3b]">
+          <!-- Column 1: PDF SUITE -->
+          <div class="p-6">
+            <span class="text-[11px] font-mono font-semibold uppercase tracking-wider text-neutral-400 block mb-4">
+              PDF SUITE
+            </span>
+            <div class="space-y-4">
+              <a href="/tools/compress-pdf" class="flex items-start gap-3 group no-underline">
+                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-[#3a3a3b] bg-transparent text-[#22c55e]">
+                  <FileArchive class="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-white group-hover:text-[#22c55e] transition-colors">Compress PDF</h4>
+                  <p class="text-xs text-neutral-400 mt-0.5">Reduce PDF size in browser</p>
+                </div>
+              </a>
+              <a href="/tools/merge-pdf" class="flex items-start gap-3 group no-underline">
+                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-[#3a3a3b] bg-transparent text-[#22c55e]">
+                  <Layers class="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-white group-hover:text-[#22c55e] transition-colors">Merge PDF</h4>
+                  <p class="text-xs text-neutral-400 mt-0.5">Combine multiple files</p>
+                </div>
+              </a>
+              <a href="/pdf" class="flex items-start gap-3 group no-underline">
+                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-[#3a3a3b] bg-transparent text-[#22c55e]">
+                  <FileText class="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-white group-hover:text-[#22c55e] transition-colors">All PDF Tools (25)</h4>
+                  <p class="text-xs text-neutral-400 mt-0.5">Explore full PDF hub</p>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Column 2: FORMAT CONVERT -->
+          <div class="p-6">
+            <span class="text-[11px] font-mono font-semibold uppercase tracking-wider text-neutral-400 block mb-4">
+              FORMAT CONVERT
+            </span>
+            <div class="space-y-4">
+              <a href="/tools/jpg-to-png" class="flex items-start gap-3 group no-underline">
+                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-[#3a3a3b] bg-transparent text-[#22c55e]">
+                  <ImageIcon class="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-white group-hover:text-[#22c55e] transition-colors">JPG to PNG</h4>
+                  <p class="text-xs text-neutral-400 mt-0.5">Convert to transparent PNG</p>
+                </div>
+              </a>
+              <a href="/tools/webp-to-png" class="flex items-start gap-3 group no-underline">
+                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-[#3a3a3b] bg-transparent text-[#22c55e]">
+                  <RefreshCw class="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-white group-hover:text-[#22c55e] transition-colors">WebP Converter</h4>
+                  <p class="text-xs text-neutral-400 mt-0.5">Batch convert web images</p>
+                </div>
+              </a>
+              <a href="/convert" class="flex items-start gap-3 group no-underline">
+                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-[#3a3a3b] bg-transparent text-[#22c55e]">
+                  <ImageIcon class="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-white group-hover:text-[#22c55e] transition-colors">All Format Tools (25)</h4>
+                  <p class="text-xs text-neutral-400 mt-0.5">Explore converter hub</p>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Column 3: DEVELOPER UTILITIES -->
+          <div class="p-6">
+            <span class="text-[11px] font-mono font-semibold uppercase tracking-wider text-neutral-400 block mb-4">
+              DEVELOPER UTILITIES
+            </span>
+            <div class="space-y-4">
+              <a href="/tools/json-formatter" class="flex items-start gap-3 group no-underline">
+                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-[#3a3a3b] bg-transparent text-[#22c55e]">
+                  <Code2 class="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-white group-hover:text-[#22c55e] transition-colors">JSON Formatter</h4>
+                  <p class="text-xs text-neutral-400 mt-0.5">Beautify & validate JSON</p>
+                </div>
+              </a>
+              <a href="/tools/base64-decode" class="flex items-start gap-3 group no-underline">
+                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-[#3a3a3b] bg-transparent text-[#22c55e]">
+                  <Binary class="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-white group-hover:text-[#22c55e] transition-colors">Base64 Decode</h4>
+                  <p class="text-xs text-neutral-400 mt-0.5">Encode & decode strings</p>
+                </div>
+              </a>
+              <a href="/dev" class="flex items-start gap-3 group no-underline">
+                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-[#3a3a3b] bg-transparent text-[#22c55e]">
+                  <Code2 class="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-white group-hover:text-[#22c55e] transition-colors">All Dev Utilities (20)</h4>
+                  <p class="text-xs text-neutral-400 mt-0.5">Explore developer hub</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Resources Dropdown Panel Content -->
+        <div id="panel-resources" class="dropdown-panel-content hidden grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-dashed divide-[#3a3a3b]">
+          <div class="p-6">
+            <span class="text-[11px] font-mono font-semibold uppercase tracking-wider text-neutral-400 block mb-4">LEARN</span>
+            <div class="space-y-4">
+              <a href="/blog" class="flex items-start gap-3 group no-underline">
+                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-[#3a3a3b] bg-transparent text-[#22c55e]">
+                  <BookOpen class="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-white group-hover:text-[#22c55e] transition-colors">Blog & Guides</h4>
+                  <p class="text-xs text-neutral-400 mt-0.5">Articles on WebAssembly & privacy</p>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="p-6">
+            <span class="text-[11px] font-mono font-semibold uppercase tracking-wider text-neutral-400 block mb-4">COMMUNITY</span>
+            <div class="space-y-4">
+              <a href="/about" class="flex items-start gap-3 group no-underline">
+                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-[#3a3a3b] bg-transparent text-[#22c55e]">
+                  <Users class="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-white group-hover:text-[#22c55e] transition-colors">About HateMyPDF</h4>
+                  <p class="text-xs text-neutral-400 mt-0.5">Our zero-upload privacy mission</p>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="p-6">
+            <span class="text-[11px] font-mono font-semibold uppercase tracking-wider text-neutral-400 block mb-4">CATALOG</span>
+            <div class="space-y-4">
+              <a href="/tools" class="flex items-start gap-3 group no-underline">
+                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-[#3a3a3b] bg-transparent text-[#22c55e]">
+                  <Layers class="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-white group-hover:text-[#22c55e] transition-colors">Master Tool Index (110)</h4>
+                  <p class="text-xs text-neutral-400 mt-0.5">Search all 110 client-side tools</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Company Dropdown Panel Content -->
+        <div id="panel-company" class="dropdown-panel-content hidden grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-dashed divide-[#3a3a3b]">
+          <div class="p-6">
+            <span class="text-[11px] font-mono font-semibold uppercase tracking-wider text-neutral-400 block mb-4">COMPANY</span>
+            <div class="space-y-4">
+              <a href="/about" class="flex items-start gap-3 group no-underline">
+                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-[#3a3a3b] bg-transparent text-[#22c55e]">
+                  <Info class="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-white group-hover:text-[#22c55e] transition-colors">About Us</h4>
+                  <p class="text-xs text-neutral-400 mt-0.5">Our story and architecture</p>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="p-6">
+            <span class="text-[11px] font-mono font-semibold uppercase tracking-wider text-neutral-400 block mb-4">LEGAL</span>
+            <div class="space-y-4">
+              <a href="/privacy" class="flex items-start gap-3 group no-underline">
+                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-[#3a3a3b] bg-transparent text-[#22c55e]">
+                  <ShieldCheck class="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-white group-hover:text-[#22c55e] transition-colors">Privacy Policy</h4>
+                  <p class="text-xs text-neutral-400 mt-0.5">Strict zero-upload guarantee</p>
+                </div>
+              </a>
+              <a href="/terms" class="flex items-start gap-3 group no-underline">
+                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-[#3a3a3b] bg-transparent text-[#22c55e]">
+                  <Scale class="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-white group-hover:text-[#22c55e] transition-colors">Terms of Service</h4>
+                  <p class="text-xs text-neutral-400 mt-0.5">Usage terms and guidelines</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </DashedCard>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden bg-[#0E0F10] px-6 py-4 border-b border-[#3a3a3b] md:hidden">
+    <div class="flex flex-col gap-3">
+      <a href="/tools" class="py-1.5 text-sm font-medium text-neutral-300 no-underline hover:text-white">All Tools (110)</a>
+      <a href="/pdf" class="py-1.5 text-sm font-medium text-neutral-300 no-underline hover:text-white">PDF Suite</a>
+      <a href="/convert" class="py-1.5 text-sm font-medium text-neutral-300 no-underline hover:text-white">Converter</a>
+      <a href="/dev" class="py-1.5 text-sm font-medium text-neutral-300 no-underline hover:text-white">Dev Utilities</a>
+      <a href="/blog" class="py-1.5 text-sm font-medium text-neutral-300 no-underline hover:text-white">Blog</a>
+      <a href="/about" class="py-1.5 text-sm font-medium text-neutral-300 no-underline hover:text-white">About</a>
+      <a
+        href="/tools"
+        class="mt-2 inline-flex h-9 items-center justify-center rounded-md bg-[#0d6e38] px-4 text-sm font-semibold text-white no-underline border border-[#168a4a]"
+      >
+        Browse Tools
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  const dropdownWrappers = document.querySelectorAll<HTMLElement>('.nav-dropdown-wrapper');
+  const megaContainer = document.getElementById('mega-dropdown-container');
+  const panelContents = document.querySelectorAll<HTMLElement>('.dropdown-panel-content');
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('menu-icon-open');
+  const iconClose = document.getElementById('menu-icon-close');
+
+  let activeDropdown: string | null = null;
+
+  function closeAllDropdowns() {
+    activeDropdown = null;
+    megaContainer?.classList.add('hidden');
+    panelContents.forEach((panel) => panel.classList.add('hidden'));
+
+    dropdownWrappers.forEach((wrapper) => {
+      const btn = wrapper.querySelector<HTMLButtonElement>('.nav-trigger');
+      const chevron = wrapper.querySelector<HTMLElement>('.chevron-icon');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+      if (btn) btn.classList.remove('text-white', 'bg-[#181819]');
+      if (btn) btn.classList.add('text-neutral-300');
+      if (chevron) chevron.classList.remove('rotate-180');
+    });
+  }
+
+  function openDropdown(id: string) {
+    if (activeDropdown === id) {
+      closeAllDropdowns();
+      return;
+    }
+
+    closeAllDropdowns();
+    activeDropdown = id;
+
+    const activePanel = document.getElementById(`panel-${id}`);
+    const activeWrapper = document.querySelector<HTMLElement>(`[data-dropdown-id="${id}"]`);
+
+    if (activePanel && megaContainer && activeWrapper) {
+      megaContainer.classList.remove('hidden');
+      activePanel.classList.remove('hidden');
+
+      const btn = activeWrapper.querySelector<HTMLButtonElement>('.nav-trigger');
+      const chevron = activeWrapper.querySelector<HTMLElement>('.chevron-icon');
+      if (btn) btn.setAttribute('aria-expanded', 'true');
+      if (btn) btn.classList.remove('text-neutral-300');
+      if (btn) btn.classList.add('text-white', 'bg-[#181819]');
+      if (chevron) chevron.classList.add('rotate-180');
+    }
+  }
+
+  dropdownWrappers.forEach((wrapper) => {
+    const btn = wrapper.querySelector<HTMLButtonElement>('.nav-trigger');
+    const id = wrapper.dataset.dropdownId;
+
+    btn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (id) openDropdown(id);
+    });
+
+    wrapper.addEventListener('mouseenter', () => {
+      if (id && window.innerWidth >= 768) openDropdown(id);
+    });
+  });
+
+  const header = document.querySelector('header');
+  header?.addEventListener('mouseleave', () => {
+    if (window.innerWidth >= 768) closeAllDropdowns();
+  });
+
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (!header?.contains(target)) closeAllDropdowns();
+  });
+
+  mobileMenuBtn?.addEventListener('click', () => {
+    const isOpen = mobileMenu?.classList.toggle('hidden');
+    if (iconOpen && iconClose) {
+      iconOpen.classList.toggle('hidden', !isOpen);
+      iconClose.classList.toggle('hidden', isOpen);
+    }
+  });
+
+  // Flag a Bug Modal logic
+  const btnFlagBug = document.getElementById('btn-flag-bug');
+  const bugModalBackdrop = document.getElementById('bug-modal-backdrop');
+  const btnCloseBugModal = document.getElementById('btn-close-bug-modal');
+  const btnCancelBugModal = document.getElementById('btn-cancel-bug-modal');
+  const btnSubmitBugReport = document.getElementById('btn-submit-bug-report');
+  const bugModalStatus = document.getElementById('bug-modal-status');
+  const bugDescription = document.getElementById('bug-description') as HTMLTextAreaElement | null;
+
+  function openBugModal() {
+    bugModalBackdrop?.classList.remove('hidden');
+    bugModalBackdrop?.classList.add('flex');
+    if (bugModalStatus) bugModalStatus.classList.add('hidden');
+  }
+
+  function closeBugModal() {
+    bugModalBackdrop?.classList.add('hidden');
+    bugModalBackdrop?.classList.remove('flex');
+  }
+
+  btnFlagBug?.addEventListener('click', openBugModal);
+  btnCloseBugModal?.addEventListener('click', closeBugModal);
+  btnCancelBugModal?.addEventListener('click', closeBugModal);
+
+  btnSubmitBugReport?.addEventListener('click', () => {
+    const category = (document.getElementById('bug-category') as HTMLSelectElement | null)?.value || 'tool_error';
+    const desc = bugDescription?.value.trim() || '';
+
+    if (!desc) {
+      if (bugDescription) bugDescription.focus();
+      return;
+    }
+
+    const report = {
+      id: 'bug_' + Date.now(),
+      category,
+      description: desc,
+      url: window.location.href,
+      userAgent: navigator.userAgent,
+      timestamp: new Date().toISOString()
+    };
+
+    // 1. Store in local browser storage (100% private)
+    try {
+      const existing = JSON.parse(localStorage.getItem('hatemypdf_bug_reports') || '[]');
+      existing.push(report);
+      localStorage.setItem('hatemypdf_bug_reports', JSON.stringify(existing));
+    } catch (e) {}
+
+    // 2. Log output for Reticle perception & console inspection
+    console.info('[HateMyPDF] Bug Report Saved:', report);
+
+    if (bugModalStatus) {
+      bugModalStatus.classList.remove('hidden');
+      if (bugDescription) bugDescription.value = '';
+      setTimeout(() => {
+        closeBugModal();
+      }, 1800);
+    }
+  });
+</script>
+
+<!-- Flag a Bug Modal -->
+<div id="bug-modal-backdrop" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/75 backdrop-blur-sm p-4">
+  <div class="w-full max-w-md rounded-xl border border-[#3a3a3b] bg-[#121315] p-6 shadow-2xl space-y-4">
+    <div class="flex items-center justify-between border-b border-[#3a3a3b] pb-3">
+      <div class="flex items-center gap-2">
+        <div class="flex h-7 w-7 items-center justify-center rounded-md bg-amber-500/10 text-amber-400 border border-amber-500/20">
+          <Bug class="w-4 h-4" />
+        </div>
+        <h3 class="text-base font-bold text-white">Flag a Bug / Issue</h3>
+      </div>
+      <button id="btn-close-bug-modal" class="text-neutral-400 hover:text-white text-lg font-bold cursor-pointer">&times;</button>
+    </div>
+
+    <div>
+      <label class="text-xs font-mono text-neutral-400 block mb-1">Select Issue Category:</label>
+      <select id="bug-category" class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-2.5 text-xs text-white focus:border-[#22c55e] focus:outline-none">
+        <option value="tool_error">Tool Execution Error</option>
+        <option value="ui_glitch">UI / Layout Glitch</option>
+        <option value="conversion">File Conversion Issue</option>
+        <option value="feature_request">Feature Request</option>
+      </select>
+    </div>
+
+    <div>
+      <label class="text-xs font-mono text-neutral-400 block mb-1">Describe the bug:</label>
+      <textarea id="bug-description" rows="4" placeholder="Tell us what happened or which tool had an issue..." class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-3 text-xs text-white focus:border-[#22c55e] focus:outline-none"></textarea>
+    </div>
+
+    <div id="bug-modal-status" class="hidden text-xs font-mono p-2.5 rounded bg-[#22c55e]/15 border border-[#22c55e]/30 text-[#22c55e] font-semibold">
+      ✓ Bug flagged successfully! Thank you for helping improve HateMyPDF.
+    </div>
+
+    <div class="flex justify-end gap-2 pt-2">
+      <button id="btn-cancel-bug-modal" class="rounded bg-[#181819] border border-[#3a3a3b] px-4 py-2 text-xs font-semibold text-neutral-300 hover:text-white cursor-pointer">Cancel</button>
+      <button id="btn-submit-bug-report" class="rounded bg-[#0d6e38] border border-[#168a4a] px-5 py-2 text-xs font-bold text-white cursor-pointer">Submit Bug Report</button>
+    </div>
+  </div>
+</div>

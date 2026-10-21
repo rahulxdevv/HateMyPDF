@@ -1,0 +1,69 @@
+---
+import DashedCard from './DashedCard.astro';
+
+const techStack = [
+  {
+    name: 'Astro',
+    desc: 'Static-first web architecture & SSR',
+    icon: 'astro',
+  },
+  {
+    name: 'Cloudflare',
+    desc: 'Global edge network & asset delivery',
+    icon: 'cloudflare',
+  },
+  {
+    name: 'WebAssembly',
+    desc: 'Near-native speed client processing',
+    icon: 'wasm',
+  },
+  {
+    name: '+ Sponsor',
+    desc: 'Support open, private web tools',
+    icon: 'sponsor',
+    isSponsor: true,
+  },
+];
+---
+
+<section class="py-10 px-6 md:px-8 lg:px-12 bg-[#0E0F10]">
+  <div class="mx-auto w-full max-w-[1280px]">
+    <p class="text-center text-xs font-semibold uppercase tracking-wider text-neutral-500 mb-6">
+      Built with modern, privacy-preserving infrastructure
+    </p>
+
+    <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+      {techStack.map((item) => (
+        <DashedCard class="p-4 bg-[#0E0F10]">
+          <div class="flex items-center gap-3">
+            <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-[#3a3a3b] bg-transparent text-[#22c55e]">
+              {item.icon === 'astro' && (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+              )}
+              {item.icon === 'cloudflare' && (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/>
+                </svg>
+              )}
+              {item.icon === 'wasm' && (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="4" y="4" width="16" height="16" rx="2"/>
+                  <rect x="9" y="9" width="6" height="6"/>
+                </svg>
+              )}
+              {item.icon === 'sponsor' && (
+                <span class="text-sm font-bold text-[#22c55e]">+</span>
+              )}
+            </div>
+            <div class="min-w-0 flex-1">
+              <h4 class="text-xs font-semibold text-[#E5E5E5] truncate">{item.name}</h4>
+              <p class="mt-0.5 text-[11px] text-neutral-400 leading-tight truncate">{item.desc}</p>
+            </div>
+          </div>
+        </DashedCard>
+      ))}
+    </div>
+  </div>
+</section>

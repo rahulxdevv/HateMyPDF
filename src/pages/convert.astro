@@ -1,0 +1,92 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PillBadge from '../components/PillBadge.astro';
+import DashedCard from '../components/DashedCard.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import { Image as ImageIcon } from 'lucide-astro';
+
+const convertTools = [
+  { name: 'JPG to PNG', slug: 'jpg-to-png', desc: 'Convert JPEG images to transparent PNG files.' },
+  { name: 'PNG to JPG', slug: 'png-to-jpg', desc: 'Convert PNG images to compact JPEG format.' },
+  { name: 'SVG to PNG', slug: 'svg-to-png', desc: 'Render scalable vector graphics into raster PNG images.' },
+  { name: 'WebP to PNG', slug: 'webp-to-png', desc: 'Convert modern WebP images into widely compatible PNG files.' },
+  { name: 'HEIC to JPG', slug: 'heic-to-jpg', desc: 'Convert Apple iPhone HEIC photos into standard JPEG files.' },
+  { name: 'PNG to WebP', slug: 'png-to-webp', desc: 'Convert PNG graphics to WebP for faster web page load.' },
+  { name: 'Image Resizer', slug: 'resize-image', desc: 'Resize width and height pixel dimensions of images locally.' },
+  { name: 'GIF to MP4', slug: 'gif-to-mp4', desc: 'Convert heavy animated GIFs to lightweight MP4 video clips.' },
+  { name: 'Favicon Generator', slug: 'ico-generator', desc: 'Generate multi-size browser favicons (.ico) from PNG images.' },
+  { name: 'Image Cropper', slug: 'crop-image', desc: 'Crop custom aspect ratios and rectangular selections from photos.' },
+  { name: 'BMP to PNG', slug: 'bmp-to-png', desc: 'Convert legacy Bitmap (.bmp) files to optimized PNG images.' },
+  { name: 'TIFF to JPG', slug: 'tiff-to-jpg', desc: 'Convert multi-page TIFF scanned documents to JPEG files.' },
+  { name: 'SVG to JPG', slug: 'svg-to-jpg', desc: 'Convert vector SVG illustrations to raster JPEG graphics.' },
+  { name: 'Image Compressor', slug: 'image-compressor', desc: 'Losslessly compress PNG and JPG image size in-browser.' },
+  { name: 'Palette Extractor', slug: 'color-palette-extractor', desc: 'Extract dominant HEX color codes and palettes from photos.' },
+  { name: 'WebP to JPG', slug: 'webp-to-jpg', desc: 'Convert modern WebP images into standard JPEG format.' },
+  { name: 'AVIF to PNG', slug: 'avif-to-png', desc: 'Convert next-gen AVIF images to PNG format.' },
+  { name: 'PNG to AVIF', slug: 'png-to-avif', desc: 'Convert PNG images to compact AVIF format.' },
+  { name: 'EPS to PNG', slug: 'eps-to-png', desc: 'Render vector EPS illustration graphics into PNG images.' },
+  { name: 'PSD to PNG', slug: 'psd-to-png', desc: 'Extract PNG image previews from Photoshop PSD files.' },
+  { name: 'Markdown to PDF', slug: 'markdown-to-pdf', desc: 'Convert Markdown documents into styled PDF files.' },
+  { name: 'JSON to XML', slug: 'json-to-xml', desc: 'Convert JSON data payloads into structured XML format.' },
+  { name: 'XML to JSON', slug: 'xml-to-json', desc: 'Convert XML document structures into JSON objects.' },
+  { name: 'Base64 to Image', slug: 'base64-to-image', desc: 'Decode Base64 string data back into PNG or JPG image files.' },
+  { name: 'Image to Base64', slug: 'image-to-base64', desc: 'Convert PNG or JPG image files into Base64 data URI strings.' },
+];
+
+const siteUrl = Astro.site ? Astro.site.origin : 'https://hatemypdf.com';
+const canonicalUrl = `${siteUrl}/convert`;
+---
+
+<Layout
+  title="Format Conversion (25 Tools) - HateMyPDF"
+  description="Convert images, graphics, icons, vector files, and media locally in your browser with zero server uploads."
+  canonicalUrl={canonicalUrl}
+>
+  <Header />
+  <main class="min-h-screen bg-[#0E0F10] px-6 pt-24 md:pt-28 pb-24 md:px-8 lg:px-12 text-[#E5E5E5]">
+    <div class="mx-auto w-full max-w-[1280px]">
+      <div class="flex flex-col items-center text-center">
+        <PillBadge label="Format Converter" />
+        <h1 class="mt-4 text-3xl font-extrabold tracking-tight text-white sm:text-4xl md:text-5xl">
+          Format <span class="text-[#22c55e]">Conversion (25 Tools)</span>
+        </h1>
+        <p class="mt-3.5 max-w-xl text-sm leading-relaxed text-neutral-400">
+          Convert image and media formats locally inside your web browser. Instant drag-and-drop processing with zero server bandwidth.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {convertTools.map((tool) => (
+          <DashedCard class="bg-[#0E0F10] h-full">
+            <a
+              href={`/tools/${tool.slug}`}
+              class="group flex flex-col justify-between p-5 no-underline h-full"
+            >
+              <div>
+                <div class="mb-3.5 flex items-center justify-between">
+                  <div class="flex h-9 w-9 items-center justify-center rounded-md border border-[#3a3a3b] bg-transparent text-[#22c55e]">
+                    <ImageIcon class="w-4.5 h-4.5" />
+                  </div>
+                  <span class="text-xs font-semibold text-[#22c55e] opacity-0 transition-opacity group-hover:opacity-100">&rarr;</span>
+                </div>
+                <h2 class="text-base font-bold text-white group-hover:text-[#22c55e] transition-colors">{tool.name}</h2>
+                <p class="mt-1.5 text-xs text-neutral-400 leading-relaxed">{tool.desc}</p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-[#3a3a3b] flex items-center justify-between text-[11px] font-mono text-neutral-500">
+                <span>100% Client-Side</span>
+                <span class="text-[#22c55e]">Fast WASM</span>
+              </div>
+            </a>
+          </DashedCard>
+        ))}
+      </div>
+    </div>
+
+    <div class="mt-16">
+      <CtaBanner />
+    </div>
+  </main>
+  <Footer />
+</Layout>

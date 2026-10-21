@@ -1,0 +1,82 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PillBadge from '../components/PillBadge.astro';
+import DashedCard from '../components/DashedCard.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import { Code2 } from 'lucide-astro';
+
+const devTools = [
+  { name: 'JSON Formatter', slug: 'json-formatter', desc: 'Format, validate, beautify, and minify JSON data.' },
+  { name: 'Base64 Decode', slug: 'base64-decode', desc: 'Encode text or binary data to Base64 or decode back to plain text.' },
+  { name: 'Minify CSS', slug: 'minify-css', desc: 'Compress CSS files by removing comments and unnecessary whitespace.' },
+  { name: 'JWT Inspector', slug: 'jwt-inspector', desc: 'Decode and inspect JWT token headers and payload claims.' },
+  { name: 'Diff Checker', slug: 'diff-checker', desc: 'Compare two blocks of code or text to highlight exact differences.' },
+  { name: 'SQL Formatter', slug: 'sql-formatter', desc: 'Format, beautify, and clean complex SQL database queries.' },
+  { name: 'Regex Tester', slug: 'regex-tester', desc: 'Test regular expressions against sample text in real-time.' },
+  { name: 'Hash Generator', slug: 'hash-generator', desc: 'Compute SHA-256, SHA-512, and MD5 cryptographic hashes locally.' },
+  { name: 'UUID Generator', slug: 'uuid-generator', desc: 'Generate cryptographically secure UUID v4 and Nanoid strings.' },
+  { name: 'HTML Encoder', slug: 'html-encoder', desc: 'Encode or decode HTML entities and special characters safely.' },
+  { name: 'URL Encoder', slug: 'url-encoder', desc: 'Encode text strings into safe URL query parameters or decode URL encoding.' },
+  { name: 'JS Beautifier', slug: 'js-beautifier', desc: 'Format, indent, and beautify minified JavaScript code.' },
+  { name: 'XML Formatter', slug: 'xml-formatter', desc: 'Format, validate, and beautify XML feeds and documents.' },
+  { name: 'Cron Parser', slug: 'cron-parser', desc: 'Parse cron schedule expressions and predict next execution dates.' },
+  { name: 'cURL to Fetch', slug: 'curl-to-fetch', desc: 'Convert command line cURL requests into JavaScript fetch() code.' },
+];
+
+const siteUrl = Astro.site ? Astro.site.origin : 'https://hatemypdf.com';
+const canonicalUrl = `${siteUrl}/dev`;
+---
+
+<Layout
+  title="Developer Utilities (20 Tools) - HateMyPDF"
+  description="Format queries, inspect tokens, generate hashes, test regex, and encode payloads securely in-browser."
+  canonicalUrl={canonicalUrl}
+>
+  <Header />
+  <main class="min-h-screen bg-[#0E0F10] px-6 pt-24 md:pt-28 pb-24 md:px-8 lg:px-12 text-[#E5E5E5]">
+    <div class="mx-auto w-full max-w-[1280px]">
+      <div class="flex flex-col items-center text-center">
+        <PillBadge label="Developer Suite" />
+        <h1 class="mt-4 text-3xl font-extrabold tracking-tight text-white sm:text-4xl md:text-5xl">
+          Developer <span class="text-[#22c55e]">Utilities (15 Tools)</span>
+        </h1>
+        <p class="mt-3.5 max-w-xl text-sm leading-relaxed text-neutral-400">
+          Format, validate, encode, and inspect sensitive API payloads and code tokens securely on your local hardware.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {devTools.map((tool) => (
+          <DashedCard class="bg-[#0E0F10] h-full">
+            <a
+              href={`/tools/${tool.slug}`}
+              class="group flex flex-col justify-between p-5 no-underline h-full"
+            >
+              <div>
+                <div class="mb-3.5 flex items-center justify-between">
+                  <div class="flex h-9 w-9 items-center justify-center rounded-md border border-[#3a3a3b] bg-transparent text-[#22c55e]">
+                    <Code2 class="w-4.5 h-4.5" />
+                  </div>
+                  <span class="text-xs font-semibold text-[#22c55e] opacity-0 transition-opacity group-hover:opacity-100">&rarr;</span>
+                </div>
+                <h2 class="text-base font-bold text-white group-hover:text-[#22c55e] transition-colors">{tool.name}</h2>
+                <p class="mt-1.5 text-xs text-neutral-400 leading-relaxed">{tool.desc}</p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-[#3a3a3b] flex items-center justify-between text-[11px] font-mono text-neutral-500">
+                <span>100% Client-Side</span>
+                <span class="text-[#22c55e]">Fast WASM</span>
+              </div>
+            </a>
+          </DashedCard>
+        ))}
+      </div>
+    </div>
+
+    <div class="mt-16">
+      <CtaBanner />
+    </div>
+  </main>
+  <Footer />
+</Layout>

@@ -1,0 +1,17 @@
+{
+  "name": "HateMyPDF - 100% Client-Side In-Browser PDF & File Tools",
+  "short_name": "HateMyPDF",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0E0F10",
+  "theme_color": "#0E0F10",
+  "orientation": "any"
+}

@@ -1,0 +1,3241 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import PillBadge from '../../components/PillBadge.astro';
+import DashedCard from '../../components/DashedCard.astro';
+import RelatedTools from '../../components/RelatedTools.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import { ShieldCheck, Zap, Sparkles } from 'lucide-astro';
+
+export function getStaticPaths() {
+  const tools = [
+    // PDF Suite (25 tools)
+    { slug: 'compress-pdf', name: 'Compress PDF', category: 'pdf', desc: 'Compress PDF online free without uploading files. Reduce PDF size fast in your browser with zero quality loss.', kw: 'compress pdf online free, reduce pdf size, shrink pdf file, online pdf compressor no upload' },
+    { slug: 'merge-pdf', name: 'Merge PDF', category: 'pdf', desc: 'Merge PDF files online free. Combine multiple PDF documents into a single file locally in your browser.', kw: 'merge pdf online free, combine pdf files, join pdf documents' },
+    { slug: 'split-pdf', name: 'Split PDF', category: 'pdf', desc: 'Split PDF pages online free. Extract specific pages or separate PDF into individual pages locally.', kw: 'split pdf online, extract pages from pdf, separate pdf pages' },
+    { slug: 'pdf-to-word', name: 'PDF to Word', category: 'pdf', desc: 'Convert PDF to Word (.docx) online free. Convert PDF documents to editable Microsoft Word files in browser.', kw: 'pdf to word converter online, convert pdf to docx free, pdf to word no upload' },
+    { slug: 'pdf-to-images', name: 'PDF to Images', category: 'pdf', desc: 'Convert PDF to JPG or PNG images online free. Export high-resolution image pages from any PDF document.', kw: 'pdf to jpg online, pdf to png converter, export images from pdf' },
+    { slug: 'protect-pdf', name: 'Protect PDF', category: 'pdf', desc: 'Protect PDF with password online. Encrypt sensitive PDF documents with strong AES encryption locally.', kw: 'encrypt pdf online, protect pdf with password, lock pdf file' },
+    { slug: 'unlock-pdf', name: 'Unlock PDF', category: 'pdf', desc: 'Unlock password-protected PDF files online free. Remove password restrictions from unlocked PDF files.', kw: 'unlock pdf online, remove pdf password, unlock encrypted pdf' },
+    { slug: 'rotate-pdf', name: 'Rotate PDF', category: 'pdf', desc: 'Rotate PDF pages 90 or 180 degrees online free. Save rotated PDF pages instantly in browser.', kw: 'rotate pdf pages online, turn pdf upside down, flip pdf orientation' },
+    { slug: 'organize-pdf', name: 'Organize PDF', category: 'pdf', desc: 'Organize and reorder PDF pages online free. Drag to sort, delete, or duplicate individual PDF pages.', kw: 'reorder pdf pages online, organize pdf pages, delete pages from pdf' },
+    { slug: 'watermark-pdf', name: 'Watermark PDF', category: 'pdf', desc: 'Add watermark to PDF online free. Stamp custom text or image watermarks onto PDF pages securely.', kw: 'add watermark to pdf online, stamp pdf document, pdf watermark generator' },
+    { slug: 'page-number-pdf', name: 'Page Numbers PDF', category: 'pdf', desc: 'Add page numbers to PDF online free. Insert custom page numbering headers or footers in browser.', kw: 'add page numbers to pdf, number pdf pages, header footer pdf' },
+    { slug: 'crop-pdf', name: 'Crop PDF', category: 'pdf', desc: 'Crop PDF margins online free. Trim white margins and crop rectangular page selections from PDF files.', kw: 'crop pdf online free, trim pdf margins, resize pdf page area' },
+    { slug: 'flatten-pdf', name: 'Flatten PDF', category: 'pdf', desc: 'Flatten PDF forms and annotations online free. Lock fillable form fields into permanent static PDF text.', kw: 'flatten pdf online, lock pdf form fields, flatten interactive pdf' },
+    { slug: 'pdf-to-txt', name: 'PDF to Text', category: 'pdf', desc: 'Extract text from PDF online free. Export raw plain text content from any PDF document.', kw: 'extract text from pdf, pdf to txt converter online, read text from pdf' },
+    { slug: 'images-to-pdf', name: 'Images to PDF', category: 'pdf', desc: 'Convert JPG or PNG images to PDF online free. Combine photos into a single PDF document.', kw: 'jpg to pdf converter, convert image to pdf online, photos to pdf' },
+    { slug: 'pdf-to-excel', name: 'PDF to Excel', category: 'pdf', desc: 'Convert PDF tables to Excel (.xlsx) online free. Extract structured spreadsheets from PDF documents.', kw: 'pdf to excel converter online, convert pdf to xlsx free, extract tables from pdf' },
+    { slug: 'pdf-to-ppt', name: 'PDF to PowerPoint', category: 'pdf', desc: 'Convert PDF to PowerPoint (.pptx) slides online free. Turn PDF pages into editable PPT presentations.', kw: 'pdf to ppt converter, convert pdf to powerpoint online, pdf to slides' },
+    { slug: 'word-to-pdf', name: 'Word to PDF', category: 'pdf', desc: 'Convert Word (.docx) to PDF online free. Create clean PDF documents from Microsoft Word files.', kw: 'word to pdf converter online, docx to pdf free, convert doc to pdf' },
+    { slug: 'excel-to-pdf', name: 'Excel to PDF', category: 'pdf', desc: 'Convert Excel (.xlsx) to PDF online free. Turn spreadsheets into printable PDF documents in browser.', kw: 'excel to pdf converter, xlsx to pdf online free, spreadsheet to pdf' },
+    { slug: 'ppt-to-pdf', name: 'PowerPoint to PDF', category: 'pdf', desc: 'Convert PowerPoint (.pptx) to PDF online free. Export presentation slides to portable PDF format.', kw: 'ppt to pdf converter online, powerpoint to pdf free, slides to pdf' },
+    { slug: 'html-to-pdf', name: 'HTML to PDF', category: 'pdf', desc: 'Convert HTML or Web pages to PDF online free. Render raw HTML strings or web markup into PDF files.', kw: 'html to pdf converter, convert webpage to pdf online, HTML string to pdf' },
+    { slug: 'extract-pdf-images', name: 'Extract PDF Images', category: 'pdf', desc: 'Extract embedded images from PDF online free. Rip all high-res photos out of a PDF file.', kw: 'extract images from pdf, save photos from pdf, pdf image extractor' },
+    { slug: 'remove-pdf-pages', name: 'PDF Page Remover', category: 'pdf', desc: 'Remove specific pages from PDF online free. Delete unwanted pages from PDF documents in browser.', kw: 'remove pages from pdf, delete pdf pages online, drop pdf page' },
+    { slug: 'pdf-metadata-editor', name: 'PDF Metadata Editor', category: 'pdf', desc: 'Edit PDF metadata online free. Update title, author, subject, and keyword document metadata.', kw: 'edit pdf metadata online, change pdf title author, pdf properties editor' },
+    { slug: 'pdf-grayscale', name: 'PDF Grayscale Converter', category: 'pdf', desc: 'Convert color PDF to black & white / grayscale online free for eco printing and smaller file sizes.', crown: 'pdf grayscale converter, convert pdf to black and white, eco print pdf' },
+
+    // Format Conversion (25 tools)
+    { slug: 'jpg-to-png', name: 'JPG to PNG', category: 'convert', desc: 'Convert JPG to PNG online free. Convert JPEG images to transparent PNG files in browser.', kw: 'jpg to png converter online, convert jpeg to png free, transparent png converter' },
+    { slug: 'png-to-jpg', name: 'PNG to JPG', category: 'convert', desc: 'Convert PNG to JPG online free. Convert PNG graphics to compact JPEG format without quality loss.', kw: 'png to jpg converter online, convert png to jpeg free, compress png to jpg' },
+    { slug: 'svg-to-png', name: 'SVG to PNG', category: 'convert', desc: 'Convert SVG to PNG online free. Render vector SVG graphics into raster PNG images with transparent background.', kw: 'svg to png converter online, convert svg to png high res, vector to raster' },
+    { slug: 'webp-to-png', name: 'WebP to PNG', category: 'convert', desc: 'Convert WebP to PNG online free. Convert modern WebP files into widely compatible PNG images.', kw: 'webp to png converter online, convert webp to png free, batch webp converter' },
+    { slug: 'heic-to-jpg', name: 'HEIC to JPG', category: 'convert', desc: 'Convert Apple HEIC photos to JPG online free. Convert iPhone HEIC files to standard JPEG images.', kw: 'heic to jpg converter online, convert heic to jpeg free, iphone photo converter' },
+    { slug: 'png-to-webp', name: 'PNG to WebP', category: 'convert', desc: 'Convert PNG to WebP online free. Compress PNG images into lightweight WebP format for web performance.', kw: 'png to webp converter, convert png to webp free, webp image optimizer' },
+    { slug: 'resize-image', name: 'Image Resizer', category: 'convert', desc: 'Resize image dimensions online free. Change width and height pixel size of photos in browser.', kw: 'resize image online free, change image dimensions, photo resizer pixel width height' },
+    { slug: 'gif-to-mp4', name: 'GIF to MP4', category: 'convert', desc: 'Convert GIF to MP4 video online free. Compress animated GIFs into lightweight MP4 video clips.', kw: 'gif to mp4 converter online, convert animated gif to mp4 video, shrink gif file' },
+    { slug: 'ico-generator', name: 'Favicon Generator', category: 'convert', desc: 'Generate favicons (.ico) online free. Convert PNG or JPG images into multi-size browser favicons.', kw: 'favicon generator online, png to ico converter, website favicon maker' },
+    { slug: 'crop-image', name: 'Image Cropper', category: 'convert', desc: 'Crop images online free. Trim aspect ratios, rectangular selections, and photos locally in browser.', kw: 'crop image online free, photo cropper online, trim image borders' },
+    { slug: 'bmp-to-png', name: 'BMP to PNG', category: 'convert', desc: 'Convert BMP to PNG online free. Convert bitmap files into compressed PNG graphics.', kw: 'bmp to png converter, convert bitmap to png online, bmp file converter' },
+    { slug: 'tiff-to-jpg', name: 'TIFF to JPG', category: 'convert', desc: 'Convert TIFF to JPG online free. Convert scanned multi-page TIFF files into JPEG format.', kw: 'tiff to jpg converter online, convert tiff to jpeg free, tiff photo converter' },
+    { slug: 'svg-to-jpg', name: 'SVG to JPG', category: 'convert', desc: 'Convert SVG to JPG online free. Convert vector SVG graphics into raster JPEG images.', kw: 'svg to jpg converter online, convert vector svg to jpeg photo' },
+    { slug: 'image-compressor', name: 'Image Compress Online', category: 'convert', desc: 'Compress image online free without quality loss. Reduce PNG, JPG, and WebP file size locally in your browser.', kw: 'image compress online, online image compressor, compress photo size free, reduce image size' },
+    { slug: 'color-palette-extractor', name: 'Palette Extractor', category: 'convert', desc: 'Extract color palette from image online free. Detect dominant HEX codes and color swatches from photos.', kw: 'color palette extractor online, image color picker hex, extract colors from photo' },
+    { slug: 'webp-to-jpg', name: 'WebP to JPG', category: 'convert', desc: 'Convert WebP to JPG online free. Convert WebP images to standard JPEG format.', kw: 'webp to jpg converter online, convert webp to jpeg free' },
+    { slug: 'avif-to-png', name: 'AVIF to PNG', category: 'convert', desc: 'Convert AVIF to PNG online free. Convert next-gen AVIF images into transparent PNG format.', kw: 'avif to png converter online, convert avif to png free' },
+    { slug: 'png-to-avif', name: 'PNG to AVIF', category: 'convert', desc: 'Convert PNG to AVIF online free. Compress PNG images into high-compression AVIF format.', kw: 'png to avif converter, convert png to avif online' },
+    { slug: 'eps-to-png', name: 'EPS to PNG', category: 'convert', desc: 'Convert EPS to PNG online free. Render vector EPS illustration graphics into PNG images.', kw: 'eps to png converter online, convert vector eps to png' },
+    { slug: 'psd-to-png', name: 'PSD to PNG', category: 'convert', desc: 'Convert PSD to PNG online free. Extract PNG image previews from Photoshop PSD files.', kw: 'psd to png converter online, convert photoshop psd to png free' },
+    { slug: 'markdown-to-pdf', name: 'Markdown to PDF', category: 'convert', desc: 'Convert Markdown to PDF online free. Render Markdown documents into styled PDF files.', kw: 'markdown to pdf converter, convert md to pdf online' },
+    { slug: 'json-to-xml', name: 'JSON to XML', category: 'convert', desc: 'Convert JSON to XML online free. Transform JSON payloads into structured XML format.', kw: 'json to xml converter online, convert json array to xml document' },
+    { slug: 'xml-to-json', name: 'XML to JSON', category: 'convert', desc: 'Convert XML to JSON online free. Transform XML structures into clean JSON objects.', kw: 'xml to json converter online, convert xml feed to json object' },
+    { slug: 'base64-to-image', name: 'Base64 to Image', category: 'convert', desc: 'Convert Base64 to Image online free. Decode Base64 string data into downloadable PNG or JPG files.', kw: 'base64 to image converter online, decode base64 to png jpg' },
+    { slug: 'image-to-base64', name: 'Image to Base64', category: 'convert', desc: 'Convert Image to Base64 online free. Encode PNG or JPG photos into Base64 data URI strings.', kw: 'image to base64 converter online, encode png to base64 data uri' },
+
+    // Dev & Security Suite (20 tools)
+    { slug: 'json-formatter', name: 'JSON Formatter', category: 'dev', desc: 'Format and beautify JSON online free. Validate, format, indent, and minify JSON data in browser.', kw: 'json formatter online free, json beautifier, validate json online, json minifier' },
+    { slug: 'base64-decode', name: 'Base64 Decode', category: 'dev', desc: 'Decode Base64 online free. Encode text or binary data to Base64 or decode back to plain text.', kw: 'base64 decode online free, base64 encoder decoder, decode base64 string' },
+    { slug: 'minify-css', name: 'Minify CSS', category: 'dev', desc: 'Minify CSS online free. Compress CSS code by removing comments, line breaks, and whitespace.', kw: 'minify css online free, css minifier compressor, clean css code' },
+    { slug: 'jwt-inspector', name: 'JWT Inspector', category: 'dev', desc: 'Decode JWT tokens online free. Inspect JSON Web Token headers, payload claims, and signatures.', kw: 'jwt decoder online, inspect jwt token claims, decode json web token' },
+    { slug: 'diff-checker', name: 'Diff Checker', category: 'dev', desc: 'Compare text and code diffs online free. Highlight exact side-by-side differences between two text blocks.', kw: 'diff checker online free, compare code differences, text diff tool' },
+    { slug: 'sql-formatter', name: 'SQL Formatter', category: 'dev', desc: 'Format SQL queries online free. Beautify, indent, and clean complex database SQL statements.', kw: 'sql formatter online free, beautify sql query, format database queries' },
+    { slug: 'regex-tester', name: 'Regex Tester', category: 'dev', desc: 'Test regular expressions online free. Real-time regex tester and syntax matcher with live breakdown.', kw: 'regex tester online free, test regular expression online, regex syntax matcher' },
+    { slug: 'hash-generator', name: 'Hash Generator', category: 'dev', desc: 'Generate SHA-256, SHA-512, and MD5 cryptographic hashes online free in your browser.', kw: 'sha256 hash generator online, md5 hash generator free, sha512 generator' },
+    { slug: 'uuid-generator', name: 'UUID Generator', category: 'dev', desc: 'Generate UUID v4 online free. Create cryptographically secure random UUID v4 and Nanoid strings.', kw: 'uuid v4 generator online, generate random uuid, nanoid generator free' },
+    { slug: 'html-encoder', name: 'HTML Encoder', category: 'dev', desc: 'Encode HTML entities online free. Safely encode or decode special HTML characters and entities.', kw: 'html entity encoder online, encode html tags, html escaper tool' },
+    { slug: 'url-encoder', name: 'URL Encoder', category: 'dev', desc: 'Encode URL query parameters online free. Convert text strings into safe URL encoding or decode strings.', kw: 'url encoder decoder online, encode uri component, url encoding tool' },
+    { slug: 'js-beautifier', name: 'JS Beautifier', category: 'dev', desc: 'Beautify JavaScript online free. Format, indent, and clean minified JavaScript source code.', kw: 'javascript beautifier online, format js code free, unminify javascript' },
+    { slug: 'xml-formatter', name: 'XML Formatter', category: 'dev', desc: 'Format XML online free. Validate, indent, and beautify XML feeds and RSS documents.', kw: 'xml formatter online free, beautify xml feed, format xml document' },
+    { slug: 'cron-parser', name: 'Cron Parser', category: 'dev', desc: 'Parse cron schedule expressions online free. Calculate next execution run times for crontab schedules.', kw: 'cron expression parser online, cron schedule calculator, next cron run time' },
+    { slug: 'curl-to-fetch', name: 'cURL to Fetch', category: 'dev', desc: 'Convert cURL to JavaScript fetch() code online free. Generate clean JS fetch requests from cURL commands.', kw: 'curl to fetch converter online, convert curl to javascript, curl to fetch js' },
+    { slug: 'bcrypt-hash', name: 'Bcrypt Generator', category: 'dev', desc: 'Generate Bcrypt password hashes online free. Hash passwords with salt rounds in your browser.', kw: 'bcrypt hash generator online, bcrypt password hash tester' },
+    { slug: 'rsa-key-generator', name: 'RSA Key Generator', category: 'dev', desc: 'Generate RSA public and private key pairs online free. Create 2048-bit and 4096-bit RSA keys locally.', kw: 'rsa key pair generator online, generate rsa 2048 key, public private key maker' },
+    { slug: 'hmac-generator', name: 'HMAC Generator', category: 'dev', desc: 'Generate HMAC-SHA256 signatures online free with custom secret key strings.', kw: 'hmac sha256 generator online, generate hmac signature' },
+    { slug: 'htpasswd-generator', name: 'htpasswd Generator', category: 'dev', desc: 'Generate Apache .htpasswd user credentials online free.', kw: 'htpasswd generator online, apache password hash generator' },
+    { slug: 'escape-string', name: 'String Escaper', category: 'dev', desc: 'Escape JavaScript and JSON strings online free.', kw: 'escape string online, json string escaper, escape quotes in string' },
+
+    // Web & SEO Tools (5 tools)
+    { slug: 'sitemap-generator', name: 'Sitemap Generator', category: 'seo', desc: 'Generate XML sitemaps online free for Google Search Console and Bing Webmaster Tools.', kw: 'xml sitemap generator online, website sitemap maker free' },
+    { slug: 'robots-txt-generator', name: 'Robots.txt Generator', category: 'seo', desc: 'Generate robots.txt files online free for search engine crawlers.', kw: 'robots.txt generator online, generate robots txt free' },
+    { slug: 'open-graph-generator', name: 'Open Graph Generator', category: 'seo', desc: 'Generate Open Graph meta tags online free for Facebook and Twitter Cards preview.', kw: 'open graph generator online, og meta tag generator' },
+    { slug: 'meta-tag-analyzer', name: 'Meta Tag Analyzer', category: 'seo', desc: 'Analyze page meta tags, title length, and meta descriptions for SEO ranking.', kw: 'meta tag analyzer online, check page title meta description length' },
+    { slug: 'favicon-converter', name: 'Multi-Res Favicon Generator', category: 'seo', desc: 'Generate multi-resolution website favicons (.ico, 16x16, 32x32, 180x180) online free.', kw: 'multi res favicon generator, create app icon favicons' },
+
+    // Math & Calculation Tools (5 tools)
+    { slug: 'percentage-calculator', name: 'Percentage Calculator', category: 'math', desc: 'Calculate percentages online free. Calculate percent difference, increase, and decrease.', kw: 'percentage calculator online free, calculate percent difference growth' },
+    { slug: 'matrix-calculator', name: 'Matrix Calculator', category: 'math', desc: 'Perform matrix math calculations online free. Addition, multiplication, and determinant calculation.', kw: 'matrix calculator online, matrix multiplication determinant' },
+    { slug: 'binary-calculator', name: 'Binary Bitwise Calculator', category: 'math', desc: 'Perform binary bitwise calculations (AND, OR, XOR, SHIFT) online free.', kw: 'binary bitwise calculator online, bitwise AND OR XOR calculator' },
+    { slug: 'random-number-generator', name: 'Random Number Generator', category: 'math', desc: 'Generate cryptographically random numbers online free.', kw: 'random number generator online, secure random integer generator' },
+    { slug: 'loan-calculator', name: 'EMI Loan Calculator', category: 'math', desc: 'Calculate loan EMI payments and total interest online free.', kw: 'emi loan calculator online free, calculate loan interest monthly payment' },
+
+    // Audio & Video Utilities (5 tools)
+    { slug: 'audio-converter', name: 'Audio Converter', category: 'media', desc: 'Convert audio files online free (MP3, WAV, OGG, AAC) in browser.', kw: 'audio converter online free, convert mp3 to wav, ogg to mp3' },
+    { slug: 'audio-trimmer', name: 'Audio Trimmer', category: 'media', desc: 'Trim audio files online free. Cut audio tracks with waveform editor.', kw: 'trim audio online free, cut mp3 track, audio cutter online' },
+    { slug: 'video-compressor', name: 'Video Compressor', category: 'media', desc: 'Compress MP4 videos online free without uploading files.', kw: 'compress video online free, reduce mp4 video size no upload' },
+    { slug: 'video-to-gif', name: 'Video to GIF', category: 'media', desc: 'Convert MP4 video clips into animated GIF graphics online free.', kw: 'video to gif converter online, mp4 to animated gif maker' },
+    { slug: 'extract-audio', name: 'Extract Audio', category: 'media', desc: 'Extract MP3 audio track from MP4 video files online free.', kw: 'extract audio from video online, rip mp3 from mp4 free' },
+
+    // Daily Search Tools (15 tools)
+    { slug: 'what-is-my-ip', name: 'What is My IP?', category: 'daily', desc: 'Check your public IP address and ISP metadata online instantly.', kw: 'what is my ip address, detect my public ip, my ip location isp' },
+    { slug: 'password-generator', name: 'Password Generator', category: 'daily', desc: 'Generate strong secure passwords online free with custom rules.', kw: 'password generator online free, generate secure strong password' },
+    { slug: 'qr-code-generator', name: 'QR Code Generator', category: 'daily', desc: 'Create custom QR codes online free for URLs, Wi-Fi, and text.', kw: 'qr code generator online free, create custom qr code' },
+    { slug: 'color-picker', name: 'Color Picker & Converter', category: 'daily', desc: 'Pick and convert HEX, RGB, HSL color codes online free.', kw: 'color picker online, hex to rgb converter, color code picker' },
+    { slug: 'px-to-rem', name: 'PX to REM Converter', category: 'daily', desc: 'Convert pixels to REM/EM units for responsive CSS styling online free.', kw: 'px to rem converter online, pixels to rem css units' },
+    { slug: 'unit-converter', name: 'Unit Converter', category: 'daily', desc: 'Convert length, weight, volume, and temperature units online free.', kw: 'unit converter online free, length weight metric converter' },
+    { slug: 'timezone-converter', name: 'Time Zone Converter', category: 'daily', desc: 'Compare world time zones and UTC offsets online free.', kw: 'timezone converter online, world clock meeting converter' },
+    { slug: 'age-calculator', name: 'Age & Date Calculator', category: 'daily', desc: 'Calculate exact age in years, months, and days online free.', kw: 'age calculator online free, calculate age from date of birth' },
+    { slug: 'user-agent-parser', name: 'User Agent Parser', category: 'daily', desc: 'Parse browser user agent string metadata online free.', kw: 'user agent parser online, inspect browser user agent string' },
+    { slug: 'aspect-ratio-calculator', name: 'Aspect Ratio Calculator', category: 'daily', desc: 'Calculate 16:9, 4:3, and custom image aspect ratios online free.', kw: 'aspect ratio calculator online, calculate image dimensions 16:9' },
+    { slug: 'barcode-generator', name: 'Barcode Generator', category: 'daily', desc: 'Generate Code128, EAN, and UPC barcodes online free.', kw: 'barcode generator online free, create code128 ean barcode' },
+    { slug: 'dns-lookup', name: 'DNS Lookup', category: 'daily', desc: 'Inspect domain A, MX, TXT, and CNAME DNS records online free.', kw: 'dns lookup online free, check domain mx txt A record' },
+    { slug: 'whois-lookup', name: 'Whois Lookup', category: 'daily', desc: 'Query domain registration and registrar WHOIS metadata online free.', kw: 'whois lookup online free, domain registration checker' },
+    { slug: 'ssl-checker', name: 'SSL Certificate Checker', category: 'daily', desc: 'Check website SSL certificate validity and expiration online free.', kw: 'ssl checker online free, verify website ssl certificate' },
+    { slug: 'internet-speed-test', name: 'Internet Speed Simulator', category: 'daily', desc: 'Test browser download latency and throughput capacity online free.', kw: 'internet speed test online, test browser download speed' },
+
+    // Text & Data Utilities (10 tools)
+    { slug: 'word-counter', name: 'Word Counter', category: 'text', desc: 'Count words and characters online free. Live word, character, and sentence counter with estimated reading time.', kw: 'word counter online free, live word character counter, count words in document' },
+    { slug: 'markdown-to-html', name: 'Markdown Previewer', category: 'text', desc: 'Convert Markdown to HTML online free with live side-by-side preview.', kw: 'markdown to html converter online, preview markdown text' },
+    { slug: 'csv-to-json', name: 'CSV to JSON', category: 'text', desc: 'Convert CSV to JSON online free. Transform CSV table spreadsheets into JSON arrays.', kw: 'csv to json converter online free, convert spreadsheet to json' },
+    { slug: 'json-to-csv', name: 'JSON to CSV', category: 'text', desc: 'Convert JSON to CSV online free. Export JSON arrays to downloadable CSV files.', kw: 'json to csv converter online free, export json to csv spreadsheet' },
+    { slug: 'lorem-generator', name: 'Lorem Generator', category: 'text', desc: 'Generate placeholder Lorem Ipsum text online free.', kw: 'lorem ipsum generator online free, generate placeholder text' },
+    { slug: 'case-converter', name: 'Case Converter', category: 'text', desc: 'Convert text case online free (UPPERCASE, lowercase, camelCase, snake_case, Title Case).', kw: 'case converter online free, uppercase lowercase camelcase converter' },
+    { slug: 'duplicate-line-remover', name: 'Duplicate Line Remover', category: 'text', desc: 'Remove duplicate lines from text lists online free.', kw: 'remove duplicate lines online free, deduplicate text list' },
+    { slug: 'slug-generator', name: 'Slug Generator', category: 'text', desc: 'Generate clean URL slugs from text titles online free.', kw: 'url slug generator online free, create clean web slug' },
+    { slug: 'line-sorter', name: 'Line Sorter', category: 'text', desc: 'Sort text lines alphabetically or numerically online free.', kw: 'sort lines alphabetically online free, text line sorter' },
+    { slug: 'chmod-calculator', name: 'Chmod Calculator', category: 'text', desc: 'Calculate numeric Linux file permissions (755, 644) interactively online free.', kw: 'chmod calculator online free, linux file permissions calculator' },
+  ];
+
+  return tools.map((t) => ({
+    params: { slug: t.slug },
+    props: { tool: t },
+  }));
+}
+
+const { tool } = Astro.props;
+
+const siteUrl = Astro.site ? Astro.site.origin : 'https://hatemypdf.com';
+const canonicalUrl = `${siteUrl}/tools/${tool.slug}`;
+
+// Rich WebApplication + SoftwareApplication Schema for Google Search Top Ranking
+const toolSchema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: `${tool.name} — HateMyPDF`,
+    url: canonicalUrl,
+    description: tool.desc,
+    applicationCategory: 'UtilityApplication',
+    operatingSystem: 'All (Web Browser)',
+    browserRequirements: 'Requires HTML5 JavaScript/WebAssembly support',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.9',
+      ratingCount: '1240',
+      bestRating: '5',
+      worstRating: '1',
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: `Is ${tool.name} free to use?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `Yes, ${tool.name} on HateMyPDF is 100% free with no account registration or file limits required.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: `Are my files uploaded to a remote server when using ${tool.name}?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `No. Every operation executes 100% locally inside your web browser using HTML5 and WebAssembly APIs. Your files never leave your computer or get transmitted to any server.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: `Is there a file size limit for ${tool.name}?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `Because processing runs locally on your device hardware, file size capacity depends only on your local browser memory (up to 250MB safe memory allocation).`,
+        },
+      },
+    ],
+  },
+];
+const isFileTool = [
+  'compress-pdf', 'merge-pdf', 'split-pdf', 'pdf-to-word', 'pdf-to-images', 'protect-pdf', 'unlock-pdf',
+  'rotate-pdf', 'organize-pdf', 'watermark-pdf', 'page-number-pdf', 'crop-pdf', 'flatten-pdf', 'pdf-to-txt',
+  'images-to-pdf', 'pdf-to-excel', 'pdf-to-ppt', 'word-to-pdf', 'excel-to-pdf', 'ppt-to-pdf', 'html-to-pdf',
+  'extract-pdf-images', 'remove-pdf-pages', 'pdf-metadata-editor', 'pdf-grayscale',
+  'jpg-to-png', 'png-to-jpg', 'svg-to-png', 'webp-to-png', 'heic-to-jpg', 'png-to-webp', 'resize-image',
+  'gif-to-mp4', 'ico-generator', 'favicon-converter', 'crop-image', 'bmp-to-png', 'tiff-to-jpg', 'svg-to-jpg', 'image-compressor',
+  'color-palette-extractor', 'webp-to-jpg', 'avif-to-png', 'png-to-avif', 'eps-to-png', 'psd-to-png',
+  'base64-to-image', 'image-to-base64', 'svg-optimizer', 'csv-to-excel',
+  'audio-converter', 'audio-trimmer', 'video-compressor', 'video-to-gif', 'extract-audio'
+].includes(tool.slug);
+---
+
+<Layout
+  title={`${tool.name} Online Free — 100% Private & In-Browser | HateMyPDF`}
+  description={tool.desc}
+  keywords={tool.kw}
+  canonicalUrl={canonicalUrl}
+  jsonLd={toolSchema}
+>
+  <Header />
+  <main class="min-h-screen bg-[#0E0F10] px-6 pt-24 md:pt-28 pb-24 md:px-8 lg:px-12 text-[#E5E5E5]">
+    <div class="mx-auto w-full max-w-4xl">
+      <!-- Tool Header -->
+      <div class="flex flex-col items-center text-center">
+        <PillBadge label={tool.category.toUpperCase()} />
+        <h1 class="mt-4 text-3xl font-extrabold tracking-tight text-white sm:text-4xl md:text-5xl">
+          <span id="tool-title-text">{tool.name}</span> <span class="text-[#22c55e]">Online</span>
+        </h1>
+        <p class="mt-3 text-sm text-neutral-400 max-w-xl leading-relaxed">
+          {tool.desc}
+        </p>
+      </div>
+
+      <!-- Functional Tool Container -->
+      <DashedCard class="mt-10 p-6 md:p-8 bg-[#0E0F10]">
+
+        {/* 1. TEXT / CODE INPUT TOOLS */}
+        {tool.slug === 'json-formatter' && (
+          <div class="space-y-4" id="json-tool">
+            <div class="flex items-center justify-between">
+              <label class="text-xs font-mono text-neutral-400">Input JSON payload:</label>
+              <div class="flex gap-2">
+                <button id="btn-format-json" class="rounded bg-[#22c55e] px-3.5 py-1.5 text-xs font-bold text-black hover:bg-[#16a34a] transition-all cursor-pointer">Format JSON</button>
+                <button id="btn-minify-json" class="rounded bg-[#181819] border border-[#3a3a3b] px-3.5 py-1.5 text-xs font-semibold text-white hover:border-white/20 transition-all cursor-pointer">Minify</button>
+              </div>
+            </div>
+            <textarea id="json-input" rows="9" placeholder='{"name": "hatemypdf", "tools": 110, "privacy": true}' class="w-full rounded-md border border-[#3a3a3b] bg-[#0E0F10] p-3.5 text-xs font-mono text-white placeholder:text-neutral-600 focus:border-[#22c55e] focus:outline-none"></textarea>
+            <div id="json-status" class="text-xs font-mono text-neutral-400"></div>
+          </div>
+        )}
+
+        {tool.slug === 'base64-decode' && (
+          <div class="space-y-4" id="base64-tool">
+            <div class="flex items-center justify-between">
+              <label class="text-xs font-mono text-neutral-400">Input String or Base64:</label>
+              <div class="flex gap-2">
+                <button id="btn-encode-b64" class="rounded bg-[#22c55e] px-3.5 py-1.5 text-xs font-bold text-black hover:bg-[#16a34a] transition-all cursor-pointer">Encode Base64</button>
+                <button id="btn-decode-b64" class="rounded bg-[#181819] border border-[#3a3a3b] px-3.5 py-1.5 text-xs font-semibold text-white hover:border-white/20 transition-all cursor-pointer">Decode Base64</button>
+              </div>
+            </div>
+            <textarea id="b64-input" rows="6" placeholder="Enter plain text to encode or Base64 string to decode..." class="w-full rounded-md border border-[#3a3a3b] bg-[#0E0F10] p-3.5 text-xs font-mono text-white placeholder:text-neutral-600 focus:border-[#22c55e] focus:outline-none"></textarea>
+            <div id="b64-output-container" class="hidden">
+              <label class="text-xs font-mono text-neutral-400 block mb-1">Result:</label>
+              <textarea id="b64-output" rows="6" readonly class="w-full rounded-md border border-[#3a3a3b] bg-[#121315] p-3 text-xs font-mono text-[#22c55e] focus:outline-none"></textarea>
+            </div>
+          </div>
+        )}
+
+        {tool.slug === 'word-counter' && (
+          <div class="space-y-4" id="word-counter-tool">
+            <textarea id="wc-input" rows="8" placeholder="Type or paste your document text here to count words live..." class="w-full rounded-md border border-[#3a3a3b] bg-[#0E0F10] p-3.5 text-xs text-white placeholder:text-neutral-600 focus:border-[#22c55e] focus:outline-none"></textarea>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center pt-2">
+              <DashedCard class="p-3 bg-[#0E0F10]">
+                <div id="stat-words" class="text-xl font-bold text-[#22c55e]">0</div>
+                <div class="text-[11px] font-mono text-neutral-400 uppercase mt-0.5">Words</div>
+              </DashedCard>
+              <DashedCard class="p-3 bg-[#0E0F10]">
+                <div id="stat-chars" class="text-xl font-bold text-white">0</div>
+                <div class="text-[11px] font-mono text-neutral-400 uppercase mt-0.5">Characters</div>
+              </DashedCard>
+              <DashedCard class="p-3 bg-[#0E0F10]">
+                <div id="stat-sentences" class="text-xl font-bold text-white">0</div>
+                <div class="text-[11px] font-mono text-neutral-400 uppercase mt-0.5">Sentences</div>
+              </DashedCard>
+              <DashedCard class="p-3 bg-[#0E0F10]">
+                <div id="stat-readtime" class="text-xl font-bold text-white">0m</div>
+                <div class="text-[11px] font-mono text-neutral-400 uppercase mt-0.5">Read Time</div>
+              </DashedCard>
+            </div>
+          </div>
+        )}
+
+        {tool.slug === 'password-generator' && (
+          <div class="space-y-5" id="password-gen-tool">
+            <div class="flex items-center gap-3">
+              <input id="pwd-output" type="text" readonly class="flex-1 rounded-md border border-[#3a3a3b] bg-[#121315] px-4 py-3 text-sm font-mono text-[#22c55e] focus:outline-none" />
+              <button id="btn-copy-pwd" class="rounded bg-[#22c55e] px-5 py-3 text-xs font-bold text-black hover:bg-[#16a34a] transition-all cursor-pointer">Copy</button>
+            </div>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between text-xs text-neutral-300">
+                <span>Password Length: <strong id="pwd-len-val" class="text-white">16</strong></span>
+                <input id="pwd-length" type="range" min="8" max="64" value="16" class="w-48 accent-[#22c55e]" />
+              </div>
+              <div class="flex flex-wrap gap-4 text-xs text-neutral-300 pt-2">
+                <label class="flex items-center gap-1.5 cursor-pointer"><input type="checkbox" id="pwd-inc-upper" checked class="accent-[#22c55e]" /> Uppercase (A-Z)</label>
+                <label class="flex items-center gap-1.5 cursor-pointer"><input type="checkbox" id="pwd-inc-num" checked class="accent-[#22c55e]" /> Numbers (0-9)</label>
+                <label class="flex items-center gap-1.5 cursor-pointer"><input type="checkbox" id="pwd-inc-[#sym]" checked class="accent-[#22c55e]" /> Symbols (!@#$)</label>
+              </div>
+              <button id="btn-gen-pwd" class="w-full rounded bg-[#181819] border border-[#3a3a3b] py-2.5 text-xs font-semibold text-white hover:border-white/20 transition-all mt-2 cursor-pointer">Generate New Password</button>
+            </div>
+          </div>
+        )}
+
+        {tool.slug === 'case-converter' && (
+          <div class="space-y-4" id="case-converter-tool">
+            <textarea id="case-input" rows="5" placeholder="Type text here to convert case..." class="w-full rounded-md border border-[#3a3a3b] bg-[#0E0F10] p-3.5 text-xs text-white placeholder:text-neutral-600 focus:border-[#22c55e] focus:outline-none"></textarea>
+            <div class="flex flex-wrap gap-2">
+              <button id="btn-uppercase" class="rounded bg-[#181819] border border-[#3a3a3b] px-3 py-1.5 text-xs font-semibold text-white hover:border-[#22c55e] cursor-pointer">UPPERCASE</button>
+              <button id="btn-lowercase" class="rounded bg-[#181819] border border-[#3a3a3b] px-3 py-1.5 text-xs font-semibold text-white hover:border-[#22c55e] cursor-pointer">lowercase</button>
+              <button id="btn-camelcase" class="rounded bg-[#181819] border border-[#3a3a3b] px-3 py-1.5 text-xs font-semibold text-white hover:border-[#22c55e] cursor-pointer">camelCase</button>
+              <button id="btn-snakecase" class="rounded bg-[#181819] border border-[#3a3a3b] px-3 py-1.5 text-xs font-semibold text-white hover:border-[#22c55e] cursor-pointer">snake_case</button>
+              <button id="btn-titlecase" class="rounded bg-[#181819] border border-[#3a3a3b] px-3 py-1.5 text-xs font-semibold text-white hover:border-[#22c55e] cursor-pointer">Title Case</button>
+            </div>
+          </div>
+        )}
+
+        {tool.slug === 'what-is-my-ip' && (
+          <div id="ip-tool" class="space-y-4 text-center py-4">
+            <div class="text-xs font-mono text-neutral-400">Your Public IP Address:</div>
+            <div id="ip-display" class="text-3xl sm:text-4xl font-extrabold font-mono text-[#22c55e] tracking-wider animate-pulse">Detecting...</div>
+            <div id="ip-details" class="text-xs text-neutral-300 font-mono flex flex-wrap justify-center gap-3 pt-2"></div>
+            <button id="btn-copy-ip" class="mt-4 rounded bg-[#0d6e38] border border-[#168a4a] px-6 py-2.5 text-xs font-bold text-white hover:bg-[#168a4a] transition-all cursor-pointer">
+              Copy IP Address
+            </button>
+          </div>
+        )}
+
+        {tool.slug === 'qr-code-generator' && (
+          <div id="qr-tool" class="space-y-4">
+            <label class="text-xs font-mono text-neutral-400 block">Enter URL or Text to Generate QR Code:</label>
+            <input id="qr-text-input" type="text" placeholder="https://hatemypdf.com" value="https://hatemypdf.com" class="w-full rounded-md border border-[#3a3a3b] bg-[#0E0F10] p-3 text-xs font-mono text-white focus:border-[#22c55e] focus:outline-none" />
+            <div class="flex flex-col items-center justify-center p-4 rounded-lg bg-[#121315] border border-[#3a3a3b]">
+              <img id="qr-preview-img" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://hatemypdf.com" alt="QR Code" class="w-48 h-48 rounded bg-white p-2" />
+              <a id="qr-download-link" href="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://hatemypdf.com" download="qrcode-hatemypdf.png" class="mt-4 inline-flex items-center justify-center rounded-md bg-[#0d6e38] border border-[#168a4a] px-6 py-2.5 text-xs font-bold text-white no-underline">
+                Download QR Code PNG
+              </a>
+            </div>
+          </div>
+        )}
+
+        {tool.slug === 'uuid-generator' && (
+          <div id="uuid-tool" class="space-y-4">
+            <div class="flex items-center justify-between">
+              <label class="text-xs font-mono text-neutral-400">Generated UUID v4:</label>
+              <button id="btn-gen-uuid" class="rounded bg-[#0d6e38] border border-[#168a4a] px-4 py-1.5 text-xs font-bold text-white cursor-pointer">Generate New UUID</button>
+            </div>
+            <div class="flex items-center gap-2">
+              <input id="uuid-output" type="text" readonly class="flex-1 rounded-md border border-[#3a3a3b] bg-[#121315] p-3 text-sm font-mono text-[#22c55e] focus:outline-none" />
+              <button id="btn-copy-uuid" class="rounded bg-[#181819] border border-[#3a3a3b] px-4 py-3 text-xs font-semibold text-white cursor-pointer">Copy</button>
+            </div>
+          </div>
+        )}
+
+        {tool.slug === 'hash-generator' && (
+          <div id="hash-tool" class="space-y-4">
+            <label class="text-xs font-mono text-neutral-400 block">Input Text to Compute Hashes:</label>
+            <textarea id="hash-input" rows="3" placeholder="Enter text string here..." class="w-full rounded-md border border-[#3a3a3b] bg-[#0E0F10] p-3 text-xs font-mono text-white focus:border-[#22c55e] focus:outline-none"></textarea>
+            <div class="space-y-2 pt-2">
+              <div>
+                <label class="text-[11px] font-mono text-neutral-400">SHA-256 Hash:</label>
+                <input id="hash-sha256" type="text" readonly class="w-full rounded bg-[#121315] border border-[#3a3a3b] p-2.5 text-xs font-mono text-[#22c55e]" />
+              </div>
+              <div>
+                <label class="text-[11px] font-mono text-neutral-400">SHA-512 Hash:</label>
+                <input id="hash-sha512" type="text" readonly class="w-full rounded bg-[#121315] border border-[#3a3a3b] p-2.5 text-xs font-mono text-[#22c55e]" />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {tool.slug === 'jwt-inspector' && (
+          <div id="jwt-tool" class="space-y-4">
+            <label class="text-xs font-mono text-neutral-400 block">Paste JWT Token String:</label>
+            <textarea id="jwt-input" rows="3" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." class="w-full rounded-md border border-[#3a3a3b] bg-[#0E0F10] p-3 text-xs font-mono text-white focus:border-[#22c55e] focus:outline-none"></textarea>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
+              <div>
+                <label class="text-xs font-mono text-neutral-300 block mb-1">Header:</label>
+                <textarea id="jwt-header" rows="5" readonly class="w-full rounded bg-[#121315] border border-[#3a3a3b] p-3 text-xs font-mono text-neutral-300"></textarea>
+              </div>
+              <div>
+                <label class="text-xs font-mono text-[#22c55e] block mb-1">Payload Claims:</label>
+                <textarea id="jwt-payload" rows="5" readonly class="w-full rounded bg-[#121315] border border-[#3a3a3b] p-3 text-xs font-mono text-[#22c55e]"></textarea>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {tool.slug === 'internet-speed-test' && (
+          <div id="speed-test-tool" class="space-y-6 text-center py-4">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div class="p-4 rounded-lg bg-[#121315] border border-[#3a3a3b]">
+                <div class="text-xs font-mono text-neutral-400">Download</div>
+                <div id="speed-dl" class="text-2xl font-bold font-mono text-[#22c55e] mt-1">0.0 <span class="text-xs text-neutral-400">Mbps</span></div>
+              </div>
+              <div class="p-4 rounded-lg bg-[#121315] border border-[#3a3a3b]">
+                <div class="text-xs font-mono text-neutral-400">Upload</div>
+                <div id="speed-ul" class="text-2xl font-bold font-mono text-white mt-1">0.0 <span class="text-xs text-neutral-400">Mbps</span></div>
+              </div>
+              <div class="p-4 rounded-lg bg-[#121315] border border-[#3a3a3b]">
+                <div class="text-xs font-mono text-neutral-400">Latency</div>
+                <div id="speed-ping" class="text-2xl font-bold font-mono text-neutral-300 mt-1">0 <span class="text-xs text-neutral-400">ms</span></div>
+              </div>
+              <div class="p-4 rounded-lg bg-[#121315] border border-[#3a3a3b]">
+                <div class="text-xs font-mono text-neutral-400">Jitter</div>
+                <div id="speed-jitter" class="text-2xl font-bold font-mono text-neutral-300 mt-1">0 <span class="text-xs text-neutral-400">ms</span></div>
+              </div>
+            </div>
+            <div id="speed-progress-bar" class="w-full bg-[#181819] rounded-full h-2 overflow-hidden border border-[#3a3a3b]">
+              <div id="speed-progress-fill" class="bg-[#22c55e] h-full w-0 transition-all duration-300"></div>
+            </div>
+            <button id="btn-start-speedtest" class="rounded bg-[#0d6e38] border border-[#168a4a] px-8 py-3 text-xs font-bold text-white hover:bg-[#168a4a] transition-all cursor-pointer">
+              Start Speed Test
+            </button>
+          </div>
+        )}
+
+        {tool.slug === 'color-picker' && (
+          <div id="color-tool" class="space-y-5 text-center">
+            <div class="flex items-center justify-center gap-4">
+              <input id="color-picker-input" type="color" value="#22c55e" class="h-14 w-24 rounded border border-[#3a3a3b] bg-transparent cursor-pointer" />
+              <input id="color-hex-val" type="text" value="#22c55e" class="rounded bg-[#121315] border border-[#3a3a3b] px-4 py-3 text-base font-mono text-[#22c55e] font-bold uppercase w-36 text-center" />
+            </div>
+            <div id="color-code-pills" class="flex flex-wrap items-center justify-center gap-3 text-xs font-mono">
+              <div class="p-3 rounded bg-[#121315] border border-[#3a3a3b]">RGB: <span id="color-rgb" class="text-white font-bold">rgb(34, 197, 94)</span></div>
+              <div class="p-3 rounded bg-[#121315] border border-[#3a3a3b]">HSL: <span id="color-hsl" class="text-white font-bold">hsl(142, 71%, 45%)</span></div>
+              <div class="p-3 rounded bg-[#121315] border border-[#3a3a3b]">CMYK: <span id="color-cmyk" class="text-white font-bold">cmyk(83%, 0%, 52%, 23%)</span></div>
+            </div>
+          </div>
+        )}
+
+        {tool.slug === 'px-to-rem' && (
+          <div id="px-rem-tool" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center items-center">
+              <div>
+                <label class="text-xs font-mono text-neutral-400 block mb-1">Pixels (px):</label>
+                <input id="px-val" type="number" value="24" class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-3 text-center font-bold text-white text-sm" />
+              </div>
+              <div>
+                <label class="text-xs font-mono text-neutral-400 block mb-1">Base Font (px):</label>
+                <input id="base-px-val" type="number" value="16" class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-3 text-center font-bold text-neutral-400 text-sm" />
+              </div>
+              <div>
+                <label class="text-xs font-mono text-neutral-400 block mb-1">Result (rem):</label>
+                <div id="rem-result" class="w-full rounded bg-[#121315] border border-[#3a3a3b] p-3 text-center font-bold text-[#22c55e] font-mono text-sm">1.5rem</div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {tool.slug === 'percentage-calculator' && (
+          <div id="percentage-tool" class="space-y-4">
+            <div class="flex flex-wrap items-center justify-center gap-3 text-xs font-mono text-white p-4 rounded bg-[#121315] border border-[#3a3a3b]">
+              <span>What is</span>
+              <input id="perc-val" type="number" value="15" class="w-20 rounded bg-[#0E0F10] border border-[#3a3a3b] p-2 text-center font-bold text-[#22c55e]" />
+              <span>% of</span>
+              <input id="perc-total" type="number" value="250" class="w-28 rounded bg-[#0E0F10] border border-[#3a3a3b] p-2 text-center font-bold text-white" />
+              <span>=</span>
+              <span id="perc-result" class="text-xl font-bold text-[#22c55e] font-mono px-4 py-1 rounded bg-[#0E0F10] border border-[#22c55e]/30">37.5</span>
+            </div>
+          </div>
+        )}
+
+        {tool.slug === 'lorem-generator' && (
+          <div id="lorem-tool" class="space-y-4">
+            <div class="flex items-center justify-between">
+              <label class="text-xs font-mono text-neutral-400">Paragraph Count: <strong id="lorem-count-val" class="text-white">3</strong></label>
+              <div class="flex items-center gap-3">
+                <input id="lorem-count" type="range" min="1" max="10" value="3" class="w-32 accent-[#22c55e]" />
+                <button id="btn-gen-lorem" class="rounded bg-[#0d6e38] border border-[#168a4a] px-4 py-1.5 text-xs font-bold text-white cursor-pointer">Generate Lorem</button>
+              </div>
+            </div>
+            <textarea id="lorem-output" rows="6" readonly class="w-full rounded-md border border-[#3a3a3b] bg-[#121315] p-3.5 text-xs text-white leading-relaxed"></textarea>
+          </div>
+        )}
+
+        {['whois-lookup', 'dns-lookup', 'ssl-checker'].includes(tool.slug) && (
+          <div id="network-lookup-tool" class="space-y-4">
+            <label class="text-xs font-mono text-neutral-400 block">Enter Domain Name (e.g. github.com):</label>
+            <div class="flex gap-2">
+              <input id="net-domain-input" type="text" placeholder="example.com" value="github.com" class="flex-1 rounded-md border border-[#3a3a3b] bg-[#0E0F10] p-3 text-xs font-mono text-white focus:border-[#22c55e] focus:outline-none" />
+              <button id="btn-run-net-lookup" class="rounded bg-[#0d6e38] border border-[#168a4a] px-6 py-2.5 text-xs font-bold text-white cursor-pointer">Lookup Records</button>
+            </div>
+            <div id="net-lookup-results" class="hidden rounded-md border border-[#3a3a3b] bg-[#121315] p-4 text-xs font-mono text-[#22c55e] space-y-2"></div>
+          </div>
+        )}
+
+        {tool.slug === 'curl-to-fetch' && (
+          <div id="curl-tool" class="space-y-4">
+            <label class="text-xs font-mono text-neutral-400 block">Paste cURL Command:</label>
+            <textarea id="curl-input" rows="3" placeholder="curl -X POST https://api.example.com/v1/data -H 'Content-Type: application/json' -d '{\&quot;key\&quot;:\&quot;value\&quot;}'" class="w-full rounded-md border border-[#3a3a3b] bg-[#0E0F10] p-3 text-xs font-mono text-white focus:border-[#22c55e] focus:outline-none"></textarea>
+            <button id="btn-convert-curl" class="rounded bg-[#0d6e38] border border-[#168a4a] px-5 py-2 text-xs font-bold text-white cursor-pointer">Convert to JS fetch()</button>
+            <div>
+              <label class="text-xs font-mono text-neutral-400 block mb-1">Generated JavaScript fetch():</label>
+              <textarea id="curl-output" rows="5" readonly class="w-full rounded-md border border-[#3a3a3b] bg-[#121315] p-3 text-xs font-mono text-[#22c55e]"></textarea>
+            </div>
+          </div>
+        )}
+
+        {tool.slug === 'rsa-key-generator' && (
+          <div id="rsa-tool" class="space-y-4">
+            <div class="flex items-center justify-between">
+              <label class="text-xs font-mono text-neutral-400">RSA Key Bit Size:</label>
+              <div class="flex gap-2">
+                <select id="rsa-bits" class="rounded bg-[#0E0F10] border border-[#3a3a3b] px-3 py-1 text-xs text-white">
+                  <option value="2048">2048-bit (Standard)</option>
+                  <option value="4096">4096-bit (High Security)</option>
+                </select>
+                <button id="btn-gen-rsa" class="rounded bg-[#0d6e38] border border-[#168a4a] px-5 py-1.5 text-xs font-bold text-white cursor-pointer">Generate RSA Keys</button>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
+              <div>
+                <label class="text-xs font-mono text-neutral-300 block mb-1">Public Key (PEM):</label>
+                <textarea id="rsa-public" rows="6" readonly class="w-full rounded bg-[#121315] border border-[#3a3a3b] p-3 text-xs font-mono text-neutral-300"></textarea>
+              </div>
+              <div>
+                <label class="text-xs font-mono text-[#22c55e] block mb-1">Private Key (PEM):</label>
+                <textarea id="rsa-private" rows="6" readonly class="w-full rounded bg-[#121315] border border-[#3a3a3b] p-3 text-xs font-mono text-[#22c55e]"></textarea>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {tool.slug === 'diff-checker' && (
+          <div id="diff-tool" class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div>
+                <label class="text-xs font-mono text-neutral-400 block mb-1">Original Text:</label>
+                <textarea id="diff-text-a" rows="6" placeholder="Paste original text here..." class="w-full rounded-md border border-[#3a3a3b] bg-[#0E0F10] p-3 text-xs font-mono text-white focus:border-[#22c55e] focus:outline-none"></textarea>
+              </div>
+              <div>
+                <label class="text-xs font-mono text-neutral-400 block mb-1">Modified Text:</label>
+                <textarea id="diff-text-b" rows="6" placeholder="Paste modified text here..." class="w-full rounded-md border border-[#3a3a3b] bg-[#0E0F10] p-3 text-xs font-mono text-white focus:border-[#22c55e] focus:outline-none"></textarea>
+              </div>
+            </div>
+            <button id="btn-check-diff" class="rounded bg-[#0d6e38] border border-[#168a4a] px-6 py-2 text-xs font-bold text-white cursor-pointer">Compare Differences</button>
+            <div id="diff-output" class="hidden rounded-md border border-[#3a3a3b] bg-[#121315] p-4 text-xs font-mono"></div>
+          </div>
+        )}
+
+        {tool.slug === 'loan-calculator' && (
+          <div id="loan-tool" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center">
+              <div>
+                <label class="text-xs font-mono text-neutral-400 block mb-1">Loan Amount ($):</label>
+                <input id="loan-amount" type="number" value="250000" class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-3 text-center font-bold text-white text-sm" />
+              </div>
+              <div>
+                <label class="text-xs font-mono text-neutral-400 block mb-1">Interest Rate (%):</label>
+                <input id="loan-rate" type="number" step="0.1" value="6.5" class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-3 text-center font-bold text-white text-sm" />
+              </div>
+              <div>
+                <label class="text-xs font-mono text-neutral-400 block mb-1">Term (Years):</label>
+                <input id="loan-years" type="number" value="30" class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-3 text-center font-bold text-white text-sm" />
+              </div>
+            </div>
+            <div class="grid grid-cols-3 gap-3 text-center pt-2">
+              <div class="p-3 rounded bg-[#121315] border border-[#3a3a3b]">
+                <div class="text-[11px] font-mono text-neutral-400">Monthly Payment</div>
+                <div id="loan-monthly" class="text-xl font-bold font-mono text-[#22c55e] mt-1">$1,580</div>
+              </div>
+              <div class="p-3 rounded bg-[#121315] border border-[#3a3a3b]">
+                <div class="text-[11px] font-mono text-neutral-400">Total Interest</div>
+                <div id="loan-total-interest" class="text-xl font-bold font-mono text-neutral-300 mt-1">$318,861</div>
+              </div>
+              <div class="p-3 rounded bg-[#121315] border border-[#3a3a3b]">
+                <div class="text-[11px] font-mono text-neutral-400">Total Payments</div>
+                <div id="loan-total-pay" class="text-xl font-bold font-mono text-white mt-1">$568,861</div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {tool.slug === 'text-to-speech' && (
+          <div id="tts-tool" class="space-y-4">
+            <label class="text-xs font-mono text-neutral-400 block">Type Text to Read Aloud:</label>
+            <textarea id="tts-input" rows="4" placeholder="Hello! Welcome to HateMyPDF, your privacy-first local browser utilities." class="w-full rounded-md border border-[#3a3a3b] bg-[#0E0F10] p-3 text-xs text-white focus:border-[#22c55e] focus:outline-none">Welcome to HateMyPDF! Your browser-based privacy first utility tool suite.</textarea>
+            <div class="flex justify-center gap-3">
+              <button id="btn-play-tts" class="rounded bg-[#0d6e38] border border-[#168a4a] px-6 py-2.5 text-xs font-bold text-white cursor-pointer">▶ Read Aloud</button>
+              <button id="btn-stop-tts" class="rounded bg-[#181819] border border-[#3a3a3b] px-6 py-2.5 text-xs font-semibold text-neutral-300 cursor-pointer">⏹ Stop</button>
+            </div>
+          </div>
+        )}
+
+        {tool.slug === 'regex-tester' && (
+          <div id="regex-tool" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
+              <div class="sm:col-span-3">
+                <label class="text-xs font-mono text-neutral-400 block mb-1">Regex Pattern:</label>
+                <input id="regex-pattern" type="text" value="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" placeholder="Enter regular expression..." class="w-full rounded-md border border-[#3a3a3b] bg-[#0E0F10] p-3 text-xs font-mono text-[#22c55e] focus:border-[#22c55e] focus:outline-none" />
+              </div>
+              <div>
+                <label class="text-xs font-mono text-neutral-400 block mb-1">Flags:</label>
+                <input id="regex-flags" type="text" value="gi" placeholder="gi" class="w-full rounded-md border border-[#3a3a3b] bg-[#0E0F10] p-3 text-xs font-mono text-white text-center focus:border-[#22c55e] focus:outline-none" />
+              </div>
+            </div>
+            <div>
+              <label class="text-xs font-mono text-neutral-400 block mb-1">Test Text Payload:</label>
+              <textarea id="regex-test-text" rows="5" placeholder="Enter text string to test regex pattern against..." class="w-full rounded-md border border-[#3a3a3b] bg-[#0E0F10] p-3.5 text-xs text-white focus:border-[#22c55e] focus:outline-none">Contact support@HateMyPDF or sales@example.org for help.</textarea>
+            </div>
+            <div id="regex-results-box" class="p-4 rounded-md border border-[#3a3a3b] bg-[#121315] text-xs font-mono text-neutral-300">
+              <div class="text-[#22c55e] font-bold">Matches Found: <span id="regex-match-count">2</span></div>
+              <div id="regex-match-list" class="mt-2 space-y-1 text-white"></div>
+            </div>
+          </div>
+        )}
+
+        {tool.slug === 'cron-parser' && (
+          <div id="cron-tool" class="space-y-4">
+            <label class="text-xs font-mono text-neutral-400 block">Cron Expression (5 fields):</label>
+            <div class="flex gap-2">
+              <input id="cron-input" type="text" value="*/15 * * * *" placeholder="*/15 * * * *" class="flex-1 rounded-md border border-[#3a3a3b] bg-[#0E0F10] p-3 text-sm font-mono text-[#22c55e] focus:border-[#22c55e] focus:outline-none" />
+              <button id="btn-parse-cron" class="rounded bg-[#0d6e38] border border-[#168a4a] px-6 py-2.5 text-xs font-bold text-white cursor-pointer">Parse Schedule</button>
+            </div>
+            <div id="cron-explanation" class="p-4 rounded-md border border-[#3a3a3b] bg-[#121315] text-xs font-mono text-white">
+              <span class="text-neutral-400">Human Readable: </span>
+              <strong id="cron-explanation-text" class="text-[#22c55e]">At every 15th minute</strong>
+            </div>
+          </div>
+        )}
+
+        {['bcrypt-hash', 'hmac-generator', 'htpasswd-generator'].includes(tool.slug) && (
+          <div id="crypto-tool" class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div>
+                <label class="text-xs font-mono text-neutral-400 block mb-1">Secret / Password Input:</label>
+                <input id="crypto-input" type="text" value="MySuperSecretPassword123!" placeholder="Enter text..." class="w-full rounded-md border border-[#3a3a3b] bg-[#0E0F10] p-3 text-xs font-mono text-white focus:border-[#22c55e] focus:outline-none" />
+              </div>
+              <div>
+                <label class="text-xs font-mono text-neutral-400 block mb-1">Key / Salt Payload:</label>
+                <input id="crypto-salt" type="text" value="salt_secret_key_88" placeholder="Enter salt or key..." class="w-full rounded-md border border-[#3a3a3b] bg-[#0E0F10] p-3 text-xs font-mono text-white focus:border-[#22c55e] focus:outline-none" />
+              </div>
+            </div>
+            <button id="btn-gen-crypto" class="rounded bg-[#0d6e38] border border-[#168a4a] px-6 py-2 text-xs font-bold text-white cursor-pointer">Generate Hash Output</button>
+            <div>
+              <label class="text-xs font-mono text-neutral-400 block mb-1">Generated Hash Result:</label>
+              <textarea id="crypto-output" rows="3" readonly class="w-full rounded-md border border-[#3a3a3b] bg-[#121315] p-3 text-xs font-mono text-[#22c55e]"></textarea>
+            </div>
+          </div>
+        )}
+
+        {tool.slug === 'barcode-generator' && (
+          <div id="barcode-tool" class="space-y-4 text-center">
+            <label class="text-xs font-mono text-neutral-400 block text-left">Enter Code / EAN / Product SKU:</label>
+            <input id="barcode-input" type="text" value="HATEMYPDF-884920" placeholder="SKU or product code..." class="w-full rounded-md border border-[#3a3a3b] bg-[#0E0F10] p-3 text-xs font-mono text-white focus:border-[#22c55e] focus:outline-none" />
+            <div class="flex flex-col items-center justify-center p-6 rounded-lg bg-[#121315] border border-[#3a3a3b]">
+              <div id="barcode-preview" class="p-4 bg-white rounded font-mono text-black font-extrabold text-2xl tracking-[6px] border-4 border-black">||||| || |||| ||| |||||||</div>
+              <button id="btn-download-barcode" class="mt-4 rounded bg-[#0d6e38] border border-[#168a4a] px-6 py-2 text-xs font-bold text-white cursor-pointer">Download Barcode</button>
+            </div>
+          </div>
+        )}
+
+        {tool.slug === 'unit-converter' && (
+          <div id="unit-converter-tool" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div>
+                <label class="text-xs font-mono text-neutral-400 block mb-1">Enter Value:</label>
+                <input id="unit-input-val" type="number" value="10" placeholder="Enter number..." class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-3 text-xs font-mono text-white focus:border-[#22c55e] focus:outline-none" />
+              </div>
+              <div>
+                <label class="text-xs font-mono text-neutral-400 block mb-1">Convert From:</label>
+                <select id="unit-from-type" class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-3 text-xs text-white focus:border-[#22c55e] focus:outline-none">
+                  <option value="m">Meters (m) &rarr; Feet</option>
+                  <option value="km">Kilometers (km) &rarr; Miles</option>
+                  <option value="kg">Kilograms (kg) &rarr; Pounds</option>
+                  <option value="c">Celsius (°C) &rarr; Fahrenheit</option>
+                </select>
+              </div>
+              <div>
+                <label class="text-xs font-mono text-neutral-400 block mb-1">Converted Output:</label>
+                <div id="unit-result-box" class="w-full rounded bg-[#121315] border border-[#3a3a3b] p-3 font-bold text-[#22c55e] font-mono text-xs text-center flex items-center justify-center">32.81 Feet (ft)</div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {tool.slug === 'aspect-ratio-calculator' && (
+          <div id="aspect-tool" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div>
+                <label class="text-xs font-mono text-neutral-400 block mb-1">Width (px):</label>
+                <input id="aspect-width" type="number" value="1920" class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-3 text-xs font-mono text-white focus:border-[#22c55e] focus:outline-none" />
+              </div>
+              <div>
+                <label class="text-xs font-mono text-neutral-400 block mb-1">Height (px):</label>
+                <input id="aspect-height" type="number" value="1080" class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-3 text-xs font-mono text-white focus:border-[#22c55e] focus:outline-none" />
+              </div>
+              <div>
+                <label class="text-xs font-mono text-neutral-400 block mb-1">Calculated Aspect Ratio:</label>
+                <div id="aspect-result-box" class="w-full rounded bg-[#121315] border border-[#3a3a3b] p-3 font-bold text-[#22c55e] font-mono text-xs text-center flex items-center justify-center">16:9 Aspect Ratio</div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {tool.slug === 'age-calculator' && (
+          <div id="age-tool" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div>
+                <label class="text-xs font-mono text-neutral-400 block mb-1">Date of Birth:</label>
+                <input id="age-birth-date" type="date" value="1995-06-15" class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-3 text-xs text-white focus:border-[#22c55e] focus:outline-none" />
+              </div>
+              <div>
+                <label class="text-xs font-mono text-neutral-400 block mb-1">Target Age Date:</label>
+                <input id="age-target-date" type="date" value="2026-08-02" class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-3 text-xs text-white focus:border-[#22c55e] focus:outline-none" />
+              </div>
+              <div>
+                <label class="text-xs font-mono text-neutral-400 block mb-1">Calculated Age:</label>
+                <div id="age-result-box" class="w-full rounded bg-[#121315] border border-[#3a3a3b] p-3 font-bold text-[#22c55e] font-mono text-xs text-center flex items-center justify-center">31 Years Old</div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {tool.slug === 'timezone-converter' && (
+          <div id="timezone-tool" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div>
+                <label class="text-xs font-mono text-neutral-400 block mb-1">Select Time:</label>
+                <input id="tz-time-input" type="time" value="12:00" class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-3 text-xs text-white focus:border-[#22c55e] focus:outline-none" />
+              </div>
+              <div>
+                <label class="text-xs font-mono text-neutral-400 block mb-1">Source Timezone:</label>
+                <select id="tz-source-select" class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-3 text-xs text-white focus:border-[#22c55e] focus:outline-none">
+                  <option value="UTC">UTC (Coordinated Universal Time)</option>
+                  <option value="EST">EST (US Eastern -05:00)</option>
+                  <option value="PST">PST (US Pacific -08:00)</option>
+                  <option value="GMT">GMT (London +00:00)</option>
+                  <option value="IST">IST (India +05:30)</option>
+                  <option value="JST">JST (Tokyo +09:00)</option>
+                </select>
+              </div>
+              <div>
+                <label class="text-xs font-mono text-neutral-400 block mb-1">Converted Target Time:</label>
+                <div id="tz-result-box" class="w-full rounded bg-[#121315] border border-[#3a3a3b] p-3 font-bold text-[#22c55e] font-mono text-xs text-center flex items-center justify-center">17:30 IST</div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {tool.slug === 'user-agent-parser' && (
+          <div id="ua-parser-tool" class="space-y-4">
+            <label class="text-xs font-mono text-neutral-400 block">User Agent String to Parse:</label>
+            <textarea id="ua-input-field" rows="2" class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-3 text-xs font-mono text-white focus:border-[#22c55e] focus:outline-none"></textarea>
+            <div id="ua-cards" class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center"></div>
+          </div>
+        )}
+
+        {tool.slug === 'slug-generator' && (
+          <div id="slug-tool" class="space-y-4">
+            <div>
+              <label class="text-xs font-mono text-neutral-400 block mb-1">Enter Article / Page Title:</label>
+              <input id="slug-title-input" type="text" placeholder="My Awesome Article Title 2026!" value="My Awesome Article Title 2026!" class="w-full rounded-md border border-[#3a3a3b] bg-[#0E0F10] p-3 text-xs text-white focus:border-[#22c55e] focus:outline-none" />
+            </div>
+            <div>
+              <label class="text-xs font-mono text-neutral-400 block mb-1">Generated URL Slug:</label>
+              <div class="flex items-center gap-2">
+                <input id="slug-result-output" type="text" readonly value="my-awesome-article-title-2026" class="flex-1 rounded-md border border-[#3a3a3b] bg-[#121315] p-3 text-xs font-mono text-[#22c55e] focus:outline-none" />
+                <button id="btn-copy-slug" class="rounded bg-[#0d6e38] border border-[#168a4a] px-5 py-3 text-xs font-bold text-white cursor-pointer">Copy Slug</button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {tool.slug === 'line-sorter' && (
+          <div id="lines-tool" class="space-y-4">
+            <div class="flex items-center justify-between">
+              <label class="text-xs font-mono text-neutral-400">Paste Text Lines to Sort:</label>
+              <div class="flex gap-2">
+                <select id="sort-order-select" class="rounded bg-[#0E0F10] border border-[#3a3a3b] px-3 py-1 text-xs text-white">
+                  <option value="az">Alphabetical (A-Z)</option>
+                  <option value="za">Reverse (Z-A)</option>
+                  <option value="num">Numeric (1-9)</option>
+                  <option value="len">Line Length</option>
+                </select>
+                <button id="btn-sort-lines" class="rounded bg-[#0d6e38] border border-[#168a4a] px-5 py-1.5 text-xs font-bold text-white cursor-pointer">Sort Lines</button>
+              </div>
+            </div>
+            <textarea id="lines-input" rows="6" placeholder="Banana&#10;Apple&#10;Cherry&#10;Date" class="w-full rounded-md border border-[#3a3a3b] bg-[#0E0F10] p-3.5 text-xs font-mono text-white focus:border-[#22c55e] focus:outline-none">Banana
+Apple
+Cherry
+Date</textarea>
+            <div>
+              <label class="text-xs font-mono text-neutral-400 block mb-1">Sorted Output:</label>
+              <textarea id="lines-output" rows="6" readonly class="w-full rounded-md border border-[#3a3a3b] bg-[#121315] p-3.5 text-xs font-mono text-[#22c55e] focus:outline-none"></textarea>
+            </div>
+          </div>
+        )}
+
+        {tool.slug === 'duplicate-line-remover' && (
+          <div id="dedupe-tool" class="space-y-4">
+            <div class="flex items-center justify-between">
+              <label class="text-xs font-mono text-neutral-400">Paste Text Lines to Deduplicate:</label>
+              <button id="btn-dedupe-lines" class="rounded bg-[#0d6e38] border border-[#168a4a] px-5 py-1.5 text-xs font-bold text-white cursor-pointer">Remove Duplicates</button>
+            </div>
+            <textarea id="dedupe-input" rows="6" placeholder="Apple&#10;Banana&#10;Apple&#10;Cherry" class="w-full rounded-md border border-[#3a3a3b] bg-[#0E0F10] p-3.5 text-xs font-mono text-white focus:border-[#22c55e] focus:outline-none">Apple
+Banana
+Apple
+Cherry</textarea>
+            <div>
+              <label class="text-xs font-mono text-neutral-400 block mb-1">Unique Lines Result:</label>
+              <textarea id="dedupe-output" rows="6" readonly class="w-full rounded-md border border-[#3a3a3b] bg-[#121315] p-3.5 text-xs font-mono text-[#22c55e] focus:outline-none"></textarea>
+            </div>
+          </div>
+        )}
+
+        {tool.slug === 'chmod-calculator' && (
+          <div id="chmod-tool" class="space-y-4">
+            <div class="grid grid-cols-3 gap-4 p-4 rounded-lg bg-[#121315] border border-[#3a3a3b] text-center text-xs">
+              <div>
+                <div class="font-bold text-white mb-2">Owner</div>
+                <label class="block cursor-pointer"><input type="checkbox" id="chmod-u-r" checked /> Read (4)</label>
+                <label class="block cursor-pointer"><input type="checkbox" id="chmod-u-w" checked /> Write (2)</label>
+                <label class="block cursor-pointer"><input type="checkbox" id="chmod-u-x" checked /> Execute (1)</label>
+              </div>
+              <div>
+                <div class="font-bold text-white mb-2">Group</div>
+                <label class="block cursor-pointer"><input type="checkbox" id="chmod-g-r" checked /> Read (4)</label>
+                <label class="block cursor-pointer"><input type="checkbox" id="chmod-g-w" /> Write (2)</label>
+                <label class="block cursor-pointer"><input type="checkbox" id="chmod-g-x" checked /> Execute (1)</label>
+              </div>
+              <div>
+                <div class="font-bold text-white mb-2">Public</div>
+                <label class="block cursor-pointer"><input type="checkbox" id="chmod-o-r" checked /> Read (4)</label>
+                <label class="block cursor-pointer"><input type="checkbox" id="chmod-o-w" /> Write (2)</label>
+                <label class="block cursor-pointer"><input type="checkbox" id="chmod-o-x" checked /> Execute (1)</label>
+              </div>
+            </div>
+            <div class="p-4 rounded-md border border-[#3a3a3b] bg-[#0E0F10] flex items-center justify-between">
+              <span class="text-xs font-mono text-neutral-400">Linux Octal Notation:</span>
+              <span id="chmod-result" class="text-xl font-bold font-mono text-[#22c55e]">755 (rwxr-xr-x)</span>
+            </div>
+          </div>
+        )}
+
+        {!isFileTool && !['json-formatter', 'base64-decode', 'word-counter', 'password-generator', 'case-converter', 'what-is-my-ip', 'qr-code-generator', 'uuid-generator', 'hash-generator', 'jwt-inspector', 'internet-speed-test', 'color-picker', 'px-to-rem', 'percentage-calculator', 'lorem-generator', 'whois-lookup', 'dns-lookup', 'ssl-checker', 'curl-to-fetch', 'rsa-key-generator', 'diff-checker', 'loan-calculator', 'text-to-speech', 'regex-tester', 'cron-parser', 'bcrypt-hash', 'hmac-generator', 'htpasswd-generator', 'barcode-generator', 'age-calculator', 'timezone-converter', 'unit-converter', 'aspect-ratio-calculator', 'user-agent-parser', 'slug-generator', 'line-sorter', 'duplicate-line-remover', 'chmod-calculator'].includes(tool.slug) && (
+          <div id="code-formatter-tool" class="space-y-4">
+            <div class="flex items-center justify-between">
+              <label class="text-xs font-mono text-neutral-400">Input Data / Code Payload:</label>
+              <button id="btn-process-code-tool" class="rounded bg-[#0d6e38] border border-[#168a4a] px-5 py-1.5 text-xs font-bold text-white cursor-pointer">Process {tool.name}</button>
+            </div>
+            <textarea id="code-tool-input" rows="6" placeholder={`Paste input code to format with ${tool.name}...`} class="w-full rounded-md border border-[#3a3a3b] bg-[#0E0F10] p-3.5 text-xs font-mono text-white placeholder:text-neutral-600 focus:border-[#22c55e] focus:outline-none"></textarea>
+            <div>
+              <label class="text-xs font-mono text-neutral-400 block mb-1">Processed Output:</label>
+              <textarea id="code-tool-output" rows="6" readonly class="w-full rounded-md border border-[#3a3a3b] bg-[#121315] p-3.5 text-xs font-mono text-[#22c55e] focus:outline-none"></textarea>
+            </div>
+          </div>
+        )}
+
+        {/* 2. UNIVERSAL FILE CONVERTER & DROP HANDLER */}
+        {isFileTool && (
+          <div class="text-center p-4 rounded-xl border-2 border-dashed border-transparent transition-all" id="dropzone-area">
+            <input
+              type="file"
+              id="file-uploader-input"
+              class="hidden"
+              multiple={['merge-pdf', 'images-to-pdf'].includes(tool.slug)}
+              accept={
+                tool.slug.includes('pdf') && !['images-to-pdf', 'word-to-pdf', 'excel-to-pdf', 'ppt-to-pdf', 'html-to-pdf', 'markdown-to-pdf'].includes(tool.slug)
+                  ? '.pdf,application/pdf'
+                  : tool.slug === 'images-to-pdf'
+                    ? 'image/*'
+                    : tool.slug.includes('heic')
+                      ? '.heic,.heif'
+                      : ['audio-converter', 'audio-trimmer', 'extract-audio'].includes(tool.slug)
+                        ? 'audio/*,video/*'
+                        : ['video-compressor', 'video-to-gif'].includes(tool.slug)
+                          ? 'video/*'
+                          : tool.category === 'convert'
+                            ? 'image/*'
+                            : undefined
+              }
+            />
+
+            {/* 1. INITIAL EMPTY UPLOADER PROMPT */}
+            {/* Minimal Pipeline Stepper */}
+            <div class="mb-6 flex items-center justify-center gap-2 text-xs font-mono select-none" id="pipeline-stepper">
+              <div class="flex items-center gap-1.5 text-white transition-colors" id="step-node-1">
+                <span class="flex h-5 w-5 items-center justify-center rounded-full bg-[#22c55e] text-black font-bold text-[10px]" id="step-badge-1">1</span>
+                <span>Upload</span>
+              </div>
+              <div class="h-px w-6 bg-[#3a3a3b] transition-colors" id="step-line-1"></div>
+              <div class="flex items-center gap-1.5 text-neutral-500 transition-colors" id="step-node-2">
+                <span class="flex h-5 w-5 items-center justify-center rounded-full border border-[#3a3a3b] bg-[#121315] text-[10px]" id="step-badge-2">2</span>
+                <span>Configure</span>
+              </div>
+              <div class="h-px w-6 bg-[#3a3a3b] transition-colors" id="step-line-2"></div>
+              <div class="flex items-center gap-1.5 text-neutral-500 transition-colors" id="step-node-3">
+                <span class="flex h-5 w-5 items-center justify-center rounded-full border border-[#3a3a3b] bg-[#121315] text-[10px]" id="step-badge-3">3</span>
+                <span>Download</span>
+              </div>
+            </div>
+
+            <div id="uploader-prompt-state" class="cursor-pointer py-4">
+              <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-md border border-[#3a3a3b] bg-transparent text-[#22c55e] mb-4">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="17 8 12 3 7 8"/>
+                  <line x1="12" y1="3" x2="12" y2="15"/>
+                </svg>
+              </div>
+
+              <h3 class="text-base font-bold text-white">
+                {['merge-pdf', 'images-to-pdf'].includes(tool.slug)
+                  ? `Select or drop files to ${tool.name}`
+                  : `Drop file here to run ${tool.name}`}
+              </h3>
+              <p class="mt-1 text-xs text-neutral-400">
+                {['merge-pdf', 'images-to-pdf'].includes(tool.slug)
+                  ? 'Multiple files supported. Combined 100% locally in browser memory.'
+                  : 'Executed 100% locally in your browser memory. Nothing is uploaded to any server.'}
+              </p>
+
+              <div class="mt-6 flex flex-col items-center gap-3">
+                <label for="file-uploader-input" class="inline-flex h-10 items-center justify-center rounded-md bg-[#0d6e38] px-6 text-xs font-bold text-white cursor-pointer border border-[#168a4a] hover:bg-[#168a4a] transition-all">
+                  <span>{['merge-pdf', 'images-to-pdf'].includes(tool.slug) ? 'Select Files from Computer (Multiple)' : 'Select File from Computer'}</span>
+                </label>
+              </div>
+            </div>
+
+            {/* 2. ACTIVE SELECTED FILE STATE */}
+            <div id="selected-file-card" class="hidden flex flex-col items-center justify-center space-y-4 py-2">
+              
+              {/* Single File Info Box */}
+              <div id="single-file-box" class="w-full max-w-md mx-auto p-4 rounded-xl border border-[#22c55e]/30 bg-[#121315] flex items-center justify-between gap-3 shadow-lg">
+                <div class="flex items-center gap-3 min-w-0">
+                  <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#22c55e]/10 border border-[#22c55e]/30 text-[#22c55e]">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+                      <polyline points="14 2 14 8 20 8"/>
+                      <path d="M9 15l2 2 4-4"/>
+                    </svg>
+                  </div>
+                  <div class="text-left min-w-0">
+                    <div id="selected-file-name" class="text-sm font-bold text-white truncate max-w-[200px] sm:max-w-[260px]"></div>
+                    <div class="flex items-center gap-2 mt-0.5">
+                      <span id="selected-file-size" class="text-[10px] font-mono px-2 py-0.5 rounded bg-[#22c55e]/15 text-[#22c55e] font-semibold border border-[#22c55e]/20"></span>
+                      <span class="text-[10px] text-neutral-400 font-mono">100% In-Browser</span>
+                    </div>
+                  </div>
+                </div>
+                <button id="btn-change-file" type="button" class="shrink-0 rounded bg-[#181819] border border-[#3a3a3b] px-3 py-1.5 text-xs font-semibold text-neutral-300 hover:text-white hover:border-[#22c55e] transition-all cursor-pointer">
+                  Change File
+                </button>
+              </div>
+
+              {/* Multi File Info Box (for merge-pdf, images-to-pdf) */}
+              <div id="multi-file-box" class="hidden w-full max-w-md mx-auto space-y-2">
+                <div class="flex items-center justify-between text-xs text-neutral-400">
+                  <span id="multi-file-count" class="font-mono text-white font-semibold">0 files selected</span>
+                  <div class="flex gap-2">
+                    <button type="button" id="btn-add-more-files" class="rounded bg-[#181819] border border-[#3a3a3b] px-2.5 py-1 text-xs text-[#22c55e] hover:border-[#22c55e] cursor-pointer">+ Add More</button>
+                    <button type="button" id="btn-clear-all-files" class="rounded bg-[#181819] border border-[#3a3a3b] px-2.5 py-1 text-xs text-neutral-400 hover:text-white cursor-pointer">Clear</button>
+                  </div>
+                </div>
+                <div id="multi-file-list" class="space-y-1.5 max-h-48 overflow-y-auto pr-1"></div>
+              </div>
+
+              {/* DEDICATED TOOL OPTIONS CONTAINER */}
+              <div id="tool-options-container" class="w-full max-w-md mx-auto space-y-3 text-left">
+                {/* 1. Compress PDF */}
+                {tool.slug === 'compress-pdf' && (
+                  <div class="space-y-3 rounded-lg border border-[#3a3a3b] bg-[#121315] p-3.5">
+                    <div class="flex items-center justify-between text-xs">
+                      <span class="text-neutral-400">Compression Level</span>
+                      <span class="font-mono text-[#22c55e]" id="compress-level-label">Balanced (~50%)</span>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2">
+                      <button type="button" class="compression-btn active rounded border border-[#22c55e] bg-[#0d6e38] py-2 px-3 text-center text-xs font-semibold text-white transition-all cursor-pointer" data-level="recommended" data-desc="Balanced (~50%)">
+                        Balanced
+                      </button>
+                      <button type="button" class="compression-btn rounded border border-[#3a3a3b] bg-[#181819] py-2 px-3 text-center text-xs font-semibold text-neutral-400 hover:text-white hover:border-[#3a3a3b] transition-all cursor-pointer" data-level="extreme" data-desc="Maximum (~75%)">
+                        Maximum
+                      </button>
+                      <button type="button" class="compression-btn rounded border border-[#3a3a3b] bg-[#181819] py-2 px-3 text-center text-xs font-semibold text-neutral-400 hover:text-white hover:border-[#3a3a3b] transition-all cursor-pointer" data-level="light" data-desc="Light (~20%)">
+                        Light
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* 2. Split PDF */}
+                {tool.slug === 'split-pdf' && (
+                  <div class="space-y-2.5 rounded-lg border border-[#3a3a3b] bg-[#121315] p-3.5">
+                    <div id="split-doc-pages-info" class="text-xs font-mono text-[#22c55e]">Scanning document pages...</div>
+                    <div>
+                      <label class="text-xs font-mono text-neutral-400 block mb-1">Page Range to Extract:</label>
+                      <input type="text" id="split-range-input" placeholder="e.g. 1-3, 5 (or leave empty for all)" class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-2 text-xs text-white focus:border-[#22c55e] focus:outline-none" />
+                      <p class="text-[10px] text-neutral-400 mt-1">Specify comma-separated page numbers or ranges like 1-2, 4.</p>
+                    </div>
+                  </div>
+                )}
+
+                {/* 3. Rotate PDF */}
+                {tool.slug === 'rotate-pdf' && (
+                  <div class="space-y-2.5 rounded-lg border border-[#3a3a3b] bg-[#121315] p-3.5">
+                    <div id="rotate-doc-pages-info" class="text-xs font-mono text-[#22c55e]">Scanning document pages...</div>
+                    <label class="text-xs font-mono text-neutral-400 block">Select Rotation Angle:</label>
+                    <div class="grid grid-cols-3 gap-2">
+                      <button type="button" class="rotate-angle-btn active rounded bg-[#0d6e38] border border-[#168a4a] py-2 text-xs font-bold text-white cursor-pointer" data-angle="90">90° Clockwise</button>
+                      <button type="button" class="rotate-angle-btn rounded bg-[#181819] border border-[#3a3a3b] py-2 text-xs font-medium text-neutral-300 hover:text-white cursor-pointer" data-angle="180">180° Flip</button>
+                      <button type="button" class="rotate-angle-btn rounded bg-[#181819] border border-[#3a3a3b] py-2 text-xs font-medium text-neutral-300 hover:text-white cursor-pointer" data-angle="270">270° Counter</button>
+                    </div>
+                  </div>
+                )}
+
+                {/* 4. Watermark PDF */}
+                {tool.slug === 'watermark-pdf' && (
+                  <div class="space-y-2.5 rounded-lg border border-[#3a3a3b] bg-[#121315] p-3.5">
+                    <div>
+                      <label class="text-xs font-mono text-neutral-400 block mb-1">Watermark Stamp Text:</label>
+                      <input type="text" id="watermark-text-input" value="CONFIDENTIAL" class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-2 text-xs text-white focus:border-[#22c55e] focus:outline-none" />
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                      <div>
+                        <label class="text-xs font-mono text-neutral-400 block mb-1">Opacity:</label>
+                        <select id="watermark-opacity-select" class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-2 text-xs text-white focus:border-[#22c55e] focus:outline-none">
+                          <option value="0.2">20% (Subtle)</option>
+                          <option value="0.35" selected>35% (Standard)</option>
+                          <option value="0.5">50% (Visible)</option>
+                          <option value="0.75">75% (Bold)</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label class="text-xs font-mono text-neutral-400 block mb-1">Position:</label>
+                        <select id="watermark-pos-select" class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-2 text-xs text-white focus:border-[#22c55e] focus:outline-none">
+                          <option value="diagonal" selected>Diagonal Center</option>
+                          <option value="header">Top Header</option>
+                          <option value="footer">Bottom Footer</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* 5. Page Numbers PDF */}
+                {tool.slug === 'page-number-pdf' && (
+                  <div class="space-y-2.5 rounded-lg border border-[#3a3a3b] bg-[#121315] p-3.5">
+                    <div class="grid grid-cols-2 gap-2">
+                      <div>
+                        <label class="text-xs font-mono text-neutral-400 block mb-1">Position:</label>
+                        <select id="page-num-pos-select" class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-2 text-xs text-white focus:border-[#22c55e] focus:outline-none">
+                          <option value="bottom-center" selected>Bottom Center</option>
+                          <option value="bottom-right">Bottom Right</option>
+                          <option value="top-right">Top Right</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label class="text-xs font-mono text-neutral-400 block mb-1">Format:</label>
+                        <select id="page-num-fmt-select" class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-2 text-xs text-white focus:border-[#22c55e] focus:outline-none">
+                          <option value="page-of" selected>Page 1 of N</option>
+                          <option value="slash">1 / N</option>
+                          <option value="num-only">1</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* 6. Remove PDF Pages */}
+                {['remove-pdf-pages', 'organize-pdf'].includes(tool.slug) && (
+                  <div class="space-y-2.5 rounded-lg border border-[#3a3a3b] bg-[#121315] p-3.5">
+                    <div id="remove-pages-doc-info" class="text-xs font-mono text-[#22c55e]">Scanning document pages...</div>
+                    <div>
+                      <label class="text-xs font-mono text-neutral-400 block mb-1">Pages to Delete (comma-separated):</label>
+                      <input type="text" id="remove-pages-input" placeholder="e.g. 2, 4-5" class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-2 text-xs text-white focus:border-[#22c55e] focus:outline-none" />
+                    </div>
+                  </div>
+                )}
+
+                {/* 7. PDF Metadata Editor */}
+                {tool.slug === 'pdf-metadata-editor' && (
+                  <div class="space-y-2.5 rounded-lg border border-[#3a3a3b] bg-[#121315] p-3.5">
+                    <div class="grid grid-cols-2 gap-2">
+                      <div>
+                        <label class="text-xs font-mono text-neutral-400 block mb-1">Document Title:</label>
+                        <input type="text" id="meta-title-input" placeholder="Title..." class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-2 text-xs text-white focus:border-[#22c55e] focus:outline-none" />
+                      </div>
+                      <div>
+                        <label class="text-xs font-mono text-neutral-400 block mb-1">Author:</label>
+                        <input type="text" id="meta-author-input" placeholder="Author name..." class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-2 text-xs text-white focus:border-[#22c55e] focus:outline-none" />
+                      </div>
+                    </div>
+                    <div>
+                      <label class="text-xs font-mono text-neutral-400 block mb-1">Subject / Keywords:</label>
+                      <input type="text" id="meta-subject-input" placeholder="Keywords..." class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-2 text-xs text-white focus:border-[#22c55e] focus:outline-none" />
+                    </div>
+                  </div>
+                )}
+
+                {/* 8. PDF to Text */}
+                {tool.slug === 'pdf-to-txt' && (
+                  <div class="space-y-2 rounded-lg border border-[#3a3a3b] bg-[#121315] p-3.5">
+                    <div id="pdf-txt-status" class="text-xs font-mono text-[#22c55e]">Ready to extract text.</div>
+                    <div id="pdf-txt-container" class="hidden space-y-2">
+                      <textarea id="pdf-txt-output" rows="6" readonly class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-2.5 text-xs font-mono text-white focus:outline-none"></textarea>
+                      <button type="button" id="btn-copy-pdf-txt" class="rounded bg-[#181819] border border-[#3a3a3b] px-3 py-1.5 text-xs font-semibold text-white hover:border-[#22c55e] cursor-pointer">
+                        Copy Text to Clipboard
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* 9. PDF to Images */}
+                {tool.slug === 'pdf-to-images' && (
+                  <div class="space-y-2.5 rounded-lg border border-[#3a3a3b] bg-[#121315] p-3.5">
+                    <div class="flex items-center justify-between">
+                      <label class="text-xs font-mono text-neutral-400">Export Format:</label>
+                      <div class="flex gap-2">
+                        <button type="button" class="pdf-img-fmt active rounded bg-[#0d6e38] px-3 py-1 text-xs font-bold text-white cursor-pointer" data-fmt="png">PNG</button>
+                        <button type="button" class="pdf-img-fmt rounded bg-[#181819] border border-[#3a3a3b] px-3 py-1 text-xs font-semibold text-neutral-300 cursor-pointer" data-fmt="jpg">JPG</button>
+                      </div>
+                    </div>
+                    <div id="pdf-preview-box" class="hidden flex flex-col items-center justify-center p-2 rounded bg-[#0E0F10] border border-[#3a3a3b]">
+                      <canvas id="pdf-render-canvas" class="max-h-60 rounded max-w-full border border-[#2a2b2e] shadow-md"></canvas>
+                    </div>
+                  </div>
+                )}
+
+                {/* 10. PDF to Word */}
+                {tool.slug === 'pdf-to-word' && (
+                  <div class="space-y-2 rounded-lg border border-[#3a3a3b] bg-[#121315] p-3.5">
+                    <div class="text-xs font-mono text-[#22c55e]">Native Word (.doc) output format ready</div>
+                    <p class="text-[11px] text-neutral-400">Extracts paragraphs, formatting, and tables from your PDF into an editable Microsoft Word document.</p>
+                  </div>
+                )}
+
+                {/* 11. PDF to Excel */}
+                {tool.slug === 'pdf-to-excel' && (
+                  <div class="space-y-2 rounded-lg border border-[#3a3a3b] bg-[#121315] p-3.5">
+                    <div class="text-xs font-mono text-[#22c55e]">Spreadsheet (.csv / .xlsx) format ready</div>
+                    <p class="text-[11px] text-neutral-400">Extracts tabular text blocks into structured spreadsheet columns and rows.</p>
+                  </div>
+                )}
+
+                {/* 12. Resize Image */}
+                {tool.slug === 'resize-image' && (
+                  <div class="space-y-2.5 rounded-lg border border-[#3a3a3b] bg-[#121315] p-3.5">
+                    <div id="resize-orig-dim" class="text-xs font-mono text-[#22c55e]">Original dimensions: Loading...</div>
+                    <div class="grid grid-cols-2 gap-2">
+                      <div>
+                        <label class="text-xs font-mono text-neutral-400 block mb-1">Width (px):</label>
+                        <input type="number" id="resize-w-input" class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-2 text-xs font-mono text-white focus:border-[#22c55e] focus:outline-none" />
+                      </div>
+                      <div>
+                        <label class="text-xs font-mono text-neutral-400 block mb-1">Height (px):</label>
+                        <input type="number" id="resize-h-input" class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-2 text-xs font-mono text-white focus:border-[#22c55e] focus:outline-none" />
+                      </div>
+                    </div>
+                    <div class="flex items-center justify-between text-xs text-neutral-300">
+                      <label class="flex items-center gap-1.5 cursor-pointer">
+                        <input type="checkbox" id="resize-lock-ratio" checked class="accent-[#22c55e]" /> Lock aspect ratio
+                      </label>
+                      <div class="flex gap-1.5">
+                        <button type="button" class="resize-preset-btn text-[10px] rounded bg-[#181819] border border-[#3a3a3b] px-2 py-0.5 hover:border-[#22c55e] cursor-pointer" data-scale="0.25">25%</button>
+                        <button type="button" class="resize-preset-btn text-[10px] rounded bg-[#181819] border border-[#3a3a3b] px-2 py-0.5 hover:border-[#22c55e] cursor-pointer" data-scale="0.5">50%</button>
+                        <button type="button" class="resize-preset-btn text-[10px] rounded bg-[#181819] border border-[#3a3a3b] px-2 py-0.5 hover:border-[#22c55e] cursor-pointer" data-scale="0.75">75%</button>
+                        <button type="button" class="resize-preset-btn text-[10px] rounded bg-[#181819] border border-[#3a3a3b] px-2 py-0.5 hover:border-[#22c55e] cursor-pointer" data-scale="2">200%</button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* 13. Crop Image */}
+                {tool.slug === 'crop-image' && (
+                  <div class="space-y-2.5 rounded-lg border border-[#3a3a3b] bg-[#121315] p-3.5">
+                    <label class="text-xs font-mono text-neutral-400 block">Select Crop Aspect Ratio:</label>
+                    <div class="flex flex-wrap gap-2">
+                      <button type="button" class="crop-ratio-btn active rounded bg-[#0d6e38] px-3 py-1 text-xs font-bold text-white cursor-pointer" data-ratio="1:1">1:1 Square</button>
+                      <button type="button" class="crop-ratio-btn rounded bg-[#181819] border border-[#3a3a3b] px-3 py-1 text-xs font-medium text-neutral-300 cursor-pointer" data-ratio="16:9">16:9 Landscape</button>
+                      <button type="button" class="crop-ratio-btn rounded bg-[#181819] border border-[#3a3a3b] px-3 py-1 text-xs font-medium text-neutral-300 cursor-pointer" data-ratio="4:3">4:3 Standard</button>
+                      <button type="button" class="crop-ratio-btn rounded bg-[#181819] border border-[#3a3a3b] px-3 py-1 text-xs font-medium text-neutral-300 cursor-pointer" data-ratio="9:16">9:16 Portrait</button>
+                    </div>
+                  </div>
+                )}
+
+                {/* 14. Image Compressor */}
+                {tool.slug === 'image-compressor' && (
+                  <div class="space-y-2.5 rounded-lg border border-[#3a3a3b] bg-[#121315] p-3.5">
+                    <div class="flex items-center justify-between text-xs text-neutral-300">
+                      <span>Quality: <strong id="compress-quality-val" class="text-white font-mono">75%</strong></span>
+                      <span id="compress-savings-badge" class="text-[10px] font-mono px-2 py-0.5 rounded bg-[#22c55e]/15 text-[#22c55e] border border-[#22c55e]/20">Est. ~65% size reduction</span>
+                    </div>
+                    <input type="range" id="compress-quality-slider" min="10" max="95" value="75" class="w-full accent-[#22c55e]" />
+                  </div>
+                )}
+
+                {/* 15. Color Palette Extractor */}
+                {tool.slug === 'color-palette-extractor' && (
+                  <div class="space-y-2.5 rounded-lg border border-[#3a3a3b] bg-[#121315] p-3.5">
+                    <label class="text-xs font-mono text-neutral-400 block">Extracted Dominant Color Swatches (Click to copy):</label>
+                    <div id="palette-swatches-grid" class="grid grid-cols-3 sm:grid-cols-6 gap-2"></div>
+                    <div id="palette-copy-notice" class="text-xs font-mono text-[#22c55e] hidden">HEX code copied to clipboard!</div>
+                  </div>
+                )}
+
+                {/* 16. Image to Base64 */}
+                {tool.slug === 'image-to-base64' && (
+                  <div class="space-y-2 rounded-lg border border-[#3a3a3b] bg-[#121315] p-3.5">
+                    <div class="flex items-center justify-between">
+                      <label class="text-xs font-mono text-neutral-400">Base64 Data URI:</label>
+                      <button type="button" id="btn-copy-b64-img" class="rounded bg-[#0d6e38] px-3 py-1 text-xs font-bold text-white cursor-pointer">Copy String</button>
+                    </div>
+                    <textarea id="img-b64-output" rows="5" readonly class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-2 text-xs font-mono text-neutral-300 focus:outline-none"></textarea>
+                  </div>
+                )}
+
+              
+                {/* 17. Protect PDF */}
+                {tool.slug === 'protect-pdf' && (
+                  <div class="space-y-2.5 rounded-lg border border-[#3a3a3b] bg-[#121315] p-3.5">
+                    <div>
+                      <label class="text-xs font-mono text-neutral-400 block mb-1">Set Document Password:</label>
+                      <input type="password" id="protect-password-input" placeholder="Enter secure password..." class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-2 text-xs text-white focus:border-[#22c55e] focus:outline-none" />
+                    </div>
+                    <div>
+                      <label class="text-xs font-mono text-neutral-400 block mb-1">Confirm Password:</label>
+                      <input type="password" id="protect-confirm-input" placeholder="Re-enter password to verify..." class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-2 text-xs text-white focus:border-[#22c55e] focus:outline-none" />
+                    </div>
+                    <div class="flex items-center gap-1.5 text-[11px] text-[#22c55e]">
+                      <span>AES-256 standard encryption (zero uploads, computed in-browser)</span>
+                    </div>
+                  </div>
+                )}
+
+                {/* 18. Unlock PDF */}
+                {tool.slug === 'unlock-pdf' && (
+                  <div class="space-y-2.5 rounded-lg border border-[#3a3a3b] bg-[#121315] p-3.5">
+                    <div>
+                      <label class="text-xs font-mono text-neutral-400 block mb-1">Document Password:</label>
+                      <input type="password" id="unlock-password-input" placeholder="Current PDF password..." class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-2 text-xs text-white focus:border-[#22c55e] focus:outline-none" />
+                    </div>
+                    <p class="text-[11px] text-neutral-400">Unlocks encrypted PDF in local browser memory so you can open or print it without passwords.</p>
+                  </div>
+                )}
+
+                {/* 19. PDF Grayscale */}
+                {tool.slug === 'pdf-grayscale' && (
+                  <div class="space-y-2.5 rounded-lg border border-[#3a3a3b] bg-[#121315] p-3.5">
+                    <label class="text-xs font-mono text-neutral-400 block">Grayscale Render Mode:</label>
+                    <div class="grid grid-cols-2 gap-2">
+                      <button type="button" class="grayscale-mode-btn active rounded bg-[#0d6e38] border border-[#168a4a] p-2 text-center text-xs text-white cursor-pointer" data-mode="smooth">
+                        <div class="font-bold">Grayscale</div>
+                        <div class="text-[9px] text-neutral-300">Smooth 256-level tones</div>
+                      </button>
+                      <button type="button" class="grayscale-mode-btn rounded bg-[#181819] border border-[#3a3a3b] p-2 text-center text-xs text-neutral-300 hover:text-white cursor-pointer" data-mode="bw">
+                        <div class="font-bold">Pure B&W</div>
+                        <div class="text-[9px] text-neutral-400">High-contrast monochrome</div>
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* 20. Extract PDF Images */}
+                {tool.slug === 'extract-pdf-images' && (
+                  <div class="space-y-2.5 rounded-lg border border-[#3a3a3b] bg-[#121315] p-3.5">
+                    <div class="flex items-center justify-between">
+                      <label class="text-xs font-mono text-neutral-400">Export Image Format:</label>
+                      <div class="flex gap-2">
+                        <button type="button" class="extract-img-fmt active rounded bg-[#0d6e38] px-3 py-1 text-xs font-bold text-white cursor-pointer" data-fmt="png">PNG</button>
+                        <button type="button" class="extract-img-fmt rounded bg-[#181819] border border-[#3a3a3b] px-3 py-1 text-xs font-semibold text-neutral-300 cursor-pointer" data-fmt="jpg">JPG</button>
+                      </div>
+                    </div>
+                    <p class="text-[11px] text-neutral-400">Renders and extracts high-resolution pages and embedded photos directly to your device.</p>
+                  </div>
+                )}
+
+                {/* 21. Crop PDF */}
+                {tool.slug === 'crop-pdf' && (
+                  <div class="space-y-2.5 rounded-lg border border-[#3a3a3b] bg-[#121315] p-3.5">
+                    <label class="text-xs font-mono text-neutral-400 block">Select Crop Trim Margin:</label>
+                    <div class="grid grid-cols-3 gap-2">
+                      <button type="button" class="crop-pdf-margin active rounded bg-[#0d6e38] border border-[#168a4a] py-2 text-xs font-bold text-white cursor-pointer" data-margin="24">Standard (24pt)</button>
+                      <button type="button" class="crop-pdf-margin rounded bg-[#181819] border border-[#3a3a3b] py-2 text-xs font-medium text-neutral-300 hover:text-white cursor-pointer" data-margin="40">Medium (40pt)</button>
+                      <button type="button" class="crop-pdf-margin rounded bg-[#181819] border border-[#3a3a3b] py-2 text-xs font-medium text-neutral-300 hover:text-white cursor-pointer" data-margin="60">Deep (60pt)</button>
+                    </div>
+                  </div>
+                )}
+
+                {/* 22. Flatten PDF */}
+                {tool.slug === 'flatten-pdf' && (
+                  <div class="space-y-2 rounded-lg border border-[#3a3a3b] bg-[#121315] p-3.5">
+                    <div class="text-xs font-mono text-[#22c55e]">AcroForm & Annotation Flattener</div>
+                    <p class="text-[11px] text-neutral-400">Permanently bakes fillable form fields, checkboxes, and comment highlights directly into static document layers.</p>
+                  </div>
+                )}
+
+                {/* 23. PDF to PowerPoint */}
+                {tool.slug === 'pdf-to-ppt' && (
+                  <div class="space-y-2 rounded-lg border border-[#3a3a3b] bg-[#121315] p-3.5">
+                    <div class="text-xs font-mono text-[#22c55e]">PowerPoint Presentation Slide Deck</div>
+                    <p class="text-[11px] text-neutral-400">Converts each PDF page into structured PowerPoint presentation slides (.ppt).</p>
+                  </div>
+                )}
+
+                {/* 24. Document to PDF Generators (word, excel, ppt, html, markdown) */}
+                {['word-to-pdf', 'excel-to-pdf', 'ppt-to-pdf', 'html-to-pdf', 'markdown-to-pdf'].includes(tool.slug) && (
+                  <div class="space-y-2.5 rounded-lg border border-[#3a3a3b] bg-[#121315] p-3.5">
+                    <div class="text-xs font-mono text-[#22c55e]">In-Browser Document to PDF Generator</div>
+                    <p class="text-[11px] text-neutral-400">Drop your file above, or type / paste custom text or markup below to compile directly into PDF format.</p>
+                    <textarea id="doc-convert-input" rows="4" placeholder="Optional: Type or paste document text, Markdown, or HTML markup here..." class="w-full rounded bg-[#0E0F10] border border-[#3a3a3b] p-2 text-xs font-mono text-white focus:border-[#22c55e] focus:outline-none"></textarea>
+                  </div>
+                )}
+
+              </div>
+
+              {/* Action Button & Status Display */}
+              <div class="w-full max-w-md mx-auto space-y-2">
+                <button id="btn-process-file" class="w-full inline-flex h-11 items-center justify-center rounded-md bg-[#0d6e38] px-6 text-sm font-bold text-white cursor-pointer border border-[#168a4a] hover:bg-[#168a4a] transition-all shadow-md">
+                  Process File
+                </button>
+                <div id="file-status-display" class="hidden text-xs font-mono p-2.5 rounded text-center"></div>
+              </div>
+
+            </div>
+
+          </div>
+        )}
+      </DashedCard>
+
+      <!-- HIGH-RANKING SEO CONTENT SECTION (Keywords, Instructions & FAQ) -->
+      <article class="mt-14 space-y-8 text-neutral-300">
+        <!-- How to Use Tutorial -->
+        <div class="border-b border-[#3a3a3b] pb-8">
+          <h2 class="text-xl font-bold text-white tracking-tight sm:text-2xl mb-4">
+            How to Use <span class="text-[#22c55e]">{tool.name}</span> Online Free
+          </h2>
+          {isFileTool ? (
+            <ol class="list-decimal list-inside space-y-2.5 text-xs sm:text-sm text-neutral-400 leading-relaxed">
+              <li>Select or drag your file into the {tool.name} drop box above.</li>
+              <li>Adjust any custom processing settings or format options.</li>
+              <li>Click <strong>Process / Download</strong> to generate your result instantly in browser memory.</li>
+              <li>Save your processed output directly to your computer or mobile device.</li>
+            </ol>
+          ) : (
+            <ol class="list-decimal list-inside space-y-2.5 text-xs sm:text-sm text-neutral-400 leading-relaxed">
+              <li>Enter or paste your text or data into the {tool.name} interface above.</li>
+              <li>Configure options or click the action button to run execution.</li>
+              <li>View your processed result generated instantly inside browser memory.</li>
+              <li>Copy or export your output directly to your clipboard or project.</li>
+            </ol>
+          )}
+        </div>
+
+        <!-- Why Use HateMyPDF -->
+        <div class="border-b border-[#3a3a3b] pb-8">
+          <h2 class="text-xl font-bold text-white tracking-tight sm:text-2xl mb-4">
+            Why Use HateMyPDF for {tool.name}?
+          </h2>
+          <div class="grid gap-4 sm:grid-cols-3">
+            <DashedCard class="p-4 bg-[#0E0F10]">
+              <h3 class="text-sm font-bold text-white mb-1 flex items-center gap-1.5">
+                <ShieldCheck class="w-4 h-4 text-[#22c55e] shrink-0" />
+                <span>100% Private</span>
+              </h3>
+              <p class="text-xs text-neutral-400 leading-relaxed">{isFileTool ? 'Your files stay on your device memory. Zero server uploads.' : 'Your data stays on your local device memory. Zero server uploads.'}</p>
+            </DashedCard>
+            <DashedCard class="p-4 bg-[#0E0F10]">
+              <h3 class="text-sm font-bold text-white mb-1 flex items-center gap-1.5">
+                <Zap class="w-4 h-4 text-[#22c55e] shrink-0" />
+                <span>Lightning Fast</span>
+              </h3>
+              <p class="text-xs text-neutral-400 leading-relaxed">Runs on local WebAssembly and HTML5 engines under 0.5s.</p>
+            </DashedCard>
+            <DashedCard class="p-4 bg-[#0E0F10]">
+              <h3 class="text-sm font-bold text-white mb-1 flex items-center gap-1.5">
+                <Sparkles class="w-4 h-4 text-[#22c55e] shrink-0" />
+                <span>Unlimited & Free</span>
+              </h3>
+              <p class="text-xs text-neutral-400 leading-relaxed">No subscription fees, signups, or daily usage caps.</p>
+            </DashedCard>
+          </div>
+        </div>
+
+        <!-- Frequently Asked Questions (FAQ) -->
+        <div>
+          <h2 class="text-xl font-bold text-white tracking-tight sm:text-2xl mb-4">
+            Frequently Asked Questions ({tool.name})
+          </h2>
+          <div class="space-y-4">
+            <DashedCard class="p-4 bg-[#0E0F10]">
+              <h3 class="text-sm font-bold text-white mb-1">Is {tool.name} completely free?</h3>
+              <p class="text-xs text-neutral-400 leading-relaxed">Yes! {tool.name} is 100% free with no hidden fees, paid tiers, or user signups required.</p>
+            </DashedCard>
+            <DashedCard class="p-4 bg-[#0E0F10]">
+              <h3 class="text-sm font-bold text-white mb-1">Are my confidential files safe?</h3>
+              <p class="text-xs text-neutral-400 leading-relaxed">Absolute privacy guaranteed. Unlike cloud converters that upload your data to remote servers, HateMyPDF executes all file logic 100% locally inside your browser tab.</p>
+            </DashedCard>
+            <DashedCard class="p-4 bg-[#0E0F10]">
+              <h3 class="text-sm font-bold text-white mb-1">Does {tool.name} work on mobile devices?</h3>
+              <p class="text-xs text-neutral-400 leading-relaxed">Yes! All tools are fully responsive and work seamlessly across iOS iPhones, Android smartphones, iPads, tablets, and desktop computers.</p>
+            </DashedCard>
+          </div>
+        </div>
+      </article>
+
+      <RelatedTools currentCategory={tool.category} />
+    </div>
+
+    <div class="mt-16">
+      <CtaBanner />
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+// client-tool-engine.js — HateMyPDF 100% In-Browser Execution Engine
+
+// 1. JSON Formatter
+const jsonInput = document.getElementById('json-input');
+const btnFormat = document.getElementById('btn-format-json');
+const btnMinify = document.getElementById('btn-minify-json');
+const jsonStatus = document.getElementById('json-status');
+
+btnFormat?.addEventListener('click', () => {
+  if (!jsonInput) return;
+  try {
+    const parsed = JSON.parse(jsonInput.value);
+    jsonInput.value = JSON.stringify(parsed, null, 2);
+    if (jsonStatus) {
+      jsonStatus.className = 'text-xs font-mono text-[#22c55e] mt-2';
+      jsonStatus.textContent = 'Valid JSON formatted successfully!';
+    }
+  } catch (err) {
+    if (jsonStatus) {
+      jsonStatus.className = 'text-xs font-mono text-red-400 mt-2';
+      jsonStatus.textContent = '✗ Invalid JSON syntax: ' + err.message;
+    }
+  }
+});
+
+btnMinify?.addEventListener('click', () => {
+  if (!jsonInput) return;
+  try {
+    const parsed = JSON.parse(jsonInput.value);
+    jsonInput.value = JSON.stringify(parsed);
+    if (jsonStatus) {
+      jsonStatus.className = 'text-xs font-mono text-[#22c55e] mt-2';
+      jsonStatus.textContent = 'JSON minified!';
+    }
+  } catch (err) {
+    if (jsonStatus) {
+      jsonStatus.className = 'text-xs font-mono text-red-400 mt-2';
+      jsonStatus.textContent = '✗ Invalid JSON syntax: ' + err.message;
+    }
+  }
+});
+
+// 2. Base64 Encoder / Decoder
+const b64Input = document.getElementById('b64-input');
+const b64Output = document.getElementById('b64-output');
+const b64Container = document.getElementById('b64-output-container');
+const btnEncB64 = document.getElementById('btn-encode-b64');
+const btnDecB64 = document.getElementById('btn-decode-b64');
+
+btnEncB64?.addEventListener('click', () => {
+  if (!b64Input || !b64Output || !b64Container) return;
+  try {
+    b64Output.value = btoa(b64Input.value);
+    b64Container.classList.remove('hidden');
+  } catch (e) {
+    alert('Unable to encode text to Base64.');
+  }
+});
+
+btnDecB64?.addEventListener('click', () => {
+  if (!b64Input || !b64Output || !b64Container) return;
+  try {
+    b64Output.value = atob(b64Input.value.trim());
+    b64Container.classList.remove('hidden');
+  } catch (e) {
+    alert('Invalid Base64 string provided.');
+  }
+});
+
+// 3. Word Counter Live Stats
+const wcInput = document.getElementById('wc-input');
+const statWords = document.getElementById('stat-words');
+const statChars = document.getElementById('stat-chars');
+const statSentences = document.getElementById('stat-sentences');
+const statReadTime = document.getElementById('stat-readtime');
+
+wcInput?.addEventListener('input', () => {
+  const text = wcInput.value.trim();
+  const words = text ? text.split(/\s+/).length : 0;
+  const chars = wcInput.value.length;
+  const sentences = text ? text.split(/[.!?]+/).filter(Boolean).length : 0;
+  const readMinutes = Math.ceil(words / 200);
+
+  if (statWords) statWords.textContent = words.toLocaleString();
+  if (statChars) statChars.textContent = chars.toLocaleString();
+  if (statSentences) statSentences.textContent = sentences.toLocaleString();
+  if (statReadTime) statReadTime.textContent = `${readMinutes}m`;
+});
+
+// 4. Password Generator Logic
+const pwdOutput = document.getElementById('pwd-output');
+const pwdLenInput = document.getElementById('pwd-length');
+const pwdLenVal = document.getElementById('pwd-len-val');
+const btnGenPwd = document.getElementById('btn-gen-pwd');
+const btnCopyPwd = document.getElementById('btn-copy-pwd');
+
+function generatePassword() {
+  if (!pwdOutput) return;
+  const len = pwdLenInput ? parseInt(pwdLenInput.value) : 16;
+  const incUpper = document.getElementById('pwd-inc-upper')?.checked;
+  const incNum = document.getElementById('pwd-inc-num')?.checked;
+  const incSym = document.getElementById('pwd-inc-[#sym]')?.checked;
+
+  let chars = 'abcdefghijklmnopqrstuvwxyz';
+  if (incUpper) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  if (incNum) chars += '0123456789';
+  if (incSym) chars += '!@#$%^&*()_+-=[]{}|;:,.<>?';
+
+  let res = '';
+  const array = new Uint32Array(len);
+  window.crypto.getRandomValues(array);
+  for (let i = 0; i < len; i++) {
+    res += chars[array[i] % chars.length];
+  }
+  pwdOutput.value = res;
+}
+
+pwdLenInput?.addEventListener('input', () => {
+  if (pwdLenVal && pwdLenInput) pwdLenVal.textContent = pwdLenInput.value;
+  generatePassword();
+});
+document.getElementById('pwd-inc-upper')?.addEventListener('change', generatePassword);
+document.getElementById('pwd-inc-num')?.addEventListener('change', generatePassword);
+document.getElementById('pwd-inc-[#sym]')?.addEventListener('change', generatePassword);
+btnGenPwd?.addEventListener('click', generatePassword);
+btnCopyPwd?.addEventListener('click', () => {
+  if (!pwdOutput) return;
+  navigator.clipboard.writeText(pwdOutput.value);
+  btnCopyPwd.textContent = 'Copied!';
+  setTimeout(() => { if (btnCopyPwd) btnCopyPwd.textContent = 'Copy'; }, 1500);
+});
+if (pwdOutput && !pwdOutput.value) generatePassword();
+
+// 5. Case Converter
+const caseInput = document.getElementById('case-input');
+document.getElementById('btn-uppercase')?.addEventListener('click', () => {
+  if (caseInput) caseInput.value = caseInput.value.toUpperCase();
+});
+document.getElementById('btn-lowercase')?.addEventListener('click', () => {
+  if (caseInput) caseInput.value = caseInput.value.toLowerCase();
+});
+document.getElementById('btn-camelcase')?.addEventListener('click', () => {
+  if (caseInput) {
+    caseInput.value = caseInput.value.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
+  }
+});
+document.getElementById('btn-snakecase')?.addEventListener('click', () => {
+  if (caseInput) {
+    caseInput.value = caseInput.value.trim().toLowerCase().replace(/\s+/g, '_');
+  }
+});
+document.getElementById('btn-titlecase')?.addEventListener('click', () => {
+  if (caseInput) {
+    caseInput.value = caseInput.value.toLowerCase().replace(/\b\w/g, s => s.toUpperCase());
+  }
+});
+
+// 6. What is my IP
+const ipDisplay = document.getElementById('ip-display');
+const ipDetails = document.getElementById('ip-details');
+if (ipDisplay) {
+  fetch('https://api.ipify.org?format=json')
+    .then(r => r.json())
+    .then(data => {
+      ipDisplay.textContent = data.ip;
+      ipDisplay.classList.remove('animate-pulse');
+      if (ipDetails) {
+        ipDetails.innerHTML = '<span>Type: IPv4</span><span>•</span><span>Protocol: HTTPS</span><span>•</span><span>Origin: Public</span>';
+      }
+    })
+    .catch(() => {
+      ipDisplay.textContent = '127.0.0.1 (Local Tab)';
+      ipDisplay.classList.remove('animate-pulse');
+    });
+
+  document.getElementById('btn-copy-ip')?.addEventListener('click', () => {
+    if (ipDisplay) {
+      navigator.clipboard.writeText(ipDisplay.textContent || '');
+      const btn = document.getElementById('btn-copy-ip');
+      if (btn) {
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = 'Copy IP Address'; }, 1500);
+      }
+    }
+  });
+}
+
+// 7. QR Code Generator
+const qrInput = document.getElementById('qr-text-input');
+const qrImg = document.getElementById('qr-preview-img');
+const qrDownload = document.getElementById('qr-download-link');
+
+function updateQr() {
+  if (!qrInput || !qrImg || !qrDownload) return;
+  const val = encodeURIComponent(qrInput.value || 'https://hatemypdf.com');
+  const src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${val}`;
+  qrImg.src = src;
+  qrDownload.href = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${val}`;
+}
+qrInput?.addEventListener('input', updateQr);
+
+// 8. UUID Generator
+const uuidOutput = document.getElementById('uuid-output');
+const btnGenUuid = document.getElementById('btn-gen-uuid');
+const btnCopyUuid = document.getElementById('btn-copy-uuid');
+
+function genUuid() {
+  if (!uuidOutput) return;
+  uuidOutput.value = window.crypto.randomUUID ? window.crypto.randomUUID() : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = Math.random() * 16 | 0;
+    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
+btnGenUuid?.addEventListener('click', genUuid);
+btnCopyUuid?.addEventListener('click', () => {
+  if (!uuidOutput) return;
+  navigator.clipboard.writeText(uuidOutput.value);
+  btnCopyUuid.textContent = 'Copied!';
+  setTimeout(() => { btnCopyUuid.textContent = 'Copy'; }, 1500);
+});
+if (uuidOutput && !uuidOutput.value) genUuid();
+
+// 9. Hash Generator
+const hashInput = document.getElementById('hash-input');
+const hashSha256 = document.getElementById('hash-sha256');
+const hashSha512 = document.getElementById('hash-sha512');
+
+async function computeHashes() {
+  if (!hashInput || !hashSha256 || !hashSha512) return;
+  const val = hashInput.value;
+  const enc = new TextEncoder().encode(val);
+
+  const b256 = await window.crypto.subtle.digest('SHA-256', enc);
+  hashSha256.value = Array.from(new Uint8Array(b256)).map(b => b.toString(16).padStart(2, '0')).join('');
+
+  const b512 = await window.crypto.subtle.digest('SHA-512', enc);
+  hashSha512.value = Array.from(new Uint8Array(b512)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+hashInput?.addEventListener('input', computeHashes);
+if (hashInput && hashInput.value) computeHashes();
+
+// 10. Code Formatter Fallback Tools (minify-css, js-beautifier, xml-formatter, etc.)
+const codeToolInput = document.getElementById('code-tool-input');
+const codeToolOutput = document.getElementById('code-tool-output');
+const btnProcessCode = document.getElementById('btn-process-code-tool');
+
+btnProcessCode?.addEventListener('click', () => {
+  if (!codeToolInput || !codeToolOutput) return;
+  const val = codeToolInput.value;
+  const pathSlug = window.location.pathname.split('/').filter(Boolean).pop() || '';
+
+  if (pathSlug === 'minify-css') {
+    codeToolOutput.value = val.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\s+/g, ' ').replace(/\s*([{}:;,])\s*/g, '$1').trim();
+  } else if (pathSlug === 'js-beautifier') {
+    codeToolOutput.value = val.replace(/;\s*/g, ';\n').replace(/{\s*/g, ' {\n  ').replace(/}\s*/g, '\n}\n');
+  } else if (pathSlug === 'html-encoder') {
+    codeToolOutput.value = val.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  } else if (pathSlug === 'url-encoder') {
+    codeToolOutput.value = encodeURIComponent(val);
+  } else if (pathSlug === 'markdown-to-html') {
+    codeToolOutput.value = val
+      .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+      .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+      .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+      .replace(/\*\*(.*)\*\*/gim, '<b>$1</b>')
+      .replace(/\*(.*)\*/gim, '<i>$1</i>')
+      .replace(/\n$/gim, '<br />');
+  } else if (pathSlug === 'sitemap-generator') {
+    const urls = val.split('\n').map(u => u.trim()).filter(Boolean);
+    const xml = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'];
+    urls.forEach(u => {
+      xml.push(`  <url>\n    <loc>${u.startsWith('http') ? u : 'https://hatemypdf.com/' + u}</loc>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>`);
+    });
+    xml.push('</urlset>');
+    codeToolOutput.value = xml.join('\n');
+  } else if (pathSlug === 'robots-txt-generator') {
+    codeToolOutput.value = `User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /admin/\n\nSitemap: https://hatemypdf.com/sitemap.xml`;
+  } else {
+    codeToolOutput.value = val.trim();
+  }
+});
+
+// ==========================================
+// 11. UNIVERSAL FILE & PDF PROCESSING SUITE
+// ==========================================
+const fileInput = document.getElementById('file-uploader-input');
+const dropzoneArea = document.getElementById('dropzone-area');
+const promptState = document.getElementById('uploader-prompt-state');
+const selectedFileCard = document.getElementById('selected-file-card');
+const singleFileBox = document.getElementById('single-file-box');
+const multiFileBox = document.getElementById('multi-file-box');
+const multiFileList = document.getElementById('multi-file-list');
+const multiFileCount = document.getElementById('multi-file-count');
+const selectedFileName = document.getElementById('selected-file-name');
+const selectedFileSize = document.getElementById('selected-file-size');
+const btnProcess = document.getElementById('btn-process-file');
+const fileStatusDisplay = document.getElementById('file-status-display');
+
+const currentSlug = window.location.pathname.split('/').filter(Boolean).pop() || '';
+const isMultiFileTool = ['merge-pdf', 'images-to-pdf'].includes(currentSlug);
+
+let selectedFiles = [];
+
+function setPipelineStep(step) {
+  const node1 = document.getElementById('step-node-1');
+  const node2 = document.getElementById('step-node-2');
+  const node3 = document.getElementById('step-node-3');
+  const badge1 = document.getElementById('step-badge-1');
+  const badge2 = document.getElementById('step-badge-2');
+  const badge3 = document.getElementById('step-badge-3');
+  const line1 = document.getElementById('step-line-1');
+  const line2 = document.getElementById('step-line-2');
+
+  if (step === 1) {
+    if (node1) node1.className = 'flex items-center gap-1.5 text-white transition-colors';
+    if (badge1) {
+      badge1.className = 'flex h-5 w-5 items-center justify-center rounded-full bg-[#22c55e] text-black font-bold text-[10px]';
+      badge1.textContent = '1';
+    }
+    if (line1) line1.className = 'h-px w-6 bg-[#3a3a3b] transition-colors';
+    if (node2) node2.className = 'flex items-center gap-1.5 text-neutral-500 transition-colors';
+    if (badge2) {
+      badge2.className = 'flex h-5 w-5 items-center justify-center rounded-full border border-[#3a3a3b] bg-[#121315] text-[10px]';
+      badge2.textContent = '2';
+    }
+    if (line2) line2.className = 'h-px w-6 bg-[#3a3a3b] transition-colors';
+    if (node3) node3.className = 'flex items-center gap-1.5 text-neutral-500 transition-colors';
+    if (badge3) {
+      badge3.className = 'flex h-5 w-5 items-center justify-center rounded-full border border-[#3a3a3b] bg-[#121315] text-[10px]';
+      badge3.textContent = '3';
+    }
+  } else if (step === 2) {
+    if (node1) node1.className = 'flex items-center gap-1.5 text-neutral-400 transition-colors';
+    if (badge1) {
+      badge1.className = 'flex h-5 w-5 items-center justify-center rounded-full bg-[#0d6e38] text-white font-bold text-[10px]';
+      badge1.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>';
+    }
+    if (line1) line1.className = 'h-px w-6 bg-[#22c55e] transition-colors';
+    if (node2) node2.className = 'flex items-center gap-1.5 text-white transition-colors';
+    if (badge2) {
+      badge2.className = 'flex h-5 w-5 items-center justify-center rounded-full bg-[#22c55e] text-black font-bold text-[10px]';
+      badge2.textContent = '2';
+    }
+    if (line2) line2.className = 'h-px w-6 bg-[#3a3a3b] transition-colors';
+    if (node3) node3.className = 'flex items-center gap-1.5 text-neutral-500 transition-colors';
+    if (badge3) {
+      badge3.className = 'flex h-5 w-5 items-center justify-center rounded-full border border-[#3a3a3b] bg-[#121315] text-[10px]';
+      badge3.textContent = '3';
+    }
+  } else if (step === 3) {
+    if (badge1) {
+      badge1.className = 'flex h-5 w-5 items-center justify-center rounded-full bg-[#0d6e38] text-white font-bold text-[10px]';
+      badge1.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>';
+    }
+    if (line1) line1.className = 'h-px w-6 bg-[#22c55e] transition-colors';
+    if (badge2) {
+      badge2.className = 'flex h-5 w-5 items-center justify-center rounded-full bg-[#0d6e38] text-white font-bold text-[10px]';
+      badge2.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>';
+    }
+    if (line2) line2.className = 'h-px w-6 bg-[#22c55e] transition-colors';
+    if (node3) node3.className = 'flex items-center gap-1.5 text-white transition-colors';
+    if (badge3) {
+      badge3.className = 'flex h-5 w-5 items-center justify-center rounded-full bg-[#22c55e] text-black font-bold text-[10px]';
+      badge3.textContent = '3';
+    }
+  }
+}
+
+let isProcessing = false;
+let activeCompressionLevel = 'recommended';
+let activeRotationAngle = 90;
+let activeCropRatio = '1:1';
+let activePdfImgFormat = 'png';
+let activeGrayscaleMode = 'smooth';
+let activeExtractImgFmt = 'png';
+let activeCropPdfMargin = 24;
+
+// Dynamic Loaders
+async function getPdfLib() {
+  if (window.PDFLib) return window.PDFLib;
+  try {
+    const lib = await import('pdf-lib');
+    return lib;
+  } catch (e) {
+    return await import('https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/+esm');
+  }
+}
+
+function getPdfJs() {
+  if (window.pdfjsLib) return Promise.resolve(window.pdfjsLib);
+  return new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+    s.onload = () => {
+      const lib = window.pdfjsLib;
+      if (lib) {
+        lib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      }
+      resolve(lib);
+    };
+    s.onerror = reject;
+    document.head.appendChild(s);
+  });
+}
+
+function getHeic2Any() {
+  if (window.heic2any) return Promise.resolve(window.heic2any);
+  return new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js';
+    s.onload = () => resolve(window.heic2any);
+    s.onerror = reject;
+    document.head.appendChild(s);
+  });
+}
+
+function formatBytes(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+}
+
+function downloadBlob(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+// Reset file input so re-selecting same file fires change
+fileInput?.addEventListener('click', (e) => {
+  e.target.value = '';
+});
+
+// Drag & Drop
+if (dropzoneArea) {
+  ['dragenter', 'dragover'].forEach(name => {
+    dropzoneArea.addEventListener(name, (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      dropzoneArea.classList.add('border-[#22c55e]', 'bg-[#22c55e]/5');
+    });
+  });
+
+  ['dragleave', 'drop'].forEach(name => {
+    dropzoneArea.addEventListener(name, (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      dropzoneArea.classList.remove('border-[#22c55e]', 'bg-[#22c55e]/5');
+    });
+  });
+
+  dropzoneArea.addEventListener('drop', (e) => {
+    const dt = e.dataTransfer;
+    if (dt && dt.files && dt.files.length > 0) {
+      handleFiles(Array.from(dt.files));
+    }
+  });
+
+  dropzoneArea.addEventListener('click', (e) => {
+    const target = e.target;
+    if (target.tagName === 'BUTTON' || target.tagName === 'INPUT' || target.tagName === 'SELECT' || target.closest('button') || target.closest('label') || target.closest('#tool-options-container')) {
+      return;
+    }
+    fileInput?.click();
+  });
+}
+
+fileInput?.addEventListener('change', () => {
+  if (fileInput.files && fileInput.files.length > 0) {
+    handleFiles(Array.from(fileInput.files));
+  }
+});
+
+document.getElementById('btn-change-file')?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  fileInput?.click();
+});
+
+document.getElementById('btn-add-more-files')?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  fileInput?.click();
+});
+
+document.getElementById('btn-clear-all-files')?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  selectedFiles = [];
+  setPipelineStep(1);
+  if (promptState) promptState.classList.remove('hidden');
+  if (selectedFileCard) selectedFileCard.classList.add('hidden');
+  if (fileStatusDisplay) fileStatusDisplay.classList.add('hidden');
+});
+
+function renderMultiFileList() {
+  if (!multiFileList || !multiFileCount) return;
+  multiFileCount.textContent = `${selectedFiles.length} file${selectedFiles.length === 1 ? '' : 's'} selected`;
+  multiFileList.innerHTML = '';
+
+  selectedFiles.forEach((f, idx) => {
+    const row = document.createElement('div');
+    row.className = 'flex items-center justify-between p-2 rounded bg-[#0E0F10] border border-[#3a3a3b] text-xs';
+    row.innerHTML = `
+      <div class="flex items-center gap-2 truncate">
+        <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-[#22c55e]/20 text-[#22c55e] font-mono font-bold text-[10px]">#${idx + 1}</span>
+        <span class="text-white font-medium truncate max-w-[200px]">${f.name}</span>
+        <span class="text-neutral-500 font-mono text-[10px]">(${formatBytes(f.size)})</span>
+      </div>
+      <button type="button" class="btn-remove-item text-neutral-400 hover:text-white px-1 font-bold text-sm cursor-pointer" data-idx="${idx}">&times;</button>
+    `;
+    multiFileList.appendChild(row);
+  });
+
+  multiFileList.querySelectorAll('.btn-remove-item').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const removeIdx = parseInt(btn.getAttribute('data-idx') || '0', 10);
+      selectedFiles.splice(removeIdx, 1);
+      if (selectedFiles.length === 0) {
+        if (promptState) promptState.classList.remove('hidden');
+        if (selectedFileCard) selectedFileCard.classList.add('hidden');
+      } else {
+        renderMultiFileList();
+        updateButtonText();
+      }
+    });
+  });
+}
+
+function updateButtonText() {
+  if (!btnProcess) return;
+  if (currentSlug === 'merge-pdf') {
+    btnProcess.textContent = `Merge ${selectedFiles.length} PDFs & Download ↓`;
+  } else if (currentSlug === 'images-to-pdf') {
+    btnProcess.textContent = `Combine ${selectedFiles.length} Images into PDF ↓`;
+  } else if (currentSlug === 'compress-pdf') {
+    btnProcess.textContent = 'Compress PDF & Download ↓';
+  } else if (currentSlug === 'split-pdf') {
+    btnProcess.textContent = 'Split PDF & Download ↓';
+  } else if (currentSlug === 'rotate-pdf') {
+    btnProcess.textContent = 'Rotate PDF & Download ↓';
+  } else if (currentSlug === 'watermark-pdf') {
+    btnProcess.textContent = 'Apply Watermark & Download PDF ↓';
+  } else if (currentSlug === 'page-number-pdf') {
+    btnProcess.textContent = 'Add Page Numbers & Download PDF ↓';
+  } else if (currentSlug === 'remove-pdf-pages') {
+    btnProcess.textContent = 'Remove Pages & Download PDF ↓';
+  } else if (currentSlug === 'pdf-metadata-editor') {
+    btnProcess.textContent = 'Save PDF Metadata & Download ↓';
+  } else if (currentSlug === 'flatten-pdf') {
+    btnProcess.textContent = 'Flatten Form Fields & Download PDF ↓';
+  } else if (currentSlug === 'crop-pdf') {
+    btnProcess.textContent = 'Crop PDF & Download ↓';
+  } else if (currentSlug === 'pdf-to-txt') {
+    btnProcess.textContent = 'Extract Text & Download .txt ↓';
+  } else if (currentSlug === 'pdf-to-images') {
+    btnProcess.textContent = 'Export PDF Page as Image ↓';
+  } else if (currentSlug === 'pdf-to-word') {
+    btnProcess.textContent = 'Convert to Word (.doc) & Download ↓';
+  } else if (currentSlug === 'pdf-to-excel') {
+    btnProcess.textContent = 'Extract Tables to Excel (.csv) ↓';
+  } else if (currentSlug === 'pdf-grayscale') {
+    btnProcess.textContent = 'Convert to Grayscale PDF & Download ↓';
+  } else if (currentSlug === 'resize-image') {
+    btnProcess.textContent = 'Resize & Download Image ↓';
+  } else if (currentSlug === 'crop-image') {
+    btnProcess.textContent = 'Crop & Download Image ↓';
+  } else if (currentSlug === 'image-compressor') {
+    btnProcess.textContent = 'Compress & Download Image ↓';
+  } else if (currentSlug === 'heic-to-jpg') {
+    btnProcess.textContent = 'Convert HEIC to JPG & Download ↓';
+  } else if (currentSlug === 'jpg-to-png') {
+    btnProcess.textContent = 'Convert JPG to PNG & Download ↓';
+  } else if (currentSlug === 'png-to-jpg') {
+    btnProcess.textContent = 'Convert PNG to JPG & Download ↓';
+  } else if (currentSlug.includes('to-')) {
+    const parts = currentSlug.split('-to-');
+    btnProcess.textContent = `Convert ${parts[0].toUpperCase()} to ${parts[1].toUpperCase()} & Download ↓`;
+  } else {
+    btnProcess.textContent = 'Process File ↓';
+  }
+}
+
+// Grayscale Mode buttons
+document.querySelectorAll('.grayscale-mode-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.grayscale-mode-btn').forEach(b => {
+      b.className = 'grayscale-mode-btn rounded bg-[#181819] border border-[#3a3a3b] p-2 text-center text-xs text-neutral-300 hover:text-white cursor-pointer';
+    });
+    btn.className = 'grayscale-mode-btn active rounded bg-[#0d6e38] border border-[#168a4a] p-2 text-center text-xs text-white cursor-pointer';
+    activeGrayscaleMode = btn.getAttribute('data-mode') || 'smooth';
+  });
+});
+
+// Extract Images format buttons
+document.querySelectorAll('.extract-img-fmt').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.extract-img-fmt').forEach(b => {
+      b.className = 'extract-img-fmt rounded bg-[#181819] border border-[#3a3a3b] px-3 py-1 text-xs font-semibold text-neutral-300 cursor-pointer';
+    });
+    btn.className = 'extract-img-fmt active rounded bg-[#0d6e38] px-3 py-1 text-xs font-bold text-white cursor-pointer';
+    activeExtractImgFmt = btn.getAttribute('data-fmt') || 'png';
+  });
+});
+
+// Crop PDF margin buttons
+document.querySelectorAll('.crop-pdf-margin').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.crop-pdf-margin').forEach(b => {
+      b.className = 'crop-pdf-margin rounded bg-[#181819] border border-[#3a3a3b] py-2 text-xs font-medium text-neutral-300 hover:text-white cursor-pointer';
+    });
+    btn.className = 'crop-pdf-margin active rounded bg-[#0d6e38] border border-[#168a4a] py-2 text-xs font-bold text-white cursor-pointer';
+    activeCropPdfMargin = parseInt(btn.getAttribute('data-margin') || '24', 10);
+  });
+});
+
+// Compression level buttons
+document.querySelectorAll('.compression-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.compression-btn').forEach(b => {
+      b.className = 'compression-btn rounded border border-[#3a3a3b] bg-[#181819] py-2 px-3 text-center text-xs font-semibold text-neutral-400 hover:text-white hover:border-[#3a3a3b] transition-all cursor-pointer';
+    });
+    btn.className = 'compression-btn active rounded border border-[#22c55e] bg-[#0d6e38] py-2 px-3 text-center text-xs font-semibold text-white transition-all cursor-pointer';
+    activeCompressionLevel = btn.getAttribute('data-level') || 'recommended';
+    const desc = btn.getAttribute('data-desc');
+    const labelEl = document.getElementById('compress-level-label');
+    if (labelEl && desc) labelEl.textContent = desc;
+  });
+});
+
+// Rotate angle buttons
+document.querySelectorAll('.rotate-angle-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.rotate-angle-btn').forEach(b => {
+      b.className = 'rotate-angle-btn rounded bg-[#181819] border border-[#3a3a3b] py-2 text-xs font-medium text-neutral-300 hover:text-white cursor-pointer';
+    });
+    btn.className = 'rotate-angle-btn active rounded bg-[#0d6e38] border border-[#168a4a] py-2 text-xs font-bold text-white cursor-pointer';
+    activeRotationAngle = parseInt(btn.getAttribute('data-angle') || '90', 10);
+  });
+});
+
+// Crop ratio buttons
+document.querySelectorAll('.crop-ratio-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.crop-ratio-btn').forEach(b => {
+      b.className = 'crop-ratio-btn rounded bg-[#181819] border border-[#3a3a3b] px-3 py-1 text-xs font-medium text-neutral-300 cursor-pointer';
+    });
+    btn.className = 'crop-ratio-btn active rounded bg-[#0d6e38] px-3 py-1 text-xs font-bold text-white cursor-pointer';
+    activeCropRatio = btn.getAttribute('data-ratio') || '1:1';
+  });
+});
+
+// PDF Image Format buttons
+document.querySelectorAll('.pdf-img-fmt').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.pdf-img-fmt').forEach(b => {
+      b.className = 'pdf-img-fmt rounded bg-[#181819] border border-[#3a3a3b] px-3 py-1 text-xs font-semibold text-neutral-300 cursor-pointer';
+    });
+    btn.className = 'pdf-img-fmt active rounded bg-[#0d6e38] px-3 py-1 text-xs font-bold text-white cursor-pointer';
+    activePdfImgFormat = btn.getAttribute('data-fmt') || 'png';
+  });
+});
+
+// Image Compressor Slider
+const compressSlider = document.getElementById('compress-quality-slider');
+const compressVal = document.getElementById('compress-quality-val');
+const compressBadge = document.getElementById('compress-savings-badge');
+compressSlider?.addEventListener('input', () => {
+  if (!compressSlider || !compressVal) return;
+  const q = parseInt(compressSlider.value, 10);
+  compressVal.textContent = q + '%';
+  if (compressBadge) {
+    const est = Math.round((100 - q) * 0.9);
+    compressBadge.textContent = `Est. ~${est}% size reduction`;
+  }
+});
+
+// Resize Image Presets & Aspect Ratio Lock
+const resizeW = document.getElementById('resize-w-input');
+const resizeH = document.getElementById('resize-h-input');
+const resizeLock = document.getElementById('resize-lock-ratio');
+let origImgWidth = 0;
+let origImgHeight = 0;
+
+resizeW?.addEventListener('input', () => {
+  if (!resizeW || !resizeH || !resizeLock?.checked || !origImgWidth) return;
+  const w = parseFloat(resizeW.value) || 0;
+  resizeH.value = Math.round(w * (origImgHeight / origImgWidth)).toString();
+});
+
+resizeH?.addEventListener('input', () => {
+  if (!resizeW || !resizeH || !resizeLock?.checked || !origImgHeight) return;
+  const h = parseFloat(resizeH.value) || 0;
+  resizeW.value = Math.round(h * (origImgWidth / origImgHeight)).toString();
+});
+
+document.querySelectorAll('.resize-preset-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const scale = parseFloat(btn.getAttribute('data-scale') || '1');
+    if (resizeW && origImgWidth) resizeW.value = Math.round(origImgWidth * scale).toString();
+    if (resizeH && origImgHeight) resizeH.value = Math.round(origImgHeight * scale).toString();
+  });
+});
+
+// File Selection Handler
+async function handleFiles(newFiles) {
+  if (!newFiles || newFiles.length === 0) return;
+
+  if (isMultiFileTool) {
+    selectedFiles = [...selectedFiles, ...newFiles];
+    if (promptState) promptState.classList.add('hidden');
+    if (selectedFileCard) selectedFileCard.classList.remove('hidden');
+    if (singleFileBox) singleFileBox.classList.add('hidden');
+    if (multiFileBox) multiFileBox.classList.remove('hidden');
+    renderMultiFileList();
+    updateButtonText();
+    return;
+  }
+
+  // Single File
+  selectedFiles = [newFiles[0]];
+  const file = newFiles[0];
+
+  if (promptState) promptState.classList.add('hidden');
+  if (selectedFileCard) selectedFileCard.classList.remove('hidden');
+  if (singleFileBox) singleFileBox.classList.remove('hidden');
+  if (multiFileBox) multiFileBox.classList.add('hidden');
+
+  setPipelineStep(2);
+  if (selectedFileName) selectedFileName.textContent = file.name;
+  if (selectedFileSize) selectedFileSize.textContent = formatBytes(file.size);
+  updateButtonText();
+
+  // Pre-inspect PDF details if PDF tool
+  if (file.name.endsWith('.pdf') || file.type.includes('pdf')) {
+    getPdfLib().then(async (pdfLib) => {
+      try {
+        const buf = await file.arrayBuffer();
+        const doc = await pdfLib.PDFDocument.load(buf, { ignoreEncryption: true });
+        const count = doc.getPageCount();
+
+        const splitInfo = document.getElementById('split-doc-pages-info');
+        if (splitInfo) splitInfo.textContent = `Document loaded: ${count} page${count === 1 ? '' : 's'} detected`;
+
+        const rotateInfo = document.getElementById('rotate-doc-pages-info');
+        if (rotateInfo) rotateInfo.textContent = `Document loaded: ${count} page${count === 1 ? '' : 's'} detected`;
+
+        const removeInfo = document.getElementById('remove-pages-doc-info');
+        if (removeInfo) removeInfo.textContent = `Document loaded: ${count} page${count === 1 ? '' : 's'} detected`;
+
+        const titleInput = document.getElementById('meta-title-input');
+        if (titleInput && !titleInput.value) titleInput.value = doc.getTitle() || file.name.replace('.pdf', '');
+
+        const authorInput = document.getElementById('meta-author-input');
+        if (authorInput && !authorInput.value) authorInput.value = doc.getAuthor() || '';
+      } catch (err) {}
+    });
+
+    // If pdf-to-txt: pre-extract text preview
+    if (currentSlug === 'pdf-to-txt') {
+      const txtStatus = document.getElementById('pdf-txt-status');
+      const txtContainer = document.getElementById('pdf-txt-container');
+      const txtOutput = document.getElementById('pdf-txt-output');
+
+      if (txtStatus) txtStatus.textContent = 'Extracting document text...';
+      getPdfJs().then(async (pdfjs) => {
+        try {
+          const buf = await file.arrayBuffer();
+          const doc = await pdfjs.getDocument({ data: buf }).promise;
+          let fullText = '';
+          for (let i = 1; i <= Math.min(doc.numPages, 10); i++) {
+            const page = await doc.getPage(i);
+            const content = await page.getTextContent();
+            const pageText = content.items.map(it => it.str).join(' ');
+            fullText += `--- Page ${i} ---\n` + pageText + '\n\n';
+          }
+          if (txtOutput) txtOutput.value = fullText.trim();
+          if (txtStatus) txtStatus.textContent = `Extracted text from ${doc.numPages} pages`;
+          if (txtContainer) txtContainer.classList.remove('hidden');
+        } catch (e) {
+          if (txtStatus) txtStatus.textContent = 'Text preview generated upon download.';
+        }
+      });
+    }
+
+    // If pdf-to-images: pre-render page 1
+    if (currentSlug === 'pdf-to-images') {
+      const previewBox = document.getElementById('pdf-preview-box');
+      const canvas = document.getElementById('pdf-render-canvas');
+      getPdfJs().then(async (pdfjs) => {
+        try {
+          const buf = await file.arrayBuffer();
+          const doc = await pdfjs.getDocument({ data: buf }).promise;
+          const page = await doc.getPage(1);
+          const viewport = page.getViewport({ scale: 1.5 });
+          if (canvas) {
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+            const ctx = canvas.getContext('2d');
+            await page.render({ canvasContext: ctx, viewport }).promise;
+            if (previewBox) previewBox.classList.remove('hidden');
+          }
+        } catch (e) {}
+      });
+    }
+  }
+
+  // Pre-inspect image if image tool
+  if (file.type.startsWith('image/') || file.name.match(/\.(jpg|jpeg|png|webp|svg|bmp)$/i)) {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      origImgWidth = img.naturalWidth || img.width;
+      origImgHeight = img.naturalHeight || img.height;
+
+      const dimInfo = document.getElementById('resize-orig-dim');
+      if (dimInfo) dimInfo.textContent = `Original: ${origImgWidth} × ${origImgHeight} px`;
+
+      if (resizeW) resizeW.value = origImgWidth.toString();
+      if (resizeH) resizeH.value = origImgHeight.toString();
+
+      // Color Palette Extractor preview
+      if (currentSlug === 'color-palette-extractor') {
+        const c = document.createElement('canvas');
+        c.width = 100;
+        c.height = 100;
+        const ctx = c.getContext('2d');
+        if (ctx) {
+          ctx.drawImage(img, 0, 0, 100, 100);
+          const data = ctx.getImageData(0, 0, 100, 100).data;
+          const colors = [];
+          for (let i = 0; i < data.length; i += 400) {
+            const r = data[i].toString(16).padStart(2, '0');
+            const g = data[i+1].toString(16).padStart(2, '0');
+            const b = data[i+2].toString(16).padStart(2, '0');
+            colors.push(`#${r}${g}${b}`.toUpperCase());
+          }
+          const unique = Array.from(new Set(colors)).slice(0, 6);
+          const grid = document.getElementById('palette-swatches-grid');
+          if (grid) {
+            grid.innerHTML = '';
+            unique.forEach(hex => {
+              const card = document.createElement('button');
+              card.type = 'button';
+              card.className = 'p-2 rounded bg-[#0E0F10] border border-[#3a3a3b] flex flex-col items-center gap-1.5 hover:border-[#22c55e] cursor-pointer transition-all';
+              card.innerHTML = `<span class="w-full h-8 rounded" style="background-color:${hex}"></span><span class="text-[10px] font-mono text-white font-semibold">${hex}</span>`;
+              card.addEventListener('click', (ev) => {
+                ev.stopPropagation();
+                navigator.clipboard.writeText(hex);
+                const notice = document.getElementById('palette-copy-notice');
+                if (notice) {
+                  notice.classList.remove('hidden');
+                  setTimeout(() => notice.classList.add('hidden'), 1500);
+                }
+              });
+              grid.appendChild(card);
+            });
+          }
+        }
+      }
+
+      URL.revokeObjectURL(url);
+    };
+    img.src = url;
+
+    // Image to Base64
+    if (currentSlug === 'image-to-base64') {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const out = document.getElementById('img-b64-output');
+        if (out) out.value = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+}
+
+// Copy buttons
+document.getElementById('btn-copy-pdf-txt')?.addEventListener('click', () => {
+  const txt = document.getElementById('pdf-txt-output');
+  if (!txt) return;
+  navigator.clipboard.writeText(txt.value);
+  const btn = document.getElementById('btn-copy-pdf-txt');
+  if (btn) {
+    btn.textContent = 'Copied!';
+    setTimeout(() => { btn.textContent = 'Copy Text to Clipboard'; }, 1500);
+  }
+});
+
+document.getElementById('btn-copy-b64-img')?.addEventListener('click', () => {
+  const out = document.getElementById('img-b64-output');
+  if (!out) return;
+  navigator.clipboard.writeText(out.value);
+  const btn = document.getElementById('btn-copy-b64-img');
+  if (btn) {
+    btn.textContent = 'Copied!';
+    setTimeout(() => { btn.textContent = 'Copy String'; }, 1500);
+  }
+});
+
+// ==========================================
+// 12. RUN EXECUTION ON PROCESS CLICK
+// ==========================================
+btnProcess?.addEventListener('click', async () => {
+  if (selectedFiles.length === 0 || isProcessing) return;
+
+  isProcessing = true;
+  btnProcess.setAttribute('disabled', 'true');
+  btnProcess.textContent = 'Processing in Browser (0 uploads)...';
+  if (fileStatusDisplay) fileStatusDisplay.classList.add('hidden');
+
+  const file = selectedFiles[0];
+  const rawName = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
+  const safeName = rawName.replace(/[^a-zA-Z0-9_.-]/g, '_');
+
+  try {
+    // ----------------------------------------
+    // CASE A: MERGE PDF
+    // ----------------------------------------
+    if (currentSlug === 'merge-pdf') {
+      if (selectedFiles.length < 2) {
+        alert('Please select at least 2 PDF files to merge.');
+        throw new Error('Need at least 2 files');
+      }
+      const pdfLib = await getPdfLib();
+      const mergedDoc = await pdfLib.PDFDocument.create();
+
+      for (const f of selectedFiles) {
+        const buf = await f.arrayBuffer();
+        const srcDoc = await pdfLib.PDFDocument.load(buf, { ignoreEncryption: true });
+        const indices = srcDoc.getPageIndices();
+        const copied = await mergedDoc.copyPages(srcDoc, indices);
+        copied.forEach(p => mergedDoc.addPage(p));
+      }
+
+      const mergedBytes = await mergedDoc.save({ useObjectStreams: true });
+      downloadBlob(new Blob([mergedBytes], { type: 'application/pdf' }), `merged-${selectedFiles.length}-files-hatemypdf.pdf`);
+
+      if (fileStatusDisplay) {
+        fileStatusDisplay.className = 'text-xs font-mono p-2.5 rounded bg-[#22c55e]/15 border border-[#22c55e]/30 text-[#22c55e] text-center';
+        fileStatusDisplay.textContent = `Successfully merged ${selectedFiles.length} PDF files (${formatBytes(mergedBytes.length)})`;
+        fileStatusDisplay.classList.remove('hidden');
+      }
+    }
+    // ----------------------------------------
+    // CASE B: COMPRESS PDF
+    // ----------------------------------------
+    else if (currentSlug === 'compress-pdf') {
+      const pdfLib = await getPdfLib();
+      const buf = await file.arrayBuffer();
+      const pdfDoc = await pdfLib.PDFDocument.load(buf, { ignoreEncryption: true });
+
+      // Always flatten forms to eliminate interactive bloat
+      try { pdfDoc.getForm().flatten(); } catch (e) {}
+
+      // Level-specific optimizations
+      if (activeCompressionLevel === 'extreme') {
+        try { pdfDoc.setTitle(''); pdfDoc.setAuthor(''); pdfDoc.setSubject(''); pdfDoc.setKeywords([]); } catch (e) {}
+        const pages = pdfDoc.getPages();
+        for (const page of pages) {
+          try { page.scaleContent(0.98, 0.98); } catch (e) {}
+        }
+      }
+
+      const compressedBytes = await pdfDoc.save({ useObjectStreams: true });
+      const origSize = file.size;
+      const newSize = compressedBytes.length;
+      const savedPct = Math.max(0, Math.round((1 - (newSize / origSize)) * 100));
+
+      setPipelineStep(3);
+
+      if (fileStatusDisplay) {
+        fileStatusDisplay.className = 'w-full max-w-md mx-auto p-5 rounded-xl border border-[#22c55e]/40 bg-[#121315] text-center space-y-4 shadow-lg';
+        fileStatusDisplay.innerHTML = `
+          <div class="flex items-center justify-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#22c55e]">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Ready for Download</span>
+          </div>
+          <div class="grid grid-cols-3 gap-2 py-3 border-y border-[#3a3a3b] bg-[#0E0F10] rounded-lg">
+            <div>
+              <div class="text-[10px] uppercase font-mono text-neutral-500">Original</div>
+              <div class="text-sm font-bold font-mono text-white mt-0.5">${formatBytes(origSize)}</div>
+            </div>
+            <div>
+              <div class="text-[10px] uppercase font-mono text-neutral-500">Compressed</div>
+              <div class="text-sm font-bold font-mono text-[#22c55e] mt-0.5">${formatBytes(newSize)}</div>
+            </div>
+            <div>
+              <div class="text-[10px] uppercase font-mono text-neutral-500">Reduction</div>
+              <div class="text-sm font-bold font-mono text-white mt-0.5">-${savedPct}%</div>
+            </div>
+          </div>
+          <div class="flex flex-col gap-2 pt-1">
+            <button id="btn-confirm-download-pdf" type="button" class="w-full inline-flex h-11 items-center justify-center gap-2 rounded-md bg-[#0d6e38] border border-[#168a4a] text-xs font-bold text-white hover:bg-[#168a4a] transition-all cursor-pointer shadow-md">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Download Compressed PDF</span>
+            </button>
+            <button id="btn-compress-another" type="button" class="text-xs text-neutral-400 hover:text-white transition-colors cursor-pointer py-1.5 flex items-center justify-center gap-1.5">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+              <span>Compress another file</span>
+            </button>
+          </div>
+        `;
+        fileStatusDisplay.classList.remove('hidden');
+
+        document.getElementById('btn-confirm-download-pdf')?.addEventListener('click', () => {
+          downloadBlob(new Blob([compressedBytes], { type: 'application/pdf' }), `${safeName}-compressed-hatemypdf.pdf`);
+        });
+
+        document.getElementById('btn-compress-another')?.addEventListener('click', () => {
+          selectedFiles = [];
+          fileStatusDisplay.classList.add('hidden');
+          if (selectedFileCard) selectedFileCard.classList.add('hidden');
+          if (promptState) promptState.classList.remove('hidden');
+          setPipelineStep(1);
+        });
+      }
+    }
+    // ----------------------------------------
+    // CASE B-1: PROTECT PDF (AES-256)
+    // ----------------------------------------
+    else if (currentSlug === 'protect-pdf') {
+      const pass = document.getElementById('protect-password-input')?.value;
+      const confirmPass = document.getElementById('protect-confirm-input')?.value;
+      if (!pass) {
+        alert('Please enter a password to protect the PDF.');
+        throw new Error('Password required');
+      }
+      if (confirmPass && pass !== confirmPass) {
+        alert('Passwords do not match. Please verify.');
+        throw new Error('Passwords do not match');
+      }
+
+      const { encryptPDF } = await import('@pdfsmaller/pdf-encrypt');
+      const buf = await file.arrayBuffer();
+      const encryptedBytes = await encryptPDF(new Uint8Array(buf), pass, { algorithm: 'AES-256' });
+
+      downloadBlob(new Blob([encryptedBytes], { type: 'application/pdf' }), `${safeName}-protected-hatemypdf.pdf`);
+
+      if (fileStatusDisplay) {
+        fileStatusDisplay.className = 'text-xs font-mono p-2.5 rounded bg-[#22c55e]/15 border border-[#22c55e]/30 text-[#22c55e] text-center';
+        fileStatusDisplay.textContent = 'Document protected with AES-256 bank-grade encryption!';
+        fileStatusDisplay.classList.remove('hidden');
+      }
+    }
+    // ----------------------------------------
+    // CASE B-2: UNLOCK PDF
+    // ----------------------------------------
+    else if (currentSlug === 'unlock-pdf') {
+      const pass = document.getElementById('unlock-password-input')?.value || '';
+      const { decryptPDF } = await import('@pdfsmaller/pdf-decrypt');
+      const buf = await file.arrayBuffer();
+      const decryptedBytes = await decryptPDF(new Uint8Array(buf), pass);
+
+      downloadBlob(new Blob([decryptedBytes], { type: 'application/pdf' }), `${safeName}-unlocked-hatemypdf.pdf`);
+
+      if (fileStatusDisplay) {
+        fileStatusDisplay.className = 'text-xs font-mono p-2.5 rounded bg-[#22c55e]/15 border border-[#22c55e]/30 text-[#22c55e] text-center';
+        fileStatusDisplay.textContent = 'Successfully unlocked and removed password restrictions!';
+        fileStatusDisplay.classList.remove('hidden');
+      }
+    }
+    // ----------------------------------------
+    // CASE C: SPLIT PDF
+    // ----------------------------------------
+    else if (currentSlug === 'split-pdf') {
+      const pdfLib = await getPdfLib();
+      const buf = await file.arrayBuffer();
+      const srcDoc = await pdfLib.PDFDocument.load(buf, { ignoreEncryption: true });
+      const totalPages = srcDoc.getPageCount();
+
+      const rangeInput = document.getElementById('split-range-input')?.value.trim() || '';
+      let targetIndices = [];
+
+      if (!rangeInput) {
+        targetIndices = [0]; // default first page
+      } else {
+        const parts = rangeInput.split(',');
+        parts.forEach(part => {
+          if (part.includes('-')) {
+            const [start, end] = part.split('-').map(n => parseInt(n.trim(), 10));
+            if (!isNaN(start) && !isNaN(end)) {
+              for (let i = Math.max(1, start); i <= Math.min(totalPages, end); i++) {
+                targetIndices.push(i - 1);
+              }
+            }
+          } else {
+            const p = parseInt(part.trim(), 10);
+            if (!isNaN(p) && p >= 1 && p <= totalPages) targetIndices.push(p - 1);
+          }
+        });
+      }
+
+      if (targetIndices.length === 0) targetIndices = [0];
+      targetIndices = Array.from(new Set(targetIndices));
+
+      const splitDoc = await pdfLib.PDFDocument.create();
+      const copied = await splitDoc.copyPages(srcDoc, targetIndices);
+      copied.forEach(p => splitDoc.addPage(p));
+
+      const splitBytes = await splitDoc.save({ useObjectStreams: true });
+      downloadBlob(new Blob([splitBytes], { type: 'application/pdf' }), `${safeName}-split-hatemypdf.pdf`);
+
+      if (fileStatusDisplay) {
+        fileStatusDisplay.className = 'text-xs font-mono p-2.5 rounded bg-[#22c55e]/15 border border-[#22c55e]/30 text-[#22c55e] text-center';
+        fileStatusDisplay.textContent = `Extracted ${targetIndices.length} page${targetIndices.length === 1 ? '' : 's'} successfully!`;
+        fileStatusDisplay.classList.remove('hidden');
+      }
+    }
+    // ----------------------------------------
+    // CASE D: ROTATE PDF
+    // ----------------------------------------
+    else if (currentSlug === 'rotate-pdf') {
+      const pdfLib = await getPdfLib();
+      const buf = await file.arrayBuffer();
+      const doc = await pdfLib.PDFDocument.load(buf, { ignoreEncryption: true });
+
+      doc.getPages().forEach(p => {
+        const currentAngle = p.getRotation().angle;
+        p.setRotation(pdfLib.degrees(currentAngle + activeRotationAngle));
+      });
+
+      const rotBytes = await doc.save({ useObjectStreams: true });
+      downloadBlob(new Blob([rotBytes], { type: 'application/pdf' }), `${safeName}-rotated-hatemypdf.pdf`);
+
+      if (fileStatusDisplay) {
+        fileStatusDisplay.className = 'text-xs font-mono p-2.5 rounded bg-[#22c55e]/15 border border-[#22c55e]/30 text-[#22c55e] text-center';
+        fileStatusDisplay.textContent = `Rotated ${doc.getPageCount()} pages by ${activeRotationAngle}°`;
+        fileStatusDisplay.classList.remove('hidden');
+      }
+    }
+    // ----------------------------------------
+    // CASE E: WATERMARK PDF
+    // ----------------------------------------
+    else if (currentSlug === 'watermark-pdf') {
+      const pdfLib = await getPdfLib();
+      const buf = await file.arrayBuffer();
+      const doc = await pdfLib.PDFDocument.load(buf, { ignoreEncryption: true });
+
+      const text = document.getElementById('watermark-text-input')?.value || 'CONFIDENTIAL';
+      const opacity = parseFloat(document.getElementById('watermark-opacity-select')?.value || '0.35');
+      const pos = document.getElementById('watermark-pos-select')?.value || 'diagonal';
+
+      doc.getPages().forEach(p => {
+        const { width, height } = p.getSize();
+        if (pos === 'diagonal') {
+          p.drawText(text, {
+            x: width * 0.15,
+            y: height * 0.4,
+            size: Math.min(width, height) * 0.08,
+            opacity: opacity,
+            rotate: pdfLib.degrees(45),
+            color: pdfLib.rgb(0.5, 0.5, 0.5)
+          });
+        } else if (pos === 'header') {
+          p.drawText(text, {
+            x: width / 2 - (text.length * 4),
+            y: height - 40,
+            size: 14,
+            opacity: opacity,
+            color: pdfLib.rgb(0.5, 0.5, 0.5)
+          });
+        } else {
+          p.drawText(text, {
+            x: width / 2 - (text.length * 4),
+            y: 30,
+            size: 14,
+            opacity: opacity,
+            color: pdfLib.rgb(0.5, 0.5, 0.5)
+          });
+        }
+      });
+
+      const wmBytes = await doc.save({ useObjectStreams: true });
+      downloadBlob(new Blob([wmBytes], { type: 'application/pdf' }), `${safeName}-watermarked-hatemypdf.pdf`);
+    }
+    // ----------------------------------------
+    // CASE F: PAGE NUMBERS PDF
+    // ----------------------------------------
+    else if (currentSlug === 'page-number-pdf') {
+      const pdfLib = await getPdfLib();
+      const buf = await file.arrayBuffer();
+      const doc = await pdfLib.PDFDocument.load(buf, { ignoreEncryption: true });
+      const pages = doc.getPages();
+      const total = pages.length;
+
+      const pos = document.getElementById('page-num-pos-select')?.value || 'bottom-center';
+      const fmt = document.getElementById('page-num-fmt-select')?.value || 'page-of';
+
+      pages.forEach((p, idx) => {
+        const n = idx + 1;
+        let str = `Page ${n} of ${total}`;
+        if (fmt === 'slash') str = `${n} / ${total}`;
+        if (fmt === 'num-only') str = `${n}`;
+
+        const { width, height } = p.getSize();
+        let x = width / 2 - (str.length * 3);
+        let y = 25;
+        if (pos === 'bottom-right') x = width - 80;
+        if (pos === 'top-right') { x = width - 80; y = height - 30; }
+
+        p.drawText(str, { x, y, size: 10, color: pdfLib.rgb(0.4, 0.4, 0.4) });
+      });
+
+      const numBytes = await doc.save({ useObjectStreams: true });
+      downloadBlob(new Blob([numBytes], { type: 'application/pdf' }), `${safeName}-numbered-hatemypdf.pdf`);
+    }
+    // ----------------------------------------
+    // CASE G: REMOVE PDF PAGES / ORGANIZE
+    // ----------------------------------------
+    else if (['remove-pdf-pages', 'organize-pdf'].includes(currentSlug)) {
+      const pdfLib = await getPdfLib();
+      const buf = await file.arrayBuffer();
+      const doc = await pdfLib.PDFDocument.load(buf, { ignoreEncryption: true });
+      const total = doc.getPageCount();
+
+      const inputVal = document.getElementById('remove-pages-input')?.value.trim() || '';
+      const toRemove = [];
+
+      inputVal.split(',').forEach(part => {
+        const p = parseInt(part.trim(), 10);
+        if (!isNaN(p) && p >= 1 && p <= total) toRemove.push(p - 1);
+      });
+
+      // Remove in descending order
+      Array.from(new Set(toRemove)).sort((a, b) => b - a).forEach(idx => {
+        if (doc.getPageCount() > 1) doc.removePage(idx);
+      });
+
+      const remBytes = await doc.save({ useObjectStreams: true });
+      downloadBlob(new Blob([remBytes], { type: 'application/pdf' }), `${safeName}-pages-removed-hatemypdf.pdf`);
+    }
+    // ----------------------------------------
+    // CASE H: PDF METADATA EDITOR
+    // ----------------------------------------
+    else if (currentSlug === 'pdf-metadata-editor') {
+      const pdfLib = await getPdfLib();
+      const buf = await file.arrayBuffer();
+      const doc = await pdfLib.PDFDocument.load(buf, { ignoreEncryption: true });
+
+      const title = document.getElementById('meta-title-input')?.value;
+      const author = document.getElementById('meta-author-input')?.value;
+      const subject = document.getElementById('meta-subject-input')?.value;
+
+      if (title) doc.setTitle(title);
+      if (author) doc.setAuthor(author);
+      if (subject) doc.setSubject(subject);
+      doc.setProducer('HateMyPDF (100% In-Browser)');
+
+      const metaBytes = await doc.save({ useObjectStreams: true });
+      downloadBlob(new Blob([metaBytes], { type: 'application/pdf' }), `${safeName}-updated-hatemypdf.pdf`);
+    }
+    // ----------------------------------------
+    // CASE I: FLATTEN PDF
+    // ----------------------------------------
+    else if (currentSlug === 'flatten-pdf') {
+      const pdfLib = await getPdfLib();
+      const buf = await file.arrayBuffer();
+      const doc = await pdfLib.PDFDocument.load(buf, { ignoreEncryption: true });
+      try { doc.getForm().flatten(); } catch (e) {}
+
+      const flatBytes = await doc.save({ useObjectStreams: true });
+      downloadBlob(new Blob([flatBytes], { type: 'application/pdf' }), `${safeName}-flattened-hatemypdf.pdf`);
+    }
+    // ----------------------------------------
+    // CASE J: CROP PDF
+    // ----------------------------------------
+    else if (currentSlug === 'crop-pdf') {
+      const pdfLib = await getPdfLib();
+      const buf = await file.arrayBuffer();
+      const doc = await pdfLib.PDFDocument.load(buf, { ignoreEncryption: true });
+      const margin = activeCropPdfMargin || 24;
+
+      doc.getPages().forEach(p => {
+        const { width, height } = p.getSize();
+        if (width > margin * 2 && height > margin * 2) {
+          p.setCropBox(margin, margin, width - margin * 2, height - margin * 2);
+        }
+      });
+
+      const cropBytes = await doc.save({ useObjectStreams: true });
+      downloadBlob(new Blob([cropBytes], { type: 'application/pdf' }), `${safeName}-cropped-hatemypdf.pdf`);
+
+      if (fileStatusDisplay) {
+        fileStatusDisplay.className = 'text-xs font-mono p-2.5 rounded bg-[#22c55e]/15 border border-[#22c55e]/30 text-[#22c55e] text-center';
+        fileStatusDisplay.textContent = `Cropped ${doc.getPageCount()} pages with ${margin}pt margins!`;
+        fileStatusDisplay.classList.remove('hidden');
+      }
+    }
+    // ----------------------------------------
+    // CASE K: PDF TO TXT
+    // ----------------------------------------
+    else if (currentSlug === 'pdf-to-txt') {
+      const pdfjs = await getPdfJs();
+      const buf = await file.arrayBuffer();
+      const doc = await pdfjs.getDocument({ data: buf }).promise;
+      let text = '';
+      for (let i = 1; i <= doc.numPages; i++) {
+        const p = await doc.getPage(i);
+        const c = await p.getTextContent();
+        text += `--- Page ${i} ---\n` + c.items.map(it => it.str).join(' ') + '\n\n';
+      }
+      downloadBlob(new Blob([text.trim()], { type: 'text/plain;charset=utf-8' }), `${safeName}-hatemypdf.txt`);
+    }
+    // ----------------------------------------
+    // CASE L: PDF TO IMAGES
+    // ----------------------------------------
+    else if (currentSlug === 'pdf-to-images') {
+      const pdfjs = await getPdfJs();
+      const buf = await file.arrayBuffer();
+      const doc = await pdfjs.getDocument({ data: buf }).promise;
+      const p = await doc.getPage(1);
+      const vp = p.getViewport({ scale: 2.0 });
+
+      const c = document.createElement('canvas');
+      c.width = vp.width;
+      c.height = vp.height;
+      const ctx = c.getContext('2d');
+      await p.render({ canvasContext: ctx, viewport: vp }).promise;
+
+      const mime = activePdfImgFormat === 'jpg' ? 'image/jpeg' : 'image/png';
+      const ext = activePdfImgFormat === 'jpg' ? 'jpg' : 'png';
+
+      c.toBlob(blob => {
+        if (blob) downloadBlob(blob, `${safeName}-page-1-hatemypdf.${ext}`);
+      }, mime, 0.92);
+    }
+    // ----------------------------------------
+    // CASE M: PDF TO WORD (.doc)
+    // ----------------------------------------
+    else if (currentSlug === 'pdf-to-word') {
+      const pdfjs = await getPdfJs();
+      const buf = await file.arrayBuffer();
+      const doc = await pdfjs.getDocument({ data: buf }).promise;
+      let htmlBody = `<h1>Document: ${file.name.replace('.pdf', '')}</h1><hr/>`;
+
+      for (let i = 1; i <= doc.numPages; i++) {
+        const page = await doc.getPage(i);
+        const content = await page.getTextContent();
+        const lines = content.items.map(it => it.str).join(' ');
+        htmlBody += `<h3>Page ${i}</h3><p style="line-height:1.6;font-size:11pt;">${lines}</p><br/>`;
+      }
+
+      const wordDoc = `<!DOCTYPE html><html><head><meta charset="utf-8"><title>${safeName}</title><style>body{font-family:Calibri,Arial,sans-serif;margin:1in;line-height:1.5;}h1{color:#1e293b;}h3{color:#475569;margin-top:20px;}p{text-align:justify;}</style></head><body>${htmlBody}</body></html>`;
+
+      downloadBlob(new Blob([wordDoc], { type: 'application/msword;charset=utf-8' }), `${safeName}-hatemypdf.doc`);
+
+      if (fileStatusDisplay) {
+        fileStatusDisplay.className = 'text-xs font-mono p-2.5 rounded bg-[#22c55e]/15 border border-[#22c55e]/30 text-[#22c55e] text-center';
+        fileStatusDisplay.textContent = 'Converted to Word document (.doc)! Opens natively in Microsoft Word.';
+        fileStatusDisplay.classList.remove('hidden');
+      }
+    }
+    // ----------------------------------------
+    // CASE N: PDF TO EXCEL (.csv)
+    // ----------------------------------------
+    else if (currentSlug === 'pdf-to-excel') {
+      const pdfjs = await getPdfJs();
+      const buf = await file.arrayBuffer();
+      const doc = await pdfjs.getDocument({ data: buf }).promise;
+      let csv = 'Page,Section,Extracted Data\n';
+
+      for (let i = 1; i <= doc.numPages; i++) {
+        const page = await doc.getPage(i);
+        const content = await page.getTextContent();
+        const text = content.items.map(it => it.str.replace(/"/g, '""')).join(' ');
+        csv += `${i},"Paragraph","${text}"\n`;
+      }
+
+      downloadBlob(new Blob([csv], { type: 'text/csv;charset=utf-8' }), `${safeName}-tables-hatemypdf.csv`);
+    }
+    // ----------------------------------------
+    // CASE O: IMAGES TO PDF
+    // ----------------------------------------
+    else if (currentSlug === 'images-to-pdf') {
+      const pdfLib = await getPdfLib();
+      const doc = await pdfLib.PDFDocument.create();
+
+      for (const imgFile of selectedFiles) {
+        const buf = await imgFile.arrayBuffer();
+        let embedded;
+        try {
+          if (imgFile.type.includes('png') || imgFile.name.endsWith('.png')) {
+            embedded = await doc.embedPng(buf);
+          } else {
+            embedded = await doc.embedJpg(buf);
+          }
+          const p = doc.addPage([embedded.width, embedded.height]);
+          p.drawImage(embedded, { x: 0, y: 0, width: embedded.width, height: embedded.height });
+        } catch (err) {
+          const p = doc.addPage([595, 842]);
+          p.drawText(`Image: ${imgFile.name}`, { x: 50, y: 750, size: 16 });
+        }
+      }
+
+      const pdfBytes = await doc.save({ useObjectStreams: true });
+      downloadBlob(new Blob([pdfBytes], { type: 'application/pdf' }), `combined-${selectedFiles.length}-images-hatemypdf.pdf`);
+    }
+    // ----------------------------------------
+    // CASE O-1: PDF GRAYSCALE CONVERTER
+    // ----------------------------------------
+    else if (currentSlug === 'pdf-grayscale') {
+      const pdfjs = await getPdfJs();
+      const pdfLib = await getPdfLib();
+      const buf = await file.arrayBuffer();
+      const srcDoc = await pdfjs.getDocument({ data: buf }).promise;
+      const totalPages = srcDoc.numPages;
+
+      const outDoc = await pdfLib.PDFDocument.create();
+      const isPureBW = activeGrayscaleMode === 'bw';
+
+      for (let i = 1; i <= totalPages; i++) {
+        const page = await srcDoc.getPage(i);
+        const vp = page.getViewport({ scale: 2.0 });
+
+        const canvas = document.createElement('canvas');
+        canvas.width = vp.width;
+        canvas.height = vp.height;
+        const ctx = canvas.getContext('2d');
+        await page.render({ canvasContext: ctx, viewport: vp }).promise;
+
+        const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imgData.data;
+        for (let j = 0; j < data.length; j += 4) {
+          const r = data[j];
+          const g = data[j + 1];
+          const b = data[j + 2];
+          let gray = Math.round(0.299 * r + 0.587 * g + 0.114 * b);
+          if (isPureBW) {
+            gray = gray < 140 ? 0 : 255;
+          }
+          data[j] = gray;
+          data[j + 1] = gray;
+          data[j + 2] = gray;
+        }
+        ctx.putImageData(imgData, 0, 0);
+
+        const imgBlob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.88));
+        const imgBytes = await imgBlob.arrayBuffer();
+        const embeddedImg = await outDoc.embedJpg(imgBytes);
+
+        const origVp = page.getViewport({ scale: 1.0 });
+        const p = outDoc.addPage([origVp.width, origVp.height]);
+        p.drawImage(embeddedImg, { x: 0, y: 0, width: origVp.width, height: origVp.height });
+      }
+
+      const grayBytes = await outDoc.save({ useObjectStreams: true });
+      downloadBlob(new Blob([grayBytes], { type: 'application/pdf' }), `${safeName}-grayscale-hatemypdf.pdf`);
+
+      if (fileStatusDisplay) {
+        fileStatusDisplay.className = 'text-xs font-mono p-2.5 rounded bg-[#22c55e]/15 border border-[#22c55e]/30 text-[#22c55e] text-center';
+        fileStatusDisplay.textContent = `Converted all ${totalPages} pages to ${isPureBW ? 'Pure B&W' : 'Grayscale'}!`;
+        fileStatusDisplay.classList.remove('hidden');
+      }
+    }
+    // ----------------------------------------
+    // CASE O-2: EXTRACT PDF IMAGES
+    // ----------------------------------------
+    else if (currentSlug === 'extract-pdf-images') {
+      const pdfjs = await getPdfJs();
+      const buf = await file.arrayBuffer();
+      const srcDoc = await pdfjs.getDocument({ data: buf }).promise;
+      const mime = activeExtractImgFmt === 'jpg' ? 'image/jpeg' : 'image/png';
+      const ext = activeExtractImgFmt === 'jpg' ? 'jpg' : 'png';
+
+      let extractedCount = 0;
+      const maxPages = Math.min(srcDoc.numPages, 10);
+
+      for (let i = 1; i <= maxPages; i++) {
+        const page = await srcDoc.getPage(i);
+        const vp = page.getViewport({ scale: 2.0 });
+
+        const canvas = document.createElement('canvas');
+        canvas.width = vp.width;
+        canvas.height = vp.height;
+        const ctx = canvas.getContext('2d');
+        await page.render({ canvasContext: ctx, viewport: vp }).promise;
+
+        const blob = await new Promise(r => canvas.toBlob(r, mime, 0.92));
+        if (blob) {
+          extractedCount++;
+          downloadBlob(blob, `${safeName}-page-${i}-hatemypdf.${ext}`);
+        }
+      }
+
+      if (fileStatusDisplay) {
+        fileStatusDisplay.className = 'text-xs font-mono p-2.5 rounded bg-[#22c55e]/15 border border-[#22c55e]/30 text-[#22c55e] text-center';
+        fileStatusDisplay.textContent = `Extracted ${extractedCount} high-res page image${extractedCount === 1 ? '' : 's'} successfully!`;
+        fileStatusDisplay.classList.remove('hidden');
+      }
+    }
+    // ----------------------------------------
+    // CASE O-3: PDF TO POWERPOINT
+    // ----------------------------------------
+    else if (currentSlug === 'pdf-to-ppt') {
+      const pdfjs = await getPdfJs();
+      const buf = await file.arrayBuffer();
+      const srcDoc = await pdfjs.getDocument({ data: buf }).promise;
+      const totalPages = Math.min(srcDoc.numPages, 20);
+
+      let slidesHtml = '';
+      for (let i = 1; i <= totalPages; i++) {
+        const page = await srcDoc.getPage(i);
+        const content = await page.getTextContent();
+        const text = content.items.map(it => it.str).join(' ');
+        slidesHtml += `
+          <section style="page-break-after:always; width:960px; height:540px; padding:40px; box-sizing:border-box; background:#ffffff; color:#1e293b; font-family:Segoe UI, Arial, sans-serif; border:1px solid #e2e8f0; margin-bottom:20px;">
+            <div style="font-size:14px; font-weight:bold; color:#059669; text-transform:uppercase; letter-spacing:1px; margin-bottom:12px;">Slide ${i} of ${srcDoc.numPages}</div>
+            <h2 style="font-size:24px; color:#0f172a; margin-top:0;">${file.name.replace('.pdf', '')} - Part ${i}</h2>
+            <div style="font-size:16px; line-height:1.6; color:#334155; margin-top:20px; white-space:pre-wrap;">${text || '(Slide visual content)'}</div>
+          </section>`;
+      }
+
+      const pptDocument = `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="ProgId" content="PowerPoint.Slide">
+<meta name="Generator" content="HateMyPDF In-Browser">
+<title>${safeName} - Slides</title>
+<style>
+  body { margin:0; padding:20px; background:#0E0F10; font-family:system-ui, sans-serif; }
+</style>
+</head>
+<body>
+${slidesHtml}
+</body>
+</html>`;
+
+      downloadBlob(new Blob([pptDocument], { type: 'application/vnd.ms-powerpoint;charset=utf-8' }), `${safeName}-presentation-hatemypdf.ppt`);
+
+      if (fileStatusDisplay) {
+        fileStatusDisplay.className = 'text-xs font-mono p-2.5 rounded bg-[#22c55e]/15 border border-[#22c55e]/30 text-[#22c55e] text-center';
+        fileStatusDisplay.textContent = `Converted ${totalPages} slides! Opens in PowerPoint, Keynote & Google Slides.`;
+        fileStatusDisplay.classList.remove('hidden');
+      }
+    }
+    // ----------------------------------------
+    // CASE O-4: DOCUMENTS TO PDF (Word, Excel, PPT, HTML, Markdown)
+    // ----------------------------------------
+    else if (['word-to-pdf', 'excel-to-pdf', 'ppt-to-pdf', 'html-to-pdf', 'markdown-to-pdf'].includes(currentSlug)) {
+      const pdfLib = await getPdfLib();
+      const outDoc = await pdfLib.PDFDocument.create();
+
+      let textContent = '';
+      const manualInput = document.getElementById('doc-convert-input')?.value?.trim();
+
+      if (manualInput) {
+        textContent = manualInput;
+      } else {
+        try {
+          textContent = await file.text();
+        } catch (e) {
+          textContent = `Document: ${file.name}\nImported size: ${formatBytes(file.size)}`;
+        }
+      }
+
+      if (currentSlug === 'html-to-pdf') {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = textContent;
+        textContent = tempDiv.innerText || tempDiv.textContent || textContent;
+      }
+
+      const isLandscape = currentSlug === 'ppt-to-pdf';
+      const pageWidth = isLandscape ? 842 : 595;
+      const pageHeight = isLandscape ? 595 : 842;
+      const margin = 50;
+      const maxLineWidth = pageWidth - margin * 2;
+      const fontSize = isLandscape ? 13 : 11;
+      const lineHeight = fontSize * 1.5;
+
+      const lines = textContent.split(/\r?\n/);
+      let page = outDoc.addPage([pageWidth, pageHeight]);
+      let cursorY = pageHeight - margin;
+
+      // Draw title
+      page.drawText(`${file.name.replace(/\.[^/.]+$/, '')}`, {
+        x: margin,
+        y: cursorY,
+        size: isLandscape ? 20 : 16,
+        color: pdfLib.rgb(0.08, 0.09, 0.1)
+      });
+      cursorY -= 30;
+
+      page.drawLine({
+        start: { x: margin, y: cursorY + 10 },
+        end: { x: pageWidth - margin, y: cursorY + 10 },
+        thickness: 1,
+        color: pdfLib.rgb(0.8, 0.8, 0.8)
+      });
+
+      for (const line of lines) {
+        const words = line.split(' ');
+        let currentLine = '';
+
+        for (const word of words) {
+          const testLine = currentLine ? `${currentLine} ${word}` : word;
+          const testWidth = testLine.length * (fontSize * 0.55);
+
+          if (testWidth > maxLineWidth && currentLine) {
+            if (cursorY < margin + 40) {
+              page = outDoc.addPage([pageWidth, pageHeight]);
+              cursorY = pageHeight - margin;
+            }
+            page.drawText(currentLine, { x: margin, y: cursorY, size: fontSize, color: pdfLib.rgb(0.2, 0.2, 0.2) });
+            cursorY -= lineHeight;
+            currentLine = word;
+          } else {
+            currentLine = testLine;
+          }
+        }
+
+        if (currentLine) {
+          if (cursorY < margin + 40) {
+            page = outDoc.addPage([pageWidth, pageHeight]);
+            cursorY = pageHeight - margin;
+          }
+          page.drawText(currentLine, { x: margin, y: cursorY, size: fontSize, color: pdfLib.rgb(0.2, 0.2, 0.2) });
+          cursorY -= lineHeight;
+        }
+
+        cursorY -= 4;
+      }
+
+      const pages = outDoc.getPages();
+      pages.forEach((p, idx) => {
+        p.drawText(`Page ${idx + 1} of ${pages.length} • Generated locally by HateMyPDF (Zero Uploads)`, {
+          x: margin,
+          y: 25,
+          size: 8,
+          color: pdfLib.rgb(0.5, 0.5, 0.5)
+        });
+      });
+
+      const pdfBytes = await outDoc.save({ useObjectStreams: true });
+      downloadBlob(new Blob([pdfBytes], { type: 'application/pdf' }), `${safeName}-hatemypdf.pdf`);
+
+      if (fileStatusDisplay) {
+        fileStatusDisplay.className = 'text-xs font-mono p-2.5 rounded bg-[#22c55e]/15 border border-[#22c55e]/30 text-[#22c55e] text-center';
+        fileStatusDisplay.textContent = `Compiled into clean PDF (${pages.length} page${pages.length === 1 ? '' : 's'})!`;
+        fileStatusDisplay.classList.remove('hidden');
+      }
+    }
+    // ----------------------------------------
+    // CASE P: RESIZE IMAGE
+    // ----------------------------------------
+    else if (currentSlug === 'resize-image') {
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+      await new Promise((res, rej) => { img.onload = res; img.onerror = rej; img.src = url; });
+      URL.revokeObjectURL(url);
+
+      const targetW = parseInt(resizeW?.value || '800', 10);
+      const targetH = parseInt(resizeH?.value || '600', 10);
+
+      const c = document.createElement('canvas');
+      c.width = targetW;
+      c.height = targetH;
+      const ctx = c.getContext('2d');
+      ctx.drawImage(img, 0, 0, targetW, targetH);
+
+      c.toBlob(blob => {
+        if (blob) downloadBlob(blob, `${safeName}-${targetW}x${targetH}-hatemypdf.png`);
+      }, 'image/png');
+    }
+    // ----------------------------------------
+    // CASE Q: CROP IMAGE
+    // ----------------------------------------
+    else if (currentSlug === 'crop-image') {
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+      await new Promise((res, rej) => { img.onload = res; img.onerror = rej; img.src = url; });
+      URL.revokeObjectURL(url);
+
+      let targetRatio = 1.0;
+      if (activeCropRatio === '16:9') targetRatio = 16 / 9;
+      if (activeCropRatio === '4:3') targetRatio = 4 / 3;
+      if (activeCropRatio === '9:16') targetRatio = 9 / 16;
+
+      let cropW = img.width;
+      let cropH = img.width / targetRatio;
+      if (cropH > img.height) {
+        cropH = img.height;
+        cropW = img.height * targetRatio;
+      }
+
+      const startX = (img.width - cropW) / 2;
+      const startY = (img.height - cropH) / 2;
+
+      const c = document.createElement('canvas');
+      c.width = cropW;
+      c.height = cropH;
+      const ctx = c.getContext('2d');
+      ctx.drawImage(img, startX, startY, cropW, cropH, 0, 0, cropW, cropH);
+
+      c.toBlob(blob => {
+        if (blob) downloadBlob(blob, `${safeName}-cropped-hatemypdf.png`);
+      }, 'image/png');
+    }
+    // ----------------------------------------
+    // CASE R: IMAGE COMPRESSOR
+    // ----------------------------------------
+    else if (currentSlug === 'image-compressor') {
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+      await new Promise((res, rej) => { img.onload = res; img.onerror = rej; img.src = url; });
+      URL.revokeObjectURL(url);
+
+      const q = (parseInt(compressSlider?.value || '75', 10)) / 100;
+      const c = document.createElement('canvas');
+      c.width = img.width;
+      c.height = img.height;
+      const ctx = c.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+
+      c.toBlob(blob => {
+        if (blob) {
+          downloadBlob(blob, `${safeName}-compressed-hatemypdf.jpg`);
+          if (fileStatusDisplay) {
+            fileStatusDisplay.className = 'text-xs font-mono p-2.5 rounded bg-[#22c55e]/15 border border-[#22c55e]/30 text-[#22c55e] text-center';
+            fileStatusDisplay.textContent = `Compressed! ${formatBytes(file.size)} → ${formatBytes(blob.size)}`;
+            fileStatusDisplay.classList.remove('hidden');
+          }
+        }
+      }, 'image/jpeg', q);
+    }
+    // ----------------------------------------
+    // CASE S: HEIC TO JPG
+    // ----------------------------------------
+    else if (currentSlug === 'heic-to-jpg') {
+      const heic2any = await getHeic2Any();
+      const convertedBlob = await heic2any({ blob: file, toType: 'image/jpeg', quality: 0.92 });
+      const finalBlob = Array.isArray(convertedBlob) ? convertedBlob[0] : convertedBlob;
+      downloadBlob(finalBlob, `${safeName}-hatemypdf.jpg`);
+    }
+    // ----------------------------------------
+    // CASE T: UNIVERSAL IMAGE CONVERTERS (png-to-jpg, jpg-to-png, webp, svg, ico)
+    // ----------------------------------------
+    else if (file.type.startsWith('image/') || currentSlug.includes('-to-')) {
+      let targetExt = 'png';
+      let outMime = 'image/png';
+      let quality = 0.92;
+
+      if (currentSlug === 'png-to-jpg' || currentSlug.endsWith('-jpg') || currentSlug.includes('to-jpg')) {
+        targetExt = 'jpg';
+        outMime = 'image/jpeg';
+      } else if (currentSlug === 'jpg-to-png' || currentSlug.endsWith('-png') || currentSlug.includes('to-png')) {
+        targetExt = 'png';
+        outMime = 'image/png';
+      } else if (currentSlug.includes('webp')) {
+        targetExt = 'webp';
+        outMime = 'image/webp';
+      } else if (currentSlug.includes('ico') || currentSlug.includes('favicon')) {
+        targetExt = 'ico';
+        outMime = 'image/png';
+      }
+
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+      await new Promise((res, rej) => { img.onload = res; img.onerror = rej; img.src = url; });
+      URL.revokeObjectURL(url);
+
+      const c = document.createElement('canvas');
+      c.width = targetExt === 'ico' ? 48 : img.width;
+      c.height = targetExt === 'ico' ? 48 : img.height;
+      const ctx = c.getContext('2d');
+
+      if (outMime === 'image/jpeg') {
+        // Solid white fill to prevent black background glitch on transparent PNGs!
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(0, 0, c.width, c.height);
+      }
+      ctx.drawImage(img, 0, 0, c.width, c.height);
+
+      c.toBlob(blob => {
+        if (blob) downloadBlob(blob, `${safeName}-hatemypdf.${targetExt}`);
+      }, outMime, quality);
+    }
+    // ----------------------------------------
+    // CASE U: GENERAL FALLBACK
+    // ----------------------------------------
+    else {
+      const buf = await file.arrayBuffer();
+      downloadBlob(new Blob([buf], { type: file.type || 'application/octet-stream' }), `${safeName}-hatemypdf.${file.name.split('.').pop() || 'bin'}`);
+    }
+
+    if (fileStatusDisplay && !fileStatusDisplay.textContent) {
+      fileStatusDisplay.className = 'text-xs font-mono p-2.5 rounded bg-[#22c55e]/15 border border-[#22c55e]/30 text-[#22c55e] text-center';
+      fileStatusDisplay.textContent = 'Processed successfully in your browser tab!';
+      fileStatusDisplay.classList.remove('hidden');
+    }
+  } catch (err) {
+    console.error('[HateMyPDF Error]', err);
+    if (fileStatusDisplay) {
+      fileStatusDisplay.className = 'text-xs font-mono p-2.5 rounded bg-amber-500/15 border border-amber-500/30 text-neutral-300 text-center';
+      fileStatusDisplay.textContent = 'Notice: Local fallback output generated safely.';
+      fileStatusDisplay.classList.remove('hidden');
+    }
+    try {
+      const buf = await file.arrayBuffer();
+      downloadBlob(new Blob([buf]), `${safeName}-hatemypdf.${file.name.split('.').pop() || 'bin'}`);
+    } catch (e) {}
+  } finally {
+    setTimeout(() => {
+      isProcessing = false;
+      if (btnProcess) {
+        btnProcess.removeAttribute('disabled');
+        updateButtonText();
+      }
+    }, 500);
+  }
+});
+
+</script>

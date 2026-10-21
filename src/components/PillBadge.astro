@@ -1,0 +1,32 @@
+---
+/**
+ * PillBadge — The exact Ossium live section header badge with gradient side lines and dots.
+ * 
+ * Props:
+ *   label: string — Text inside badge
+ */
+export interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+---
+
+<div class="flex flex-row items-center justify-center gap-2 mb-3">
+  <!-- Left gradient line and dot -->
+  <div class="flex flex-row items-center">
+    <div class="h-px w-16 bg-gradient-to-l from-[#3a3a3a] to-transparent sm:w-32"></div>
+    <div class="h-1.5 w-1.5 rounded-full border border-[#3a3a3a] bg-transparent"></div>
+  </div>
+
+  <!-- Badge center pill -->
+  <div class="relative flex h-7 flex-row items-center gap-2 rounded-md border border-[#3a3a3a] bg-[#0e0f10] px-4 text-xs font-mono font-medium tracking-wider text-[#e5e5e5] uppercase whitespace-nowrap">
+    <span>{label}</span>
+  </div>
+
+  <!-- Right dot and gradient line -->
+  <div class="flex flex-row items-center">
+    <div class="h-1.5 w-1.5 rounded-full border border-[#3a3a3a] bg-transparent"></div>
+    <div class="h-px w-16 bg-gradient-to-r from-[#3a3a3a] to-transparent sm:w-32"></div>
+  </div>
+</div>

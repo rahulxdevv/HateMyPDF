@@ -1,0 +1,238 @@
+---
+import PillBadge from './PillBadge.astro';
+import DashedCard from './DashedCard.astro';
+
+const tabs = [
+  {
+    id: 'pdf',
+    title: 'PDF Tools',
+    subtitle: 'Compress & merge',
+    icon: 'pdf',
+    discoverLabel: 'PDF Suite',
+    heading: 'Browse good PDF tools right in your browser',
+    desc: 'Compress PDF size, merge multiple documents into one, split pages, and convert PDFs without sending sensitive documents to external servers.',
+    bullets: [
+      'Zero server upload — documents never leave your memory',
+      'Lossless & high-compression modes powered by WebAssembly',
+      'Batch process multiple files simultaneously'
+    ],
+    ctaText: 'Explore PDF Tools',
+    ctaLink: '/pdf',
+  },
+  {
+    id: 'convert',
+    title: 'Format Convert',
+    subtitle: 'Images & graphics',
+    icon: 'image',
+    discoverLabel: 'Format Converter',
+    heading: 'High-speed image & media format conversion',
+    desc: 'Convert WebP, PNG, JPG, SVG, and Apple HEIC photos instantly. Fast local conversion with customized quality settings.',
+    bullets: [
+      'Preserve transparency and metadata options',
+      'Unlimited batch processing with drag-and-drop',
+      'Runs 100% offline once web page loads'
+    ],
+    ctaText: 'Explore Converter Tools',
+    ctaLink: '/convert',
+  },
+  {
+    id: 'dev',
+    title: 'Dev Utilities',
+    subtitle: 'JSON, Base64, Tokens',
+    icon: 'code',
+    discoverLabel: 'Developer Suite',
+    heading: 'Secure developer utilities that keep API keys safe',
+    desc: 'Format, validate, and minify JSON payloads, decode Base64 data, inspect JWT tokens, and compare code diffs without leaking internal tokens.',
+    bullets: [
+      'Sanitize confidential JSON & payload data safely',
+      'Instant syntax validation with diff highlighting',
+      'No telemetry or tracking of input values'
+    ],
+    ctaText: 'Explore Dev Tools',
+    ctaLink: '/dev',
+  },
+];
+
+const compactGridFeatures = [
+  { icon: 'shield', label: 'Zero Network Requests', desc: 'Processing executes locally inside Web Workers' },
+  { icon: 'zap', label: 'Near-Native Speed', desc: 'Optimized WebAssembly binaries for heavy tasks' },
+  { icon: 'layers', label: 'Batch Processing', desc: 'Handle multiple files without repetition' },
+  { icon: 'file-text', label: 'No File Size Limits', desc: 'Leverages browser memory streaming' },
+  { icon: 'lock', label: 'Privacy Guaranteed', desc: 'No uploads, no logging, no user accounts' },
+  { icon: 'wifi-off', label: 'Offline Capable', desc: 'Works fully without active internet connection' },
+];
+---
+
+<section id="features" class="py-16 px-6 md:px-8 lg:px-12 bg-[#0E0F10]">
+  <div class="mx-auto w-full max-w-[1280px]">
+    <!-- Section Header -->
+    <div class="flex flex-col items-center text-center">
+      <PillBadge label="Features" />
+      <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+        What you can do in HateMyPDF
+      </h2>
+      <p class="mt-3 text-sm leading-relaxed text-neutral-400 max-w-xl">
+        All processing runs 100% locally inside your web browser. Complete privacy without server dependency.
+      </p>
+    </div>
+
+    <!-- Tab Selection Bar (DashedCard items without fill color) -->
+    <div class="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-3" role="tablist">
+      {tabs.map((tab, idx) => (
+        <button
+          class={`feature-tab flex items-center gap-3 p-4 text-left cursor-pointer border border-[#3a3a3b] bg-[#0E0F10] ${
+            idx === 0
+              ? 'border-[#22c55e] text-[#E5E5E5]'
+              : 'text-neutral-400'
+          }`}
+          data-tab-id={tab.id}
+          role="tab"
+          aria-selected={idx === 0}
+        >
+          <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-[#3a3a3b] bg-transparent text-[#22c55e]">
+            {tab.icon === 'pdf' && (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+              </svg>
+            )}
+            {tab.icon === 'image' && (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21 15 16 10 5 21"/>
+              </svg>
+            )}
+            {tab.icon === 'code' && (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="16 18 22 12 16 6"/>
+                <polyline points="8 6 2 12 8 18"/>
+              </svg>
+            )}
+          </div>
+          <div class="min-w-0">
+            <span class="block text-sm font-semibold text-[#E5E5E5] leading-snug">{tab.title}</span>
+            <span class="mt-0.5 block text-xs text-neutral-400 leading-snug">{tab.subtitle}</span>
+          </div>
+        </button>
+      ))}
+    </div>
+
+    <!-- Active Tab Panel -->
+    {tabs.map((tab, idx) => (
+      <div
+        id={`tab-panel-${tab.id}`}
+        class={`feature-panel mt-6 ${idx !== 0 ? 'hidden' : ''}`}
+        role="tabpanel"
+      >
+        <DashedCard class="p-6 sm:p-8 bg-[#0E0F10]">
+          <span class="inline-flex rounded-md border border-[#22c55e]/40 bg-transparent px-3 py-1 text-xs font-mono font-medium text-[#22c55e]">
+            {tab.discoverLabel}
+          </span>
+          <h3 class="mt-4 text-xl font-bold text-white sm:text-2xl">{tab.heading}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-neutral-400">{tab.desc}</p>
+
+          <ul class="mt-6 space-y-3">
+            {tab.bullets.map((bullet) => (
+              <li class="flex items-center gap-3 text-sm text-[#E5E5E5]">
+                <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-[#22c55e]/40 bg-transparent text-[#22c55e]">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                </span>
+                <span>{bullet}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div class="mt-8">
+            <a
+              href={tab.ctaLink}
+              class="inline-flex h-9 items-center justify-center rounded-md bg-[#0d6e38] px-5 text-xs font-semibold text-white no-underline border border-[#168a4a]"
+            >
+              {tab.ctaText} &rarr;
+            </a>
+          </div>
+        </DashedCard>
+      </div>
+    ))}
+
+    <!-- Compact Grid of Capabilities -->
+    <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {compactGridFeatures.map((item) => (
+        <DashedCard class="p-4 bg-[#0E0F10]">
+          <div class="flex items-start gap-3.5">
+            <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-[#3a3a3b] bg-transparent text-[#22c55e]">
+              {item.icon === 'shield' && (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+              )}
+              {item.icon === 'zap' && (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                </svg>
+              )}
+              {item.icon === 'layers' && (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                </svg>
+              )}
+              {item.icon === 'file-text' && (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                </svg>
+              )}
+              {item.icon === 'lock' && (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+              )}
+              {item.icon === 'wifi-off' && (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="1" y1="1" x2="23" y2="23"/>
+                </svg>
+              )}
+            </div>
+            <div>
+              <h4 class="text-xs font-semibold text-[#E5E5E5]">{item.label}</h4>
+              <p class="mt-0.5 text-xs text-neutral-400 leading-snug">{item.desc}</p>
+            </div>
+          </div>
+        </DashedCard>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const tabs = document.querySelectorAll<HTMLButtonElement>('.feature-tab');
+  const panels = document.querySelectorAll<HTMLElement>('.feature-panel');
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const tabId = tab.dataset.tabId;
+
+      tabs.forEach((t) => {
+        const isSelected = t.dataset.tabId === tabId;
+        t.setAttribute('aria-selected', String(isSelected));
+        if (isSelected) {
+          t.classList.add('border-[#22c55e]', 'text-[#E5E5E5]');
+          t.classList.remove('border-[#3a3a3b]', 'text-neutral-400');
+        } else {
+          t.classList.remove('border-[#22c55e]', 'text-[#E5E5E5]');
+          t.classList.add('border-[#3a3a3b]', 'text-neutral-400');
+        }
+      });
+
+      panels.forEach((panel) => {
+        if (panel.id === `tab-panel-${tabId}`) {
+          panel.classList.remove('hidden');
+        } else {
+          panel.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>

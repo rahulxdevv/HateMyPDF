@@ -1,0 +1,28 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import TechStrip from '../components/TechStrip.astro';
+import FeaturesSection from '../components/FeaturesSection.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import SpeedSection from '../components/SpeedSection.astro';
+import Testimonials from '../components/Testimonials.astro';
+import FAQ from '../components/FAQ.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout>
+  <Header />
+  <main class="w-full overflow-hidden bg-[#0E0F10]">
+    <Hero />
+    <TechStrip />
+    <FeaturesSection />
+    <HowItWorks />
+    <SpeedSection />
+    <Testimonials />
+    <FAQ />
+    <CtaBanner />
+  </main>
+  <Footer />
+</Layout>

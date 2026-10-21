@@ -1,0 +1,92 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PillBadge from '../components/PillBadge.astro';
+import DashedCard from '../components/DashedCard.astro';
+import { Search, FileQuestion, ArrowLeft, Layers, FileArchive, Image, Code2 } from 'lucide-astro';
+
+const popularTools = [
+  { name: 'Compress PDF', slug: 'compress-pdf', icon: FileArchive, desc: 'Reduce PDF file size in browser' },
+  { name: 'JPG to PNG', slug: 'jpg-to-png', icon: Image, desc: 'Convert image to transparent PNG' },
+  { name: 'JSON Formatter', slug: 'json-formatter', icon: Code2, desc: 'Format and validate JSON payloads' },
+  { name: 'Image Compressor', slug: 'image-compressor', icon: Image, desc: 'Compress photos 100% locally' },
+];
+---
+
+<Layout
+  title="404 - Page Not Found - HateMyPDF"
+  description="The requested tool or page could not be found. Search our catalog of 110 client-side tools."
+  noindex={true}
+>
+  <Header />
+  <main class="min-h-screen bg-[#0E0F10] px-6 pt-24 md:pt-28 pb-24 md:px-8 lg:px-12 text-[#E5E5E5]">
+    <div class="mx-auto w-full max-w-4xl flex flex-col items-center text-center">
+      <PillBadge label="404 ERROR" />
+      
+      <h1 class="mt-4 text-4xl font-extrabold tracking-tight text-white sm:text-6xl md:text-7xl">
+        Page <span class="text-[#22c55e]">Not Found</span>
+      </h1>
+      
+      <p class="mt-4 text-sm text-neutral-400 max-w-lg leading-relaxed sm:text-base">
+        The tool or page you are looking for doesn't exist or may have been moved. Search our 110 privacy-first tools below.
+      </p>
+
+      <!-- Search Box Container -->
+      <div class="mt-8 w-full max-w-lg">
+        <form action="/tools" method="GET" class="relative w-full">
+          <input
+            type="text"
+            name="q"
+            placeholder="Search 110 tools (e.g. Compress PDF, JPG to PNG, JSON)..."
+            class="w-full rounded-full border border-[#3a3a3b] bg-[#0E0F10] px-5 py-3.5 pl-12 text-xs sm:text-sm text-[#E5E5E5] placeholder:text-neutral-500 transition-all focus:border-[#22c55e] focus:outline-none"
+          />
+          <Search class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400 pointer-events-none" />
+        </form>
+      </div>
+
+      <!-- Popular Tools Quick Links -->
+      <div class="mt-12 w-full text-left">
+        <h2 class="text-xs font-mono font-semibold uppercase tracking-wider text-neutral-400 text-center mb-6">
+          Popular Tools You Might Need
+        </h2>
+
+        <div class="grid gap-4 sm:grid-cols-2">
+          {popularTools.map((t) => (
+            <a href={`/tools/${t.slug}`} class="no-underline group">
+              <DashedCard class="p-4 bg-[#0E0F10] transition-colors group-hover:border-[#22c55e]">
+                <div class="flex items-start gap-3.5">
+                  <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-[#3a3a3b] bg-transparent text-[#22c55e]">
+                    <t.icon class="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h3 class="text-sm font-bold text-white group-hover:text-[#22c55e] transition-colors">{t.name}</h3>
+                    <p class="text-xs text-neutral-400 mt-0.5">{t.desc}</p>
+                  </div>
+                </div>
+              </DashedCard>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Return CTAs -->
+      <div class="mt-12 flex flex-wrap items-center justify-center gap-4">
+        <a
+          href="/tools"
+          class="inline-flex h-10 items-center justify-center rounded-md bg-[#0d6e38] px-6 text-xs font-bold text-white no-underline border border-[#168a4a]"
+        >
+          Browse All 110 Tools &rarr;
+        </a>
+        <a
+          href="/"
+          class="inline-flex h-10 items-center justify-center gap-2 rounded-md border border-[#3a3a3b] bg-transparent px-6 text-xs font-semibold text-[#E5E5E5] no-underline"
+        >
+          <ArrowLeft class="w-3.5 h-3.5" />
+          <span>Back to Homepage</span>
+        </a>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>

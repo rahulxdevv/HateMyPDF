@@ -1,0 +1,106 @@
+---
+import DashedCard from './DashedCard.astro';
+
+const navColumns = [
+  {
+    title: 'Product',
+    links: [
+      { label: 'All Tools Catalog', href: '/tools' },
+      { label: 'PDF Suite', href: '/pdf' },
+      { label: 'Format Converter', href: '/convert' },
+      { label: 'Developer Utilities', href: '/dev' },
+    ],
+  },
+  {
+    title: 'Category',
+    links: [
+      { label: 'Compress PDF', href: '/tools/compress-pdf' },
+      { label: 'Merge PDF', href: '/tools/merge-pdf' },
+      { label: 'JPG to PNG', href: '/tools/jpg-to-png' },
+      { label: 'JSON Formatter', href: '/tools/json-formatter' },
+    ],
+  },
+  {
+    title: 'Company',
+    links: [
+      { label: 'About Us', href: '/about' },
+      { label: 'Blog & Guides', href: '/blog' },
+    ],
+  },
+  {
+    title: 'Legal',
+    links: [
+      { label: 'Privacy Policy', href: '/privacy' },
+      { label: 'Terms of Service', href: '/terms' },
+    ],
+  },
+];
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="w-full bg-[#0E0F10] text-[#E5E5E5] pb-8 pt-6 sm:pt-10">
+  <div class="mx-auto w-full max-w-[1280px] px-6 md:px-8 lg:px-12">
+    <DashedCard class="bg-[#0E0F10]">
+      <!-- Top Brand Bar -->
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 px-6 sm:px-8 py-6">
+        <div class="flex flex-col gap-1.5">
+          <a href="/" class="inline-flex items-center gap-2.5 text-lg font-bold text-[#E5E5E5] no-underline">
+            <img src="/favicon.svg" alt="HateMyPDF" class="h-6 w-6 rounded-md shrink-0 shadow-sm" />
+            <span>HateMyPDF</span>
+          </a>
+          <p class="text-neutral-400 text-xs leading-relaxed max-w-sm">
+            Browser-based PDF and file tools running locally in WebAssembly. Zero uploads, zero telemetry, zero accounts.
+          </p>
+        </div>
+
+        <!-- System Status Badge -->
+        <div class="inline-flex items-center gap-2 text-xs text-neutral-300">
+          <span class="relative flex h-2 w-2 shrink-0">
+            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60"></span>
+            <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+          </span>
+          100% Client-Side Engine Online
+        </div>
+      </div>
+
+      <!-- Dashed Line -->
+      <div
+        aria-hidden="true"
+        class="h-px w-full shrink-0"
+        style="background-image:repeating-linear-gradient(90deg, #444 0 5px, transparent 5px 10px);background-size:100% 1px;background-repeat:repeat-x"
+      ></div>
+
+      <!-- Multi-Column Links -->
+      <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 text-xs text-[#E5E5E5]">
+        {navColumns.map((col) => (
+          <div class="flex flex-col gap-3 px-6 sm:px-8 py-6">
+            <div class="text-sm font-semibold text-white">{col.title}</div>
+            <div class="flex flex-col gap-2">
+              {col.links.map((link) => (
+                <a
+                  href={link.href}
+                  class="text-neutral-400 no-underline transition-colors hover:text-[#22c55e]"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Bottom Line -->
+      <div
+        aria-hidden="true"
+        class="h-px w-full shrink-0"
+        style="background-image:repeating-linear-gradient(90deg, #444 0 5px, transparent 5px 10px);background-size:100% 1px;background-repeat:repeat-x"
+      ></div>
+
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between px-6 sm:px-8 py-4 text-xs text-neutral-500">
+        <p>&copy; {currentYear} HateMyPDF. All rights reserved.</p>
+        <p class="mt-1 sm:mt-0">Files processed 100% locally in your browser tab.</p>
+      </div>
+    </DashedCard>
+  </div>
+</footer>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <rect width="512" height="512" rx="128" fill="#0E0F10"/>
+  <rect x="16" y="16" width="480" height="480" rx="112" stroke="#22c55e" stroke-opacity="0.2" stroke-width="8" stroke-dasharray="16 16"/>
+  
+  <!-- Peak Geometric Mountain Icon -->
+  <path d="M256 112L384 336H128L256 112Z" fill="url(#grad_peak)" stroke="#22c55e" stroke-width="16" stroke-linejoin="round"/>
+  <path d="M256 112L320 224L256 336L192 224L256 112Z" fill="#22c55e" fill-opacity="0.3"/>
+  
+  <!-- Accent Pulse Dot -->
+  <circle cx="256" cy="384" r="20" fill="#22c55e"/>
+
+  <defs>
+    <linearGradient id="grad_peak" x1="256" y1="112" x2="256" y2="336" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#22c55e"/>
+      <stop offset="1" stop-color="#0d6e38"/>
+    </linearGradient>
+  </defs>
+</svg>

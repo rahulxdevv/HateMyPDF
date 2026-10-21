@@ -1,0 +1,17 @@
+---
+/**
+ * SectionDivider — Dashed horizontal line matching Ossium.live grid lines.
+ */
+export interface Props {
+  class?: string;
+}
+
+const { class: cls = '' } = Astro.props;
+---
+
+<div class={`relative w-full overflow-hidden ${cls}`} aria-hidden="true">
+  <div
+    class="h-px w-full shrink-0"
+    style="background-image:repeating-linear-gradient(90deg, #444 0 5px, transparent 5px 10px);background-size:100% 1px;background-repeat:repeat-x"
+  ></div>
+</div>

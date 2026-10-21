@@ -1,0 +1,71 @@
+---
+const stats = [
+  {
+    icon: 'upload',
+    label: 'No upload',
+    desc: 'Your files stay on your device. Always.',
+  },
+  {
+    icon: 'maximize',
+    label: 'No file size limit',
+    desc: 'Your browser is the only limit. Gigabytes welcome.',
+  },
+  {
+    icon: 'user',
+    label: 'No signup',
+    desc: 'No account. No email. Just drop and go.',
+  },
+  {
+    icon: 'wifi-off',
+    label: 'Works offline',
+    desc: 'Once loaded, most tools work without internet.',
+  },
+];
+---
+
+<section class="border-y border-cream-dark/40 bg-cream/50 px-6 py-12 md:px-10 lg:px-12">
+  <div class="mx-auto grid max-w-5xl grid-cols-2 gap-x-8 gap-y-10 md:grid-cols-4">
+    {stats.map((s) => (
+      <div class="text-center">
+        <div class="mx-auto mb-3 flex h-10 w-10 items-center justify-center">
+          {s.icon === 'upload' && (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-sage-dark/70">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="17 8 12 3 7 8" />
+              <line x1="12" y1="3" x2="12" y2="15" />
+            </svg>
+          )}
+          {s.icon === 'maximize' && (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-sage-dark/70">
+              <polyline points="15 3 21 3 21 9" />
+              <polyline points="9 21 3 21 3 15" />
+              <line x1="21" y1="3" x2="14" y2="10" />
+              <line x1="3" y1="21" x2="10" y2="14" />
+            </svg>
+          )}
+          {s.icon === 'user' && (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-sage-dark/70">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <line x1="19" y1="8" x2="19" y2="14" />
+              <line x1="22" y1="11" x2="16" y2="11" />
+            </svg>
+          )}
+          {s.icon === 'wifi-off' && (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-sage-dark/70">
+              <line x1="1" y1="1" x2="23" y2="23" />
+              <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55" />
+              <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39" />
+              <path d="M10.71 5.05A16 16 0 0 1 22.56 9" />
+              <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88" />
+              <path d="M8.53 16.11a6 6 0 0 1 6.95 0" />
+              <line x1="12" y1="20" x2="12.01" y2="20" />
+            </svg>
+          )}
+        </div>
+        <p class="text-sm font-semibold text-charcoal">{s.label}</p>
+        <p class="mt-1 text-xs leading-relaxed text-muted-light">{s.desc}</p>
+      </div>
+    ))}
+  </div>
+</section>

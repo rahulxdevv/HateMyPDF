@@ -1,0 +1,97 @@
+---
+import type { GetStaticPathsOptions } from 'astro';
+import Layout from '../../../../layouts/Layout.astro';
+import Header from '../../../../components/Header.astro';
+import Footer from '../../../../components/Footer.astro';
+import PostCard from '../../../../components/PostCard.astro';
+import { getPublishedPosts, calculateReadingTime } from '../../../../utils/blog';
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const posts = await getPublishedPosts();
+
+  // Extract all unique tags
+  const tags = Array.from(new Set(posts.flatMap((post) => post.data.tags || [])));
+
+  return tags.flatMap((tag) => {
+    const filteredPosts = posts.filter((post) => post.data.tags?.includes(tag));
+    return paginate(filteredPosts, {
+      params: { tag },
+      pageSize: 12,
+    });
+  });
+}
+
+const { page } = Astro.props;
+const { tag } = Astro.params;
+
+const isFirstPage = page.currentPage === 1;
+const siteUrl = Astro.site ? Astro.site.origin : 'https://hatemypdf.com';
+const canonicalUrl = `${siteUrl}/blog/tags/${tag}`;
+const noindex = !isFirstPage;
+
+const allPosts = page.data;
+---
+
+<Layout
+  title={`Posts tagged #${tag} - HateMyPDF`}
+  description={`Browse all articles and guides tagged #${tag} on HateMyPDF.`}
+  canonicalUrl={canonicalUrl}
+  noindex={noindex}
+>
+  <Header light />
+  <main class="min-h-screen px-6 pt-32 pb-20 md:px-10 lg:px-12">
+    <div class="mx-auto max-w-4xl">
+      <!-- Tag Header -->
+      <div class="max-w-2xl">
+        <a href="/blog" class="text-xs font-medium text-sage-dark hover:text-charcoal no-underline transition-colors">
+          &larr; All posts
+        </a>
+        <h1 class="mt-2 font-serif text-3xl leading-tight tracking-tight text-charcoal md:text-4xl">
+          Posts tagged <span class="text-sage">#{tag}</span>
+        </h1>
+        <p class="mt-3 text-sm text-muted">
+          Showing {page.total} article{page.total === 1 ? '' : 's'} on this topic.
+        </p>
+      </div>
+
+      <!-- Post Grid -->
+      <div class="mt-10 space-y-8">
+        {allPosts.map((post) => (
+          <PostCard post={post} readingTime={calculateReadingTime(post.body)} />
+        ))}
+      </div>
+
+      <!-- Pagination -->
+      {(page.url.prev || page.url.next) && (
+        <nav aria-label="Pagination Navigation" class="mt-16 flex items-center justify-between border-t border-cream-dark/40 pt-8 text-sm font-medium">
+          {page.url.prev ? (
+            <a
+              href={page.url.prev === `/blog/tags/${tag}/1` ? `/blog/tags/${tag}` : page.url.prev}
+              class="inline-flex items-center gap-2 text-muted hover:text-charcoal no-underline transition-colors"
+            >
+              &larr; Previous
+            </a>
+          ) : (
+            <span class="text-muted-light/50 cursor-not-allowed">&larr; Previous</span>
+          )}
+
+          <span class="text-xs text-muted-light">
+            Page {page.currentPage} of {page.lastPage}
+          </span>
+
+          {page.url.next ? (
+            <a
+              href={page.url.next}
+              class="inline-flex items-center gap-2 text-muted hover:text-charcoal no-underline transition-colors"
+            >
+              Next &rarr;
+            </a>
+          ) : (
+            <span class="text-muted-light/50 cursor-not-allowed">Next &rarr;</span>
+          )}
+        </nav>
+      )}
+    </div>
+  </main>
+  <Footer />
+</Layout>

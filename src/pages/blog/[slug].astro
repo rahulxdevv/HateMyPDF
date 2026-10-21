@@ -1,0 +1,204 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import PillBadge from '../../components/PillBadge.astro';
+import DashedCard from '../../components/DashedCard.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import RelatedTools from '../../components/RelatedTools.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id || post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const siteUrl = Astro.site ? Astro.site.origin : 'https://hatemypdf.com';
+const slug = post.id || post.slug;
+const canonicalUrl = `${siteUrl}/blog/${slug}`;
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.publishDate.toISOString(),
+  author: {
+    '@type': 'Organization',
+    name: 'HateMyPDF Engineering',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'HateMyPDF',
+    logo: {
+      '@type': 'ImageObject',
+      url: `${siteUrl}/favicon.svg`,
+    },
+  },
+};
+---
+
+<Layout
+  title={`${post.data.title} - HateMyPDF`}
+  description={post.data.description}
+  canonicalUrl={canonicalUrl}
+  jsonLd={articleSchema}
+>
+  <Header />
+  <main class="min-h-screen bg-[#0E0F10] px-6 pt-24 md:pt-28 pb-24 md:px-8 lg:px-12 text-[#E5E5E5]">
+    <div class="mx-auto w-full max-w-4xl">
+      <!-- Article Header -->
+      <div class="flex flex-col items-center text-center">
+        <PillBadge label={post.data.tags[0]?.toUpperCase() || 'TECHNICAL GUIDE'} />
+        <h1 class="mt-4 text-2xl font-extrabold tracking-tight text-white sm:text-4xl md:text-5xl leading-tight">
+          {post.data.title}
+        </h1>
+        <p class="mt-3 text-sm text-neutral-400 max-w-2xl leading-relaxed">
+          {post.data.description}
+        </p>
+        <div class="mt-4 flex flex-wrap items-center justify-center gap-3 text-xs font-mono text-neutral-400">
+          <time datetime={post.data.publishDate.toISOString()}>
+            {post.data.publishDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+          </time>
+          <span>•</span>
+          <span class="text-[#22c55e]">HateMyPDF Engineering</span>
+        </div>
+      </div>
+
+      <!-- Article Body with Custom Site Design Matching -->
+      <DashedCard class="mt-10 p-6 sm:p-10 bg-[#0E0F10]">
+        <article class="blog-article-content text-neutral-300 text-sm sm:text-base leading-relaxed space-y-6">
+          <Content />
+        </article>
+      </DashedCard>
+
+      {post.data.relatedTools && post.data.relatedTools.length > 0 && (
+        <div class="mt-14">
+          <RelatedTools currentCategory="pdf" />
+        </div>
+      )}
+    </div>
+
+    <div class="mt-16">
+      <CtaBanner />
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style is:global>
+  /* Custom Site Design Styling for Blog Article Content */
+  .blog-article-content h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.025em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px dashed #3a3a3b;
+  }
+  .blog-article-content h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .blog-article-content p {
+    margin-bottom: 1.25rem;
+    line-height: 1.75;
+    color: #d4d4d4;
+  }
+  .blog-article-content a {
+    color: #22c55e;
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1px dashed #22c55e;
+    transition: all 0.2s ease;
+  }
+  .blog-article-content a:hover {
+    color: #4ade80;
+    border-bottom-style: solid;
+  }
+  .blog-article-content ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+    space-y: 0.5rem;
+  }
+  .blog-article-content ol {
+    list-style-type: decimal;
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .blog-article-content li {
+    margin-bottom: 0.5rem;
+    color: #a3a3a3;
+  }
+  .blog-article-content li strong {
+    color: #ffffff;
+  }
+  .blog-article-content blockquote {
+    border-left: 3px solid #22c55e;
+    padding-left: 1.25rem;
+    margin: 1.75rem 0;
+    font-style: italic;
+    color: #a3a3a3;
+    background: transparent;
+  }
+  .blog-article-content code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.825em;
+    background-color: #0E0F10;
+    border: 1px solid #3a3a3b;
+    border-radius: 0.375rem;
+    padding: 0.15rem 0.4rem;
+    color: #22c55e;
+  }
+  .blog-article-content pre {
+    background-color: #0E0F10 !important;
+    border: 1px solid #3a3a3b !important;
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    overflow-x: auto;
+    margin: 1.75rem 0;
+  }
+  .blog-article-content pre code {
+    background: none;
+    border: none;
+    padding: 0;
+    color: #e5e5e5;
+  }
+  .blog-article-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    font-size: 0.875rem;
+  }
+  .blog-article-content th {
+    background-color: #0E0F10;
+    border: 1px solid #3a3a3b;
+    color: #22c55e;
+    font-family: ui-monospace, SFMono-Regular, monospace;
+    font-weight: 700;
+    padding: 0.75rem;
+    text-align: left;
+  }
+  .blog-article-content td {
+    border: 1px solid #3a3a3b;
+    padding: 0.75rem;
+    color: #d4d4d4;
+  }
+  .blog-article-content hr {
+    border: none;
+    border-top: 1px dashed #3a3a3b;
+    margin: 2.5rem 0;
+  }
+</style>

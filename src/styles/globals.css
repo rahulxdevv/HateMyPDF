@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+@theme {
+    /* ── Backgrounds (exact Ossium live palette) ──────────── */
+    --color-bg:          #0E0F10;
+    --color-bg-alt:      #0E0F10;
+    --color-bg-card:     #0E0F10;
+
+    /* ── Borders ───────────────────────────────────────────── */
+    --color-border:      #2a2b2e;
+    --color-border-dashed: #3a3a3b;
+
+    /* ── Text ──────────────────────────────────────────────── */
+    --color-text:        #E5E5E5;
+    --color-muted:       #a3a3a3;
+    --color-subtle:      #737373;
+
+    /* ── Accent (Green) ────────────────────────────────────── */
+    --color-accent:      #22c55e;
+    --color-accent-bg:   #0d6e38;
+
+    /* ── Typography ────────────────────────────────────────── */
+    --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+    --font-mono: "Fira Code", monospace;
+}
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+        background-color: #0E0F10;
+        color: #E5E5E5;
+    }
+
+    body {
+        font-family: var(--font-sans);
+        color: var(--color-text);
+        background-color: #0E0F10;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        overflow-x: hidden;
+    }
+
+    * {
+        scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+        scrollbar-width: thin;
+    }
+
+    *::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+
+    *::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    *::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 999px;
+    }
+
+    *::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.25);
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--color-accent);
+        outline-offset: 2px;
+    }
+}

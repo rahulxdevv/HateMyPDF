@@ -1,0 +1,38 @@
+---
+/**
+ * HeroBadge — The hero announcement badge.
+ * A small pill with a colored dot + short announcement text.
+ * Easy to update: just change `text` (and optionally `href`).
+ *
+ * Props:
+ *   text: string     — The badge copy (e.g. "New: batch PDF tools")
+ *   href?: string    — Optional link destination
+ *   dotColor?: string — Tailwind bg class for the dot (defaults to accent green)
+ */
+export interface Props {
+  text: string;
+  href?: string;
+  dotColor?: string;
+}
+
+const { text, href, dotColor = 'bg-[#22c55e]' } = Astro.props;
+
+const Tag = href ? 'a' : 'span';
+---
+
+<div class="flex items-center justify-center">
+  <Tag
+    href={href}
+    class="inline-flex items-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.05] px-3.5 py-1.5 text-xs font-medium text-[#a0a0a0] transition-colors hover:border-white/[0.20] hover:text-[#f5f5f5]"
+    {...(href ? { 'aria-label': text } : {})}
+  >
+    <span class={`h-1.5 w-1.5 rounded-full ${dotColor} shrink-0`}></span>
+    {text}
+    {href && (
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 opacity-60" aria-hidden="true">
+        <line x1="7" y1="17" x2="17" y2="7" />
+        <polyline points="7 7 17 7 17 17" />
+      </svg>
+    )}
+  </Tag>
+</div>

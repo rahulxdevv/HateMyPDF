@@ -1,0 +1,72 @@
+---
+const categories = [
+  {
+    id: 'pdf',
+    name: 'PDF Tools',
+    tools: [
+      { name: 'Compress PDF', desc: 'Reduce file size without losing quality.' },
+      { name: 'Merge PDF', desc: 'Combine multiple PDFs into one document.' },
+      { name: 'Split PDF', desc: 'Extract pages into separate files.' },
+      { name: 'PDF to Word', desc: 'Convert PDF to editable .docx format.' },
+      { name: 'PDF to Images', desc: 'Export each page as JPG or PNG.' },
+    ],
+  },
+  {
+    id: 'convert',
+    name: 'Format Conversion',
+    tools: [
+      { name: 'JPG to PNG', desc: 'Convert JPEG images to transparent PNG.' },
+      { name: 'PNG to JPG', desc: 'Convert PNG to smaller JPEG files.' },
+      { name: 'SVG to PNG', desc: 'Render vector graphics to raster images.' },
+      { name: 'WebP to PNG', desc: 'Convert WebP images to widely supported PNG.' },
+      { name: 'HEIC to JPG', desc: 'Convert Apple HEIC photos to standard JPEG.' },
+    ],
+  },
+  {
+    id: 'dev',
+    name: 'Developer Tools',
+    tools: [
+      { name: 'JSON Formatter', desc: 'Format, validate, and minify JSON.' },
+      { name: 'Base64 Decode', desc: 'Encode or decode Base64 strings.' },
+      { name: 'Minify CSS', desc: 'Compress CSS by removing whitespace.' },
+      { name: 'JWT Inspector', desc: 'Decode and inspect JWT tokens.' },
+      { name: 'Diff Checker', desc: 'Compare two blocks of text.' },
+    ],
+  },
+];
+---
+
+<section id="tools" class="px-6 py-20 md:px-10 lg:px-12">
+  <div class="mx-auto max-w-5xl">
+    <h2 class="text-center font-serif text-2xl tracking-tight text-charcoal md:text-3xl">
+      Tools
+    </h2>
+    <p class="mx-auto mt-3 max-w-lg text-center text-sm leading-relaxed text-muted">
+      Every tool here runs entirely in your browser. Pick a category or jump straight to what you need.
+    </p>
+
+    <div class="mt-14 space-y-16">
+      {categories.map((cat) => (
+        <div>
+          <div class="mb-6 flex items-baseline justify-between">
+            <h3 class="text-sm font-semibold uppercase tracking-wider text-sage-dark">{cat.name}</h3>
+            <a href={`/${cat.id}`} class="text-xs text-muted-light no-underline transition-colors hover:text-charcoal">
+              View all &nbsp;→
+            </a>
+          </div>
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {cat.tools.map((tool) => (
+              <a
+                href={`/tools/${tool.name.toLowerCase().replace(/\s+/g, '-')}`}
+                class="group rounded-xl border border-cream-dark/30 bg-white/40 px-5 py-4 no-underline transition-colors duration-200 hover:border-sage-light/60 hover:bg-white/70"
+              >
+                <h4 class="text-sm font-medium text-charcoal group-hover:text-sage-dark">{tool.name}</h4>
+                <p class="mt-1 text-xs leading-relaxed text-muted-light">{tool.desc}</p>
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,33 @@
+---
+import DashedCard from './DashedCard.astro';
+
+export interface Props {
+  currentCategory?: string;
+}
+
+const { currentCategory = 'pdf' } = Astro.props;
+
+const relatedTools = [
+  { name: 'Compress PDF', slug: 'compress-pdf', category: 'pdf', desc: 'Reduce PDF file size locally in your browser.' },
+  { name: 'Merge PDF', slug: 'merge-pdf', category: 'pdf', desc: 'Combine multiple PDFs into a single file.' },
+  { name: 'JPG to PNG', slug: 'jpg-to-png', category: 'convert', desc: 'Convert JPEG images to transparent PNG.' },
+  { name: 'JSON Formatter', slug: 'json-formatter', category: 'dev', desc: 'Format and validate JSON payloads.' },
+];
+---
+
+<section class="mt-12 border-t border-[#3a3a3b] pt-8">
+  <h3 class="text-lg font-bold text-white mb-4">Related Privacy-First Tools</h3>
+  <div class="grid gap-4 sm:grid-cols-2">
+    {relatedTools.map((tool) => (
+      <DashedCard class="p-4 bg-[#0E0F10]">
+        <a href={`/tools/${tool.slug}`} class="no-underline text-inherit block">
+          <div class="flex items-center justify-between">
+            <h4 class="text-sm font-bold text-white hover:text-[#22c55e]">{tool.name}</h4>
+            <span class="text-xs text-[#22c55e] font-mono">&rarr;</span>
+          </div>
+          <p class="mt-1 text-xs text-neutral-400">{tool.desc}</p>
+        </a>
+      </DashedCard>
+    ))}
+  </div>
+</section>
