@@ -4,6 +4,8 @@ Fast, privacy-first, 100% in-browser PDF manipulation, file conversion, and deve
 
 Every tool executes locally inside your web browser using HTML5 Canvas, WebAssembly (WASM), and `pdf-lib`. Your documents, images, and data never leave your device.
 
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/7802c60e-3538-47aa-b747-14f002e1eb07" />
+
 ---
 
 ## Features
